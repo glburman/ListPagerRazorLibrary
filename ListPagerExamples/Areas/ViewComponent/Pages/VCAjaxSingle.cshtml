@@ -44,18 +44,27 @@
     <p>
         This is the most straightforward Ajax approach. A single Partial View contains both ListPager and
         the associated Data List. On page load and on Paging actions make a single Ajax call for the partial
-        and render the result. Not especially fast.
-    </p>
-    <p>
-        Like all the Ajax examples this uses ListPagerLibrary's Partial View version (<code>_ListPager</code>) so the override
-        <code>ListPagerExamples/Pages/Shared/_ListPagerPageOf.cshtml</code> has effect, while the View Component override
-        <code>ListPagerExamples/Pages/Shared/Components/ListPagerPageSize.cshtml</code> does not.
-    </p>
-    <p>
-        In this example Parameters are initialized in the Page's OnGet method rather than using Razor syntax in the Page view. Same effect.
-    </p>
-    <p>
-        This example return both the Data List and the Pager in one Partial View. There is a single "fetch" onLoad, and then again for each paging event.
+        and render the result.
+
+        <ul>
+            <li class="py-2">
+                Ajax always uses the Partial View version (<code>_ListPager</code>), thus:
+                <ul>
+                    <li><code>ListPagerExamples/Pages/Shared/_ListPagerPageOf.cshtml</code> has effect</li>
+                    <li>
+                        <code>ListPagerExamples/Pages/Shared/Components/ListPagerPageSize.cshtml</code> does not.
+                    </li>
+                </ul>
+            </li>
+            <li class="py-2">
+                <code>ShowDropDown</code> is set unconditionally <code>true</code>, but the
+                <code>_ListPagerDropdown</code> Partial View is coded such that it displays a blank
+                space for result sets with <code>PageCount < MaxPagerLinks</code>
+            </li>
+            <li class="py-2">
+                Parameters are initialized in the Page's OnGet method rather than using Razor syntax in the Page view.
+            </li>
+        </ul>
     </p>
 }
 

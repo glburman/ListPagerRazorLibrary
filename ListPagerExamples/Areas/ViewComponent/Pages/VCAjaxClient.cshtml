@@ -81,13 +81,17 @@
 @section Notes{
     <p>
         This example fetches Json and renders the List on the client in pure JS, however JQuery or other frameworks
-        are equally viable as long as you can handle the paging event. The Pager Partial View is fetched and rendered
-        only on Data List fetch success.
+        are equally viable as long as you can handle ListPager's paging event. The Pager Partial View is fetched and
+        rendered only on Data List fetch success.
     </p>
     <p>
-        
+        Try different searches to see these coinditional displays:
+        <ul>
+            <li class="py-2"><code>ShowDropDown</code> is conditional on <code>PageCount</code></li>
+            <li class="py-2"><code>ShowRecordsOf</code> is conditional on <code>IsFiltered==true</code></li>
+            <li class="py-2"><code>ShowPageOf</code> is conditional on <code>IsFiltered=false</code></li>
+        </ul>
     </p>
-
 }
 
 @Html.AntiForgeryToken()

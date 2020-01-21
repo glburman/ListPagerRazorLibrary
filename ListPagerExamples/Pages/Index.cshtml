@@ -2,18 +2,18 @@
 @model IndexModel
 @{
     Layout = "_Layout";
-    ViewData["Title"] = "ListPager Razor Library Examples";
+    ViewData["Title"] = "ListPagerRazorLibrary Examples";
 }
 <div class="col-md-8 ml-4">
     <h3 class="my-4">
         About ListPagerRazorLibrary Examples
     </h3>
     <p>
-        ListPager is set of Bootstrap 4 styled View Components and Partial Views, along with associated models and scripting, wrapped in an Asp.Net Core 3.0 Razor Class Library (RCL).
-        See the Github Readme for more technical information. This page is about the examples.
+        ListPagerRazorLibrary is a List Pager comprised of a set of Bootstrap 4 styled View Components and Partial Views, along with associated models and scripting, wrapped in an Asp.Net Core 3.0 Razor Class Library (RCL).
+        This is not a Blazor library. See the <a href="https://github.com/glburman/ListPagerRazorLibrary">Github Readme</a> for more technical information. This page is about the examples.
     </p>
     <p>
-        The examples (menu items above) use an EF Core in-memory database of an eclectic crew of bloggers, in these different scenarios:
+        The examples (menu items in the Navbar) use an EF Core in-memory database of an eclectic crew of bloggers, in these different scenarios:
         <ul>
             <li>Post - full page</li>
             <li>Get - full page</li>
@@ -24,9 +24,7 @@
     </p>
     <p>
         There are notes with each example. Here are some common things to note:
-
         <dl>
-
             <dt class="my-2">Override of ListPager Partial Views</dt>
             <dd class="px-4">
                 <div class="mb-2">
@@ -35,7 +33,6 @@
                     to use class='text-danger'. It effects all examples where the Partial View version
                     of _ListPager is used.
                 </div>
-
                 <div>
                     The View Component ListPager is not affected since
                     it's corresponding view component <code>ListPagerPageOf</code> is not overriden.
@@ -88,5 +85,4 @@
             </dd>
         </dl>
     </p>
-
 </div>

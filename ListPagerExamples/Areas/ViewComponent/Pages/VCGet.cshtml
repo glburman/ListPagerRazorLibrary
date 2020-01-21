@@ -4,7 +4,7 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     Layout = "_LayoutForExamples";
-    ViewData["Title"] = "ListPager Example - GET";
+    ViewData["Title"] = "ListPager Examples - Partial View GET";
     var pager = Model.Parameters.Pager;
     pager.ShowRecordsOf = pager.IsFiltered;
     pager.ShowPageOf = !pager.IsFiltered;
@@ -31,20 +31,26 @@
 
 @section Notes{
     <p>
-        In this example the <code>ListPagerPageOf</code> ("Page N of T") element is shown only when the list is not filtered.
-        The converse is true of the <code>ListPagerRecords</code> ("N Rows of T") element.
-        The Search function searches for Last Names containing the search term.
-    </p>
-    <p>
-        The dropdown may or may not be displayed, depending on the page count, whether filtered or not. 
-        Search for "a" and it is displayed because there are 7 pages, 2 more than are shown in the 
-        numbered links. Search for "J" and it is not:
-    </p>
-    <p class="ml-3"><code>pager.ShowDropDown = pager.PageCount > pager.MaxPagerLinks + 1;</code></p>
-    <p>
-        The only override in this example is the <code>_ListPagerPageOf</code> Partial View which is overriden by <code>ListPagerExamples/Pages/Shared/_ListPagerPageOf</code>
-        which simply changes the text color to "text-danger" (aka Red).
-    </p>
+        <ul>
+            <li class="py-2">
+                Try searching for 'a' and then 'j' - the search looks at Last Name for the search term
+            </li>
+            <li class="py-2">
+                <code>ListPagerPageOf</code> ("Page N of T") is shown only when <code>IsFiltered==false</code>
+            </li>
+            <li class="py-2">
+                <code>ListPagerRecords</code> ("N Rows of T")is shown only when <code>IsFiltered==true</code>
+            </li>
+            <li class="py-2">
+                <code>ListPagerDropdown</code> display is set to be conditional on:
+            </li>
+            <code class="ml-2">ShowDropDown = pager.PageCount > pager.MaxPagerLinks + 1;</code>
+            <li class="py-2">
+                <code>_ListPagerPageOf</code> is overridden by <code>ListPagerExamples/Pages/Shared/_ListPagerPageOf</code> which
+                changes the text color to <code>class="text-danger"</code> (aka Red).
+            </li>
+        </ul>
+
 }
 
 <div class="d-flex justify-content-center">

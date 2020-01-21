@@ -32,22 +32,26 @@
 
 @section Notes{
     <p>
-        This example uses a plain HTML Form POST of the library's <code>ListPagerPostForm</code> View Component, so a full page reload for each paging action.
-    </p>
-    <p>
-        This <code>ListPager</code> is the View Component version. So although the <code>_ListPagerPageOf</code>
-        Partial View is overriden by <code>ListPagerExamples/Pages/Shared/_ListPagerPageOf.cshtml</code> the override has no effect here.
-    </p>
-    <p>
-        The <code>ListPagerPageSize</code> element is overridden by <code>ListPagerExamples/Pages/Shared/Components/ListPagerPageSize</code>
-        which renders the Page Size as read only, no input.
-    </p>
-    <p>
-        Note that the <code>ListPagerRecords</code> ("N rows of T") element is displayed only if the pager is flagged <code>IsFiltered == true.</code>
-        Since there is no 'Search' input in this example the <code>ListPagerRecords</code> element is never displayed.
-    </p>
-    <p>
-
+        <ul>
+            <li class="py-2">
+                <code>ListPagerPostForm</code> is used for the POST
+            </li>
+            <li class="py-2">
+                <code>ListPager</code> is the View Component version.
+            </li>
+            thus, although
+            <code>_ListPagerPageOf</code> is overridden by
+            <code>ListPagerExamples/Pages/Shared/_ListPagerPageOf.cshtml</code>
+            the override has no effect here
+            <li class="py-2">
+                <code>ListPagerPageSize</code> is overridden by <code>ListPagerExamples/Pages/Shared/Components/ListPagerPageSize</code>
+                which removes the input from the Page Size display, making it readonly.
+            </li>
+            <li class="py-2">
+                <code>ListPagerRecords</code> ("N rows of T") is conditional on <code>IsFiltered == true</code>
+                but since there is no Search on this page, it is never displayed.
+            </li>
+        </ul>
     </p>
 }
 

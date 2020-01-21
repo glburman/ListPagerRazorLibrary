@@ -4,7 +4,7 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     Layout = "_LayoutForExamples";
-    ViewData["Title"] = "ListPager Examples - Ajax - Separate Partial Views";
+    ViewData["Title"] = "ListPager Examples - Ajax Separate Partial Views";
     var pager = Model.Parameters.Pager;
     pager.DropDownIncrement = 7;
     pager.ShowRecordsOf = pager.TotalRecords > pager.FilteredRecordCount;
@@ -63,20 +63,24 @@
 
 @section Notes{
     <p>
-        Sseparate Partial Views for ListPager and the Data List. On page Load and on subsequent Paging actions,
-        make an Ajax call to render the List and only fetch the updated ListPager partial view if
-        the List data fetch is successful.
+        Separate Partial Views for ListPager and the Data List. On page Load and on subsequent Paging actions,
+        an Ajax call renders the List and then only fetches the updated ListPager if the List fetch is successful.
+        <ul>
+            <li class="py-2">
+                The <code>ListPagerRecords</code> and <code>ListPagerPagesOf</code> elements are unconditionally shown,
+                the later being the overridden version.
+            </li>
+            <li class="py-2">
+                The <code>DropDownIncrement</code> is changed from 5 to 7
+            </li>
+            <li class="py-2">
+                <code>ShowDropDown</code> is set unconditionally <code>true</code>, but the
+                <code>_ListPagerDropdown</code> Partial View is coded such that it displays a blank
+                space for result sets with <code>PageCount < MaxPagerLinks</code>
+            </li>
+        </ul>
     </p>
-    <p>
-        In the example that is accomplished by a single call to the <code>getBoth()</code> JS function.
-    </p>
-    <p>
-        The <code>ListPagerRecords</code> and <code>ListPagerPagesOf</code> elements are unconditionally shown,
-        the later being the overridden version.
-    </p>
-    <p>
-        The <code>DropDownIncrement</code> is changed from 5 to 7, and the <code>ListPagerDropdown</code> is also shown unconditionally.
-    </p>
+
 }
 
 @Html.AntiForgeryToken()
