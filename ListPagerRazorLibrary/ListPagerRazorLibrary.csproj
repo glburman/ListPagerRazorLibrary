@@ -1,0 +1,61 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+    <!--<TargetFramework>netstandard2.0</TargetFramework>-->
+    <ResolvedRazorCompileToolset>RazorSdk</ResolvedRazorCompileToolset>
+    <RazorCompileOnBuild>true</RazorCompileOnBuild>
+    <IncludeContentInPack>true</IncludeContentInPack>
+    
+    
+  </PropertyGroup>
+
+  
+  <ItemGroup>
+    <Content Remove="Pages\Shared\Components\ListPager - Copy.cshtml" />
+    <Content Remove="Pages\Shared\ListPager - Copy.cshtml" />
+    <Content Remove="Pages\_ViewImports.cshtml" />
+  </ItemGroup>
+
+  <!-- don't include static files in compile/packaging -->
+  <ItemGroup>
+    <None Remove="js\pager.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="js\pager.js" />
+    <Content Include="css\pager.css" />
+    <Content Include="css\scss\pager.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- do include static and View files as embedded resources -->
+    <EmbeddedResource Include="Pages\Shared\Components\ListPager.cshtml" />
+    <EmbeddedResource Include="Pages\Shared\Components\ListPagerArrows.cshtml" />
+    <EmbeddedResource Include="Pages\Shared\Components\ListPagerDropdown.cshtml" />
+    <EmbeddedResource Include="Pages\Shared\Components\ListPagerPageOf.cshtml" />
+    <EmbeddedResource Include="Pages\Shared\Components\ListPagerLinks.cshtml" />
+    <EmbeddedResource Include="Pages\Shared\Components\ListPagerPageSize.cshtml" />
+    <EmbeddedResource Include="Pages\Shared\Components\ListPagerPostForm.cshtml" />
+    <EmbeddedResource Include="Pages\Shared\Components\ListPagerRecords.cshtml" />
+    <EmbeddedResource Include="Pages\_ViewImports.cshtml" />
+    <EmbeddedResource Include="js\pager.js">
+      <Pack>true</Pack>
+    </EmbeddedResource>
+    <EmbeddedResource Include="css\pager.css">
+      <Pack>true</Pack>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.0.2" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="3.0.2" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Physical" Version="3.0.2" />
+  </ItemGroup>
+
+
+</Project>

@@ -1,0 +1,16 @@
+﻿@model ListPagerModel
+<ul class="pagination shadow ml-5">
+    <li class="rounded-0 page-item ">
+        <span class="p-1 inline" style="width:auto;">
+            <span class="d-inline px-2 ">Page Size:</span>
+            <input id="@Model.PageSizeInputId"
+                   name="@Model.PageSizeInputId"
+                   type="number"
+                   min="@Model.MinPageSize"
+                   max="@Model.MaxPageSize"
+                   onChange="pager.setPageSize(this.value)"
+                   class="d-inline form-control-short form-control-sm border-0 text-center bg-light"
+                   value="@Model.PageSize">
+        </span>
+    </li>
+</ul>

@@ -1,0 +1,33 @@
+﻿@model ListPagerModel
+@{
+    string linkUrl = "";
+    int pageStart = Model.Start;
+    int pageEnd = Model.End;
+}
+
+
+@for (int p = pageStart; p <= pageEnd; p++)
+{
+    linkUrl = String.Format("/?page={0}", p);
+    string active = p == Model.PageNumber ? "active" : string.Empty;
+
+    <li id="li_@p" class="page-item  @active">
+        @if (p == Model.PageNumber)
+        {
+            <span class="pager-page">
+                <a class="page-link">
+                    @p<span class="sr-only">@p</span>
+                </a>
+            </span>
+        }
+        else
+        {
+            <span class="pager-page">
+                <a class="page-link" onclick="pager.goToPage(@p)" href="#">
+                    @p<span class="sr-only">@p</span>
+                </a>
+            </span>
+        }
+    </li>
+}
+

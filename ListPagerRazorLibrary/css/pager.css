@@ -1,0 +1,100 @@
+﻿/* page-item applies to all pager li elements */
+/* page-link applies to all a elements > */
+/* pager drop-down*/
+.pagination {
+    display: inline-block;
+    padding-left: 0;
+    margin: 20px 0;
+    border-radius: 4px;
+}
+    .pagination > li {
+        display: inline;
+    }
+        .pagination > li > a,
+        .pagination > li > span {
+            display: inline;
+            width: 2.5rem;
+            min-width: 2.5rem;
+            position: relative;
+            float: left;
+            margin-left: -1px;
+            text-decoration: none;
+        }
+            .pagination > li > span :hover {
+                background-color: #6c757d;
+            }
+        .pagination > li.disabled > span :hover {
+            background-color: transparent;
+        }
+        .pagination > li.pager-range > span {
+            min-width: 150px;
+            width: 150px;
+            padding: .5rem 0.75rem 0.5rem 1.0rem;
+            line-height: 1.25;
+            border: 1px solid #dee2e6;
+            text-align: left;
+        }
+        .pagination > li.pager-dropdown > span {
+            padding: .5rem 0.5rem 0.5rem .65rem;
+            line-height: 1.25;
+            border: 1px solid #dee2e6;
+            text-align: left;
+        }
+
+/* position jump dropdown options*/
+#pager > ul:nth-child(1) > li.page-item.pager-dropdown > span > span {
+    top: 1.5rem;
+    font-size: .9rem;
+}
+.page-link {
+    cursor: pointer;
+    color: #343a40;
+}
+    .page-link .disabled {
+        cursor: not-allowed;
+    }
+    .page-link:focus {
+        box-shadow: none;
+    }
+    .page-link:hover {
+        color: Lime;
+    }
+.page-item.disabled {
+    opacity: 50;
+}
+.page-item .page-link {
+    background-color: #e9ecef;
+}
+.page-item.active .page-link {
+    background-color: #6c757d;
+    border-color: #e9ecef;
+}
+span.dropdown-menu {
+    background-color: #6c757d;
+}
+.dropdown-menu a {
+    color: #e9ecef;
+}
+    .dropdown-menu a:hover {
+        text-decoration: none;
+        color: Lime;
+    }
+.dropdown:hover > .dropdown-menu {
+    display: block;
+    top: 100%;
+    background-color: #6c757d;
+}
+.dropdown > .dropdown-menu > .dropdown-item:hover {
+    background-color: #495057;
+}
+/*.dropdown-item {
+    border-top: var(--standard-border);
+}
+    .dropdown-item.last {
+        border-bottom: var(--standard-border);
+    }*/
+
+/* page-item applies to all pager li elements */
+/* page-link applies to all a elements > */
+/* pager drop-down*/
+
