@@ -1,0 +1,21 @@
+.card-header.notes {
+    cursor: pointer;
+}
+
+code {
+    color: brown;
+}
+
+.btn-group-xs > .btn, .btn-xs {
+    padding: .25rem .4rem;
+    font-size: .875rem;
+    line-height: .5;
+    border-radius: .2rem;
+}
+
+.btn-group-fit > .btn, .btn-fit {
+    padding: 0px;
+    height: intrinsic; /* Safari/WebKit uses a non-standard name */
+    height: -moz-max-content; /* Firefox/Gecko */
+    height: -webkit-max-content; /* Chrome */
+}

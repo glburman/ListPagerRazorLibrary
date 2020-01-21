@@ -1,0 +1,32 @@
+﻿@import "bs-imports";
+
+$link-highlight-color: Lime;
+$link-color: $gray-100;
+
+$row-odd-background: #dadada;
+$row-even-background: $gray-200;
+
+$gray-450: #bbb;
+
+$table-header-color: $gray-200;
+$table-header-background: $gray-800;
+$table-header-line-height: 1.25rem;
+
+$nav-link-color: $gray-200;
+
+$shadow-standard-color: $gray-600;
+
+/* page-item applies to all pager li elements */
+$page-item-background-hover: $gray-600;
+$page-item-border: 1px solid $gray-300;
+$page-item-disabled-opacity: 50.0;
+
+/* page-link applies to all a elements > */
+$page-link-background: $gray-200;
+$page-link-color: $gray-800;
+$page-link-background-active: $gray-600;
+$page-link-color-active: $gray-200;
+$page-link-color-hover: $link-highlight-color;
+
+/* pager drop-down*/
+$pager-dropdown-item-background-hover:$gray-700;
