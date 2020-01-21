@@ -1,0 +1,92 @@
+﻿@page
+@model IndexModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "ListPager Razor Library Examples";
+}
+<div class="col-md-8 ml-4">
+    <h3 class="my-4">
+        About ListPagerRazorLibrary Examples
+    </h3>
+    <p>
+        ListPager is set of Bootstrap 4 styled View Components and Partial Views, along with associated models and scripting, wrapped in an Asp.Net Core 3.0 Razor Class Library (RCL).
+        See the Github Readme for more technical information. This page is about the examples.
+    </p>
+    <p>
+        The examples (menu items above) use an EF Core in-memory database of an eclectic crew of bloggers, in these different scenarios:
+        <ul>
+            <li>Post - full page</li>
+            <li>Get - full page</li>
+            <li>Ajax, single Partial View - data list and pager together</li>
+            <li>Ajax, separate Partial Views - data list and pager</li>
+            <li>Ajax, Client-side rendering - Json for the data list, Partial View or View Component for the pager</li>
+        </ul>
+    </p>
+    <p>
+        There are notes with each example. Here are some common things to note:
+
+        <dl>
+
+            <dt class="my-2">Override of ListPager Partial Views</dt>
+            <dd class="px-4">
+                <div class="mb-2">
+                    In all of the examples, ListPager's partial view <code>_ListPagerPageOf</code> is overriden by
+                    <code class="ml-4">ListPagerExamples/Pages/Shared/_ListPagerPageOf.cshtml</code>
+                    to use class='text-danger'. It effects all examples where the Partial View version
+                    of _ListPager is used.
+                </div>
+
+                <div>
+                    The View Component ListPager is not affected since
+                    it's corresponding view component <code>ListPagerPageOf</code> is not overriden.
+                </div>
+            </dd>
+            <dt class="my-2">Override of ListPager View Components</dt>
+            <dd class="px-4">
+                <div class="mb-2">
+                    Where the View Component version of <code>ListPager</code> is used the <code>ListPagerPageSize</code> is overridden by
+                    <code>ListPagerExamples/Pages/Shared/Components/ListPagerPageSize.cshtml</code>, to display the Page Size UI with no input.
+                </div>
+                <div>
+                    The <i>Partial View</i> version <code>_ListPagerPageSize</code> is not affected.
+                </div>
+            </dd>
+            <dt class="my-2">Folder Structure</dt>
+            <dd class="px-4">
+                To override the library's static assets, partial views or view components, the overriding element must reside
+                in a folder structure that mirrors the Library's <strong>relative to wwwroot</strong>:
+                <ul>
+                    <li>
+                        css/pager.css
+                    </li>
+                    <li>
+                        js/pager.js - consider forking rather than overriding this.
+                    </li>
+                    <li>
+                        Pages/Shared/[_PartialView].cshtml
+                    </li>
+
+                    <li>
+                        Pages/Components/[ViewComponent].cshtml
+                    </li>
+                </ul>
+                <strong>NB:</strong> Library names are case-sensitive: "Css" is not the same as "css"
+            </dd>
+
+            <dt class="my-2">BloggerPageModel</dt>
+            <dd class="px-4">
+                Each of the Examples' page classes inherit from this class and it handles common data/method needs.
+            </dd>
+            <dt class="my-2">Request Verification Token</dt>
+            <dd class="px-4">
+                All of the Ajax examples send the RequestVerificationToken by setting the Http Header with the value of an
+                "Html.AntiForgeryToken()" hidden input. You can use a different method if you prefer. I'd not recommend ignoring it.
+            </dd>
+            <dt class="my-2">Search</dt>
+            <dd class="px-4">
+                The Search functionality demonstrates how to implement features in concert with ListPager, it is not part of ListPager.
+            </dd>
+        </dl>
+    </p>
+
+</div>

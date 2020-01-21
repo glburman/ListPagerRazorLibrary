@@ -1,0 +1,27 @@
+﻿@model ListPagerModel
+@{
+    @if (AppConstants.IS_DEBUG)
+    {
+        Model.ShowDropDown = true;
+        Model.ShowRecordsOf = true;
+        Model.ShowPageOf = true;
+    }
+    else
+    {
+        //suggested
+        Model.ShowDropDown = Model.PageCount > Math.Floor(Model.MaxPagerLinks * 1.7);
+        Model.ShowRecordsOf = Model.IsFiltered;
+        Model.ShowPageOf = !Model.IsFiltered;
+    }
+
+    int pageStart = Model.Start;
+    int pageEnd = Model.End;
+    string backDisabled = Model.PageNumber <= 1 ? "disabled" : "";
+    string fwdDisabled = Model.PageNumber >= Model.PageCount ? "disabled" : "";
+
+    string firstClick = Model.PageNumber <= 1 ? "" : "pager.goToPage(1)";
+    string lastClick = Model.PageNumber >= Model.PageCount ? "" : String.Format("pager.goToPage({0})", @Model.PageCount);
+
+}
+<partial name="_ListPager" model=" Model" />
+<partial name="_ListPagerPostForm" model=" Model" />

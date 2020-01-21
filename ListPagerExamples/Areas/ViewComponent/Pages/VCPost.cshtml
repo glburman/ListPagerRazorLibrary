@@ -1,0 +1,62 @@
+﻿@page
+@namespace ListPagerExamples.Areas.ViewComponent.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model VCPostModel
+@{
+    Layout = "_LayoutForExamples";
+    ViewData["Title"] = "ListPager Examples - View Component POST";
+
+    var pager = Model.Parameters.Pager;
+    pager.ShowRecordsOf = pager.IsFiltered;
+    pager.ShowPageOf = !pager.IsFiltered;
+    pager.ShowDropDown = pager.PageCount > pager.MaxPagerLinks + 1;
+    Model.Parameters.Pager = pager;
+
+}
+@section Scripts{
+    <script>
+    let pager
+    let modelState = @Json.Serialize(Model.Parameters);
+    </script>
+    <script type="module">
+        import Pager from "/js/pager.js"    //path in ListPagerRazorLibrary
+        pager = new Pager(modelState.pager, {})
+        pager.setActivePage(modelState.pager.pageNumber)
+        document.addEventListener(Pager.constants.pagingEventName, (e) => {
+            let { pageNumber, pageSize } = { ...e.detail.ListPagerModel }
+            document.getElementById("pageNumber").value = pageNumber
+            pager.post()
+        })
+    </script>
+}
+
+@section Notes{
+    <p>
+        This example uses a plain HTML Form POST of the library's <code>ListPagerPostForm</code> View Component, so a full page reload for each paging action.
+    </p>
+    <p>
+        This <code>ListPager</code> is the View Component version. So although the <code>_ListPagerPageOf</code>
+        Partial View is overriden by <code>ListPagerExamples/Pages/Shared/_ListPagerPageOf.cshtml</code> the override has no effect here.
+    </p>
+    <p>
+        The <code>ListPagerPageSize</code> element is overridden by <code>ListPagerExamples/Pages/Shared/Components/ListPagerPageSize</code>
+        which renders the Page Size as read only, no input.
+    </p>
+    <p>
+        Note that the <code>ListPagerRecords</code> ("N rows of T") element is displayed only if the pager is flagged <code>IsFiltered == true.</code>
+        Since there is no 'Search' input in this example the <code>ListPagerRecords</code> element is never displayed.
+    </p>
+    <p>
+
+    </p>
+}
+
+<div class="d-flex justify-content-center">
+    @await Component.InvokeAsync("ListPager", Model.Parameters.Pager)
+    <partial name="_ListPagerPostForm" , model="Model.Parameters.Pager" />
+</div>
+<div class="d-flex justify-content-center">
+    <div class="col-10">
+        <partial name="_ListTable" model="@Model.Bloggers" />
+    </div>
+</div>

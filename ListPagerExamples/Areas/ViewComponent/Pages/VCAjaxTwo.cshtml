@@ -1,0 +1,95 @@
+﻿@page "{handler?}"
+@namespace ListPagerExamples.Areas.ViewComponent.Pages
+@model VCAjaxTwoModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "_LayoutForExamples";
+    ViewData["Title"] = "ListPager Examples - Ajax - Separate Partial Views";
+    var pager = Model.Parameters.Pager;
+    pager.DropDownIncrement = 7;
+    pager.ShowRecordsOf = pager.TotalRecords > pager.FilteredRecordCount;
+    pager.ShowPageOf = !pager.ShowRecordsOf;
+    pager.ShowDropDown = true;
+    pager.PageSize = 5;
+    Model.Parameters.Pager = pager;
+}
+
+@section Scripts{
+    <script>
+    //Page scope, not module scope
+    let pager
+    let modelState = @Json.Serialize(@Model.Parameters);
+    const constants = {
+        urlBase: "VCAjaxTwo",
+        tableTarget: "table-wrapper",
+        pagerTarget: "pager-wrapper"
+    }
+    </script>
+    <script type="module">
+        import Pager from "/js/pager.js"    //path in ListPagerRazorLibrary
+        pager = new Pager(modelState.pager, {})
+        const urlBase = constants.urlBase
+        const fetchPartial = (method, url, data, target) => {
+            return $.ajax({
+                method, url, data,
+                headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
+            }).done((response) => {
+                document.getElementById(target).innerHTML = response
+            }).fail(function (error) {
+                console.log('error->', error)
+                throw (error)
+            })
+        }
+        const getBoth = () => {
+            fetchPartial("POST", urlBase, modelState, constants.tableTarget)
+                .then((partial, status) => {
+                    if (status === 'success') {
+                        let url = `${urlBase}/Pager`
+                        fetchPartial("POST", url, modelState, constants.pagerTarget)
+                    }
+                })
+        }
+        window.onload = () => {
+            getBoth();
+        }
+        document.addEventListener(Pager.constants.pagingEventName, (e) => {
+            modelState.pager = { ...e.detail.ListPagerModel }
+            const s = document.getElementById("filter")
+            if (s) modelState.searchTerm = s.value
+            getBoth();
+        })
+    </script>
+}
+
+@section Notes{
+    <p>
+        Sseparate Partial Views for ListPager and the Data List. On page Load and on subsequent Paging actions,
+        make an Ajax call to render the List and only fetch the updated ListPager partial view if
+        the List data fetch is successful.
+    </p>
+    <p>
+        In the example that is accomplished by a single call to the <code>getBoth()</code> JS function.
+    </p>
+    <p>
+        The <code>ListPagerRecords</code> and <code>ListPagerPagesOf</code> elements are unconditionally shown,
+        the later being the overridden version.
+    </p>
+    <p>
+        The <code>DropDownIncrement</code> is changed from 5 to 7, and the <code>ListPagerDropdown</code> is also shown unconditionally.
+    </p>
+}
+
+@Html.AntiForgeryToken()
+<div class="d-flex justify-content-center">
+    <div class="col-md-12" id="pager-wrapper">
+    </div>
+</div>
+<div class="d-flex justify-content-end col-md-11">
+    <partial name="_ListFilterPartial" model='@Model.Parameters.SearchTerm' />
+</div>
+
+<div class="d-flex justify-content-center">
+    <div class="col-md-10" id="table-wrapper">
+    </div>
+</div>
+

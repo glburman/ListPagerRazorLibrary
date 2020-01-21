@@ -1,0 +1,67 @@
+﻿@page "{handler?}"
+@namespace ListPagerExamples.Areas.ViewComponent.Pages
+@model VCAjaxSingleModel
+@{
+    Layout = "_LayoutForExamples";
+    ViewData["Title"] = "ListPager Examples - Ajax - Single Partial";
+}
+@section Scripts{
+    <script>
+      //Page scope
+    let pager
+    let modelState =@Json.Serialize(Model.Parameters);
+    const constants = {
+        urlBase: "VCAjaxSingle/partial",
+        tableTarget: "data-page-wrapper"
+    }
+    </script>
+
+    <script type="module">
+        import Pager from "/js/pager.js"    //path in ListPagerRazorLibrary
+        pager = new Pager(modelState.pager, {})
+        const fetchPage = (method, url, data) => {
+            $.ajax({
+                method, url, data,
+                headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
+            }).done((response) => {
+                document.getElementById(constants.tableTarget).innerHTML = response
+            }).fail(function (error) {
+                console.log('error->', error)
+            })
+        }
+        window.onload = () => {
+            fetchPage("POST", constants.urlBase, modelState)
+        }
+        document.addEventListener(Pager.constants.pagingEventName, (e) => {
+            modelState.pager = { ...e.detail.ListPagerModel }
+            modelState.searchTerm = document.getElementById("filter").value
+            fetchPage("POST", constants.urlBase, modelState)
+        })
+    </script>
+}
+
+@section Notes{
+    <p>
+        This is the most straightforward Ajax approach. A single Partial View contains both ListPager and
+        the associated Data List. On page load and on Paging actions make a single Ajax call for the partial
+        and render the result. Not especially fast.
+    </p>
+    <p>
+        Like all the Ajax examples this uses ListPagerLibrary's Partial View version (<code>_ListPager</code>) so the override
+        <code>ListPagerExamples/Pages/Shared/_ListPagerPageOf.cshtml</code> has effect, while the View Component override
+        <code>ListPagerExamples/Pages/Shared/Components/ListPagerPageSize.cshtml</code> does not.
+    </p>
+    <p>
+        In this example Parameters are initialized in the Page's OnGet method rather than using Razor syntax in the Page view. Same effect.
+    </p>
+    <p>
+        This example return both the Data List and the Pager in one Partial View. There is a single "fetch" onLoad, and then again for each paging event.
+    </p>
+}
+
+@Html.AntiForgeryToken()
+<div class="d-flex justify-content-center">
+    <div id="data-page-wrapper">
+    </div>
+</div>
+

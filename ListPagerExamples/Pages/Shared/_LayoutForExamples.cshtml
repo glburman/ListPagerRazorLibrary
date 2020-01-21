@@ -1,0 +1,23 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "_Layout";
+}
+
+@RenderSection("Scripts", false)
+
+<div class="d-flex justify-content-center">
+    <h3>@ViewData["title"]</h3>
+    <button class="btn btn-outline-info btn-fit ml-4 mt-1 px-1" type="button" data-toggle="collapse" data-target="#collapseNotes" aria-expanded="false" aria-controls="collapseExample">
+        Notes >
+    </button>
+</div>
+<div class="d-flex justify-content-center">
+    <div class="collapse col-md-8 mt-4" id="collapseNotes">
+        <div class="card card-body">
+            @RenderSection("Notes", false)
+        </div>
+    </div>
+</div>
+
+@RenderBody()
+

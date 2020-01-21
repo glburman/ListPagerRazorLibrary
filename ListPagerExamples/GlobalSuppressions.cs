@@ -1,0 +1,10 @@
+﻿// This file is used by Code Analysis to maintain SuppressMessage
+// attributes that are applied to this project.
+// Project-level suppressions either have no target or are given
+// a specific target and scoped to a namespace, type, member, etc.
+
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Build", "CA1822:Member OnGet does not access instance data and can be marked as static (Shared in VisualBasic)", Justification = "<Pending>", Scope = "member", Target = "~M:ListPagerExamples.Pages.IndexModel.OnGet")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Build", "CA1822:Member OnGet does not access instance data and can be marked as static (Shared in VisualBasic)", Justification = "<Pending>", Scope = "member", Target = "~M:ListPagerExamples.Pages.PrivacyModel.OnGet")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Build", "CA1062:In externally visible method 'void Startup.Configure(IApplicationBuilder app, IWebHostEnvironment env, AppDbContext context)', validate parameter 'context' is non-null before using it. If appropriate, throw an ArgumentNullException when the argument is null or add a Code Contract precondition asserting non-null argument.", Justification = "<Pending>", Scope = "member", Target = "~M:ListPagerExamples.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment,ListPagerExamples.Models.AppDbContext)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Build", "CA2227:Change 'Bloggers' to be read-only by removing the property setter.", Justification = "<Pending>", Scope = "member", Target = "~P:ListPagerExamples.Models.BloggerPageModel.Bloggers")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Build", "CA1052:Type 'Program' is a static holder type but is neither static nor NotInheritable", Justification = "<Pending>", Scope = "type", Target = "~T:ListPagerExamples.Program")]
