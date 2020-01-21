@@ -111,18 +111,18 @@ The "ListPagerModel" class (ListPagerModel.cs) provides the following method and
 
 As normal with a Razor Class Library the host app can override any of the views to customize the pager. Note that : 
 
--overriding a Partial View (say _ListPagerPageOf) does not override the View Component (ListPagerPageOf), and vice versa.
--overrides requires that the host project folder structure below "wwwroot" mirror the library's.
--folder names are case-sensitive for override purposes. "CSS" is not the same as "Css" or "css".
--you can override "/css/pager.css" entirely or include a separate .css file that overrides specific selectors.
+- overriding a Partial View (say _ListPagerPageOf) does not override the View Component (ListPagerPageOf), and vice versa.
+- overrides requires that the host project folder structure below "wwwroot" mirror the library's.
+- folder names are case-sensitive for override purposes. "CSS" is not the same as "Css" or "css".
+- you can override "/css/pager.css" entirely or include a separate .css file that overrides specific selectors.
 
 ## Setup
 
 To use ListPager in your Asp.Net Core Web project :
 
--add a reference to the "ListPagerRazorLibrary" project
+- add a reference to the "ListPagerRazorLibrary" project
 
--in "Startup.cs" add the following:
+- in "Startup.cs" add the following:
 
 ```    
      public void ConfigureServices(IServiceCollection services, ...)
@@ -140,7 +140,7 @@ To use ListPager in your Asp.Net Core Web project :
     }
 ```
 
--in your project's "\_ViewImports.cshtml" add these lines:
+- in your project's "\_ViewImports.cshtml" add these lines:
 
 ```
   @using ListPagerRazorLibrary
@@ -148,9 +148,9 @@ To use ListPager in your Asp.Net Core Web project :
   @using ListPagerRazorLibrary.ViewComponents
 ```
 
--include "css/pager.css" in your "\_Layout.cshtml" page
+- include "css/pager.css" in your "\_Layout.cshtml" page
 
--render ListPager in your view like this:
+- render ListPager in your view like this:
 
 ```
   @model ListPagerModel
@@ -162,7 +162,7 @@ To use ListPager in your Asp.Net Core Web project :
   <partial name="_ListPager" model=@Model/>
 ```
 
--fallback ListPagerModel defaults are set in the Constants.cs and ListPagerModel.cs files, but you'll likely want to set your own initial values like this:
+- fallback ListPagerModel defaults are set in Constants.cs and ListPagerModel.cs but you'll likely want to set your own initial values like this:
 
 ```
     public void OnGet(int PageNumber=1, int PageSize = 5)
