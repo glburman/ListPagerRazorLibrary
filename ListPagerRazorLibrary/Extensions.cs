@@ -13,29 +13,29 @@ namespace ListPagerRazorLibrary
         {
             services.Configure<MvcRazorRuntimeCompilationOptions>(options =>
             {
-                options.FileProviders.Add(new EmbeddedFileProvider(typeof(ListPagerRazorLibrary.ViewComponents.ListPager).GetTypeInfo().Assembly));
-                options.FileProviders.Add(new EmbeddedFileProvider(typeof(ListPagerRazorLibrary.ViewComponents.ListPagerPostForm).GetTypeInfo().Assembly));
-                options.FileProviders.Add(new EmbeddedFileProvider(typeof(ListPagerRazorLibrary.ViewComponents.ListPagerArrows).GetTypeInfo().Assembly));
-                options.FileProviders.Add(new EmbeddedFileProvider(typeof(ListPagerRazorLibrary.ViewComponents.ListPagerDropdown).GetTypeInfo().Assembly));
-                options.FileProviders.Add(new EmbeddedFileProvider(typeof(ListPagerRazorLibrary.ViewComponents.ListPagerPageOf).GetTypeInfo().Assembly));
-                options.FileProviders.Add(new EmbeddedFileProvider(typeof(ListPagerRazorLibrary.ViewComponents.ListPagerLinks).GetTypeInfo().Assembly));
-                options.FileProviders.Add(new EmbeddedFileProvider(typeof(ListPagerRazorLibrary.ViewComponents.ListPagerPostForm).GetTypeInfo().Assembly));
-                options.FileProviders.Add(new EmbeddedFileProvider(typeof(ListPagerRazorLibrary.ViewComponents.ListPagerRecords).GetTypeInfo().Assembly));
+                options.FileProviders.Add(new EmbeddedFileProvider(typeof(ViewComponents.ListPager).GetTypeInfo().Assembly));
+                options.FileProviders.Add(new EmbeddedFileProvider(typeof(ViewComponents.ListPagerPostForm).GetTypeInfo().Assembly));
+                options.FileProviders.Add(new EmbeddedFileProvider(typeof(ViewComponents.ListPagerArrows).GetTypeInfo().Assembly));
+                options.FileProviders.Add(new EmbeddedFileProvider(typeof(ViewComponents.ListPagerDropdown).GetTypeInfo().Assembly));
+                options.FileProviders.Add(new EmbeddedFileProvider(typeof(ViewComponents.ListPagerPageOf).GetTypeInfo().Assembly));
+                options.FileProviders.Add(new EmbeddedFileProvider(typeof(ViewComponents.ListPagerLinks).GetTypeInfo().Assembly));
+                options.FileProviders.Add(new EmbeddedFileProvider(typeof(ViewComponents.ListPagerPostForm).GetTypeInfo().Assembly));
+                options.FileProviders.Add(new EmbeddedFileProvider(typeof(ViewComponents.ListPagerRecords).GetTypeInfo().Assembly));
             });
         }
 
         public static void UseListPagerStatics(this IApplicationBuilder builder)
         {
-            var scripts = new EmbeddedFileProvider(typeof(ListPagerRazorLibrary.ViewComponents.ListPager)
-                .GetTypeInfo().Assembly, "ListPagerRazorLibrary.js");
+            var scripts = new EmbeddedFileProvider(typeof(ViewComponents.ListPager)
+                .GetTypeInfo().Assembly, AppConstants.ASSEMBLY_TYPE_SCRIPT);
             builder.UseStaticFiles(new StaticFileOptions()
             {
                 FileProvider = scripts,
                 RequestPath = new PathString("/js")
             });
 
-            var styles = new EmbeddedFileProvider(typeof(ListPagerRazorLibrary.ViewComponents.ListPager)
-                .GetTypeInfo().Assembly, "ListPagerRazorLibrary.css");
+            var styles = new EmbeddedFileProvider(typeof(ViewComponents.ListPager)
+                .GetTypeInfo().Assembly, AppConstants.ASSEMBLY_TYPE_STYLES);
             builder.UseStaticFiles(new StaticFileOptions()
             {
                 FileProvider = styles,

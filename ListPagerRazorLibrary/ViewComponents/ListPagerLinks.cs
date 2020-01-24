@@ -7,7 +7,7 @@ namespace ListPagerRazorLibrary.ViewComponents
     {
         public IViewComponentResult Invoke(ListPagerModel model)
         {
-            return View("../ListPagerLinks", model);
+            return View(AppConstants.VIEW_PATH_LISTPAGER_LINKS, model);
         }
     }
 }

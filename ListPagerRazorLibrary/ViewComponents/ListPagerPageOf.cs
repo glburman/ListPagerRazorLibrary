@@ -7,7 +7,7 @@ namespace ListPagerRazorLibrary.ViewComponents
     {
         public IViewComponentResult Invoke(ListPagerModel model)
         {
-            return View("../ListPagerPageOf", model);
+            return View(AppConstants.VIEW_PATH_LISTPAGER_PAGEOF, model);
         }
     }
 }

@@ -1,25 +1,16 @@
-﻿@model ListPagerModel
+﻿@model ListPagerDropdownModel
 @{
 
-    List<int> incs = new List<int>();
-    for (int step = 1; step <= Model.PageCount; step++)
-    {
-        if ((step % Model.DropDownIncrement == 0 || step == 1 || step == Model.PageCount) && (step < Model.Start || step > Model.End))
-        {
-            incs.Add(step);
-        }
-    }
-
-    @if (incs.Count > 0)
+    @if (Model.Increments.Count > 0)
     {
         <li class="page-item">
             <span class="pager-dropdown dropdown">
                 <a class="page-link dropdown-toggle" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 </a>
                 <span class="dropdown-menu mt-n1 ml-2 shadow" aria-labelledby="dropdownMenuLink">
-                    @foreach (int step in incs)
+                    @foreach (int step in Model.Increments)
                     {
-                        var last = (step >= Model.PageCount || incs.Count == 1) ? "last" : "";
+                        var last = (step >= Model.PageCount || Model.Increments.Count == 1) ? "last" : "";
                         <a class="dropdown-item pl-2 @last " onclick="pager.goToPage(@step)" href="#">Jump to @step</a>
                     }
                 </span>

@@ -9,7 +9,8 @@
         pageActiveClass: 'active',
         pageItemClass: 'page-item',
         pagerFormFieldClass: 'pagerValue',
-        pagerPostFormName: 'listPagerPostForm'
+        pagerPostFormName: 'listPagerPostForm',
+        pagerPageLinkIdPrefix: 'pager_li_'
     }
 
     post = () => {
@@ -30,7 +31,7 @@
     }
     setActivePage = (page) => {
         page = page === undefined ? 1 : page;
-        document.getElementById("li_" + page).classList.add(this.settings.pageActiveClass)
+        document.getElementById(Pager.constants.pagerPageLinkIdPrefix + page).classList.add(this.settings.pageActiveClass)
     }
 
     setPageSize(size) {

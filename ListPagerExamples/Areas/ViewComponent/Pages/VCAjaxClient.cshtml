@@ -8,8 +8,8 @@
     var pager = Model.Parameters.Pager;
     pager.ShowRecordsOf = pager.IsFiltered;
     pager.ShowPageOf = !pager.ShowRecordsOf;
-    pager.MaxPagerLinks = 8;
-    pager.ShowDropDown = pager.PageCount > pager.MaxPagerLinks + 1;
+    pager.MaxPageLinks = 8;
+    pager.ShowDropDown = pager.PageCount > pager.MaxPageLinks + 1;
     Model.Parameters.Pager = pager;
 }
 @section Scripts{

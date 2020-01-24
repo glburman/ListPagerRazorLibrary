@@ -8,7 +8,7 @@
     var pager = Model.Parameters.Pager;
     pager.ShowRecordsOf = pager.IsFiltered;
     pager.ShowPageOf = !pager.IsFiltered;
-    pager.ShowDropDown = pager.PageCount > pager.MaxPagerLinks + 1;
+    pager.ShowDropDown = pager.PageCount > pager.MaxPageLinks + 1;
 }
 @section Scripts{
     <script>
@@ -44,9 +44,9 @@
             <li class="py-2">
                 <code>ListPagerDropdown</code> display is set to be conditional on:
             </li>
-            <code class="ml-2">ShowDropDown = pager.PageCount > pager.MaxPagerLinks + 1;</code>
+            <code class="ml-2">ShowDropDown = pager.PageCount > pager.MaxPageLinks + 1;</code>
             <li class="py-2">
-                <code>_ListPagerPageOf</code> is overridden by <code>ListPagerExamples/Pages/Shared/_ListPagerPageOf</code> which
+                <code>ListPagerPageOf</code> is overridden by <code>ListPagerExamples/Pages/Shared/ListPagerPageOf</code> which
                 changes the text color to <code>class="text-danger"</code> (aka Red).
             </li>
         </ul>

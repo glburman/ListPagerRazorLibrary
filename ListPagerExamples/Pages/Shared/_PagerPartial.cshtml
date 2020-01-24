@@ -9,7 +9,7 @@
     else
     {
         //suggested
-        Model.ShowDropDown = Model.PageCount > Math.Floor(Model.MaxPagerLinks * 1.7);
+        Model.ShowDropDown = Model.PageCount > Math.Floor(Model.MaxPageLinks * 1.7);
         Model.ShowRecordsOf = Model.IsFiltered;
         Model.ShowPageOf = !Model.IsFiltered;
     }
@@ -24,4 +24,4 @@
 
 }
 <partial name="_ListPager" model=" Model" />
-<partial name="_ListPagerPostForm" model=" Model" />
+<partial name="Components/ListPagerPostForm" model=" Model" />

@@ -4,31 +4,38 @@
 
 <div id="list-pager-container">
     <ul class="list-pager pagination">
-
-        @await Component.InvokeAsync("ListPagerArrows", new { state = Model, direction = -1 })
+        @{
+            ListPagerArrowModel lam = new ListPagerArrowModel(Model, -1);
+            <partial name="Components/ListPagerArrows" , model="@lam" ) />
+        }
 
         @if (Model.ShowRecordsOf)
         {
-            <partial name="_ListPagerRecords" model="@Model" />
+            <partial name="Components/ListPagerRecords" model="@Model" />
         }
 
         @if (Model.ShowPageOf)
         {
-            <partial name="_ListPagerPageOf" model="@Model" />
+            <partial name="Components/ListPagerPageOf" model="@Model" />
         }
 
-        <partial name="_ListPagerLinks" model="@Model" />
+        <partial name="Components/ListPagerLinks" model="@Model" />
 
         @if (Model.ShowDropDown)
         {
-            <partial name="_ListPagerDropdown" model="@Model" />
+            ListPagerDropdownModel ddm = new ListPagerDropdownModel(Model);
+            <partial name="Components/ListPagerDropdown" , model="@ddm" ) />
         }
 
-        @await Component.InvokeAsync("ListPagerArrows", new { state = Model, direction = 1 })
-
+        @{
+            ListPagerArrowModel ram = new ListPagerArrowModel(Model, 1);
+            <partial name="Components/ListPagerArrows" , model="@ram" ) />
+        }
     </ul>
+
     @if (Model.ShowPageSize)
     {
-        <partial name="_ListPagerPageSize" model="@Model" />
+        <partial name="Components/ListPagerPageSize.cshtml" model="@Model" />
     }
+
 </div>

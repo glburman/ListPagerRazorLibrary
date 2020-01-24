@@ -5,31 +5,31 @@
 <div id="list-pager-container">
     <ul class="list-pager pagination">
 
-        @await Component.InvokeAsync("ListPagerArrows", new { state = Model, direction = -1 })
+        @await Component.InvokeAsync(AppConstants.VIEWNAME_ARROWS, new { state = Model, direction = -1 })
 
         @if (Model.ShowRecordsOf)
         {
-            @await Component.InvokeAsync("ListPagerRecords", Model)
+            @await Component.InvokeAsync(AppConstants.VIEWNAME_RECORDS, Model)
         }
 
         @if (Model.ShowPageOf)
         {
-            @await Component.InvokeAsync("ListPagerPageOf", Model)
+            @await Component.InvokeAsync(AppConstants.VIEWNAME_PAGEOF, Model)
         }
 
-        @await Component.InvokeAsync("ListPagerLinks", Model)
+        @await Component.InvokeAsync(AppConstants.VIEWNAME_LINKS, Model)
         
 
         @if (Model.ShowDropDown)
         {
-            @await Component.InvokeAsync("ListPagerDropdown", Model)
+            @await Component.InvokeAsync(AppConstants.VIEWNAME_DROPDOWN, Model)
         }
 
-        @await Component.InvokeAsync("ListPagerArrows", new { state = Model, direction = 1 })
+        @await Component.InvokeAsync(AppConstants.VIEWNAME_ARROWS, new { state = Model, direction = 1 })
 
     </ul>
     @if (Model.ShowPageSize)
     {
-        @await Component.InvokeAsync("ListPagerPageSize", Model)
+        @await Component.InvokeAsync(AppConstants.VIEWNAME_PAGESIZE, Model)
     }
 </div>

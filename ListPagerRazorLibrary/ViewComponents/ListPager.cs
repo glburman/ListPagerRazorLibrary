@@ -1,13 +1,15 @@
 ﻿using ListPagerRazorLibrary.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace ListPagerRazorLibrary.ViewComponents
 {
     public class ListPager : ViewComponent
     {
-        public IViewComponentResult Invoke(ListPagerModel model)
+        public async Task<IViewComponentResult> InvokeAsync(ListPagerModel model)
         {
-            return View("../ListPager", model);
+            await Task.CompletedTask;
+            return View(AppConstants.VIEW_PATH_LISTPAGER, model);
         }
     }
 }

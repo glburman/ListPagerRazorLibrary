@@ -9,7 +9,7 @@
     var pager = Model.Parameters.Pager;
     pager.ShowRecordsOf = pager.IsFiltered;
     pager.ShowPageOf = !pager.IsFiltered;
-    pager.ShowDropDown = pager.PageCount > pager.MaxPagerLinks + 1;
+    pager.ShowDropDown = pager.PageCount > pager.MaxPageLinks + 1;
     Model.Parameters.Pager = pager;
 
 }
@@ -40,8 +40,8 @@
                 <code>ListPager</code> is the View Component version.
             </li>
             thus, although
-            <code>_ListPagerPageOf</code> is overridden by
-            <code>ListPagerExamples/Pages/Shared/_ListPagerPageOf.cshtml</code>
+            <code>ListPagerPageOf</code> is overridden by
+            <code>ListPagerExamples/Pages/Shared/ListPagerPageOf.cshtml</code>
             the override has no effect here
             <li class="py-2">
                 <code>ListPagerPageSize</code> is overridden by <code>ListPagerExamples/Pages/Shared/Components/ListPagerPageSize</code>
@@ -56,11 +56,12 @@
 }
 
 <div class="d-flex justify-content-center">
-    @await Component.InvokeAsync("ListPager", Model.Parameters.Pager)
-    <partial name="_ListPagerPostForm" , model="Model.Parameters.Pager" />
+    @await Component.InvokeAsync(nameof(ListPagerRazorLibrary.ViewComponents.ListPager), Model.Parameters.Pager)
+    <partial name="Components/ListPagerPostForm" , model="Model.Parameters.Pager" />
 </div>
 <div class="d-flex justify-content-center">
     <div class="col-10">
+        <!--this table belongs to the host app, its not a ListPager partial -->
         <partial name="_ListTable" model="@Model.Bloggers" />
     </div>
 </div>

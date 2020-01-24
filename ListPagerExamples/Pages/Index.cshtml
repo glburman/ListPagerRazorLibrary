@@ -9,79 +9,94 @@
         About ListPagerRazorLibrary Examples
     </h3>
     <p>
-        ListPagerRazorLibrary is a List Pager comprised of a set of Bootstrap 4 styled View Components and Partial Views, along with associated models and scripting, wrapped in an Asp.Net Core 3.0 Razor Class Library (RCL).
-        This is not a Blazor library. See the <a href="https://github.com/glburman/ListPagerRazorLibrary">Github Readme</a> for more technical information. This page is about the examples.
+        ListPagerRazorLibrary is a List Pager comprised of a set of Bootstrap 4 styled View Components / Partial Views, along with associated models and scripting, wrapped in an Asp.Net Core 3.0 Razor Class Library (RCL).
+        This is not a Blazor library. See the <a href="https://github.com/glburman/ListPagerRazorLibrary">Github Readme</a> for more information. This page is about the examples.
     </p>
     <p>
-        The examples (menu items in the Navbar) use an EF Core in-memory database of an eclectic crew of bloggers, in these different scenarios:
+        The examples (menu items in the Navbar above) use an EF Core in-memory database of an eclectic crew of bloggers, in these different scenarios:
         <ul>
-            <li>Post - full page</li>
-            <li>Get - full page</li>
-            <li>Ajax, single Partial View - data list and pager together</li>
-            <li>Ajax, separate Partial Views - data list and pager</li>
-            <li>Ajax, Client-side rendering - Json for the data list, Partial View or View Component for the pager</li>
+            <li class="mb-2">POST - full page</li>
+            <li class="mb-2">GET - full page</li>
+            <li class="mb-2">
+                Ajax - all via POST
+                <ul>
+                    <li class="mb-1">Single Partial View - data list and pager together</li>
+                    <li class="mb-1">Separate Partial Views - data list and pager</li>
+                    <li class="mb-1">Client-side rendering of Json for the data list server-side View for the pager</li>
+                </ul>
+            </li>
+        </ul>
+    </p>
+    <h5>Customizing</h5>
+    <p>
+        There are several ways to customize ListPager and the examples use them as explained in their individual notes.
+        In summary, you can :
+        <ul>
+            <li class="mb-2">Using the 'toggles' and other settings available in the provided <code>ListPagerModel</code> c# Class</li>
+            <li class="mb-2">Override a "sub-view" (e.g. ListPagerPageOf.cshtml) by creating your own version, in the correct folder (see below)</li>
+            <li class="mb-2">Override the CSS in wwwroot/css/pager.css and/or include your own .css file</li>
+            <li class="mb-2">Change the pager layout/ structure by using your own sub-view container file(s), ignoring or overriding ListPager.cshtml and _ListPager.cshtml</li>
         </ul>
     </p>
     <p>
-        There are notes with each example. Here are some common things to note:
         <dl>
-            <dt class="my-2">Override of ListPager Partial Views</dt>
+            <dt class="my-2">Override File Placement</dt>
             <dd class="px-4">
-                <div class="mb-2">
-                    In all of the examples, ListPager's partial view <code>_ListPagerPageOf</code> is overriden by
-                    <code class="ml-4">ListPagerExamples/Pages/Shared/_ListPagerPageOf.cshtml</code>
-                    to use class='text-danger'. It effects all examples where the Partial View version
-                    of _ListPager is used.
-                </div>
-                <div>
-                    The View Component ListPager is not affected since
-                    it's corresponding view component <code>ListPagerPageOf</code> is not overriden.
-                </div>
-            </dd>
-            <dt class="my-2">Override of ListPager View Components</dt>
-            <dd class="px-4">
-                <div class="mb-2">
-                    Where the View Component version of <code>ListPager</code> is used the <code>ListPagerPageSize</code> is overridden by
-                    <code>ListPagerExamples/Pages/Shared/Components/ListPagerPageSize.cshtml</code>, to display the Page Size UI with no input.
-                </div>
-                <div>
-                    The <i>Partial View</i> version <code>_ListPagerPageSize</code> is not affected.
-                </div>
-            </dd>
-            <dt class="my-2">Folder Structure</dt>
-            <dd class="px-4">
-                To override the library's static assets, partial views or view components, the overriding element must reside
-                in a folder structure that mirrors the Library's <strong>relative to wwwroot</strong>:
+                To override a ListPager library file you must mirror the folder structure of the library:
                 <ul>
-                    <li>
-                        css/pager.css
-                    </li>
-                    <li>
-                        js/pager.js - consider forking rather than overriding this.
-                    </li>
-                    <li>
-                        Pages/Shared/[_PartialView].cshtml
-                    </li>
-
-                    <li>
-                        Pages/Components/[ViewComponent].cshtml
-                    </li>
+                    <li class="mb-2">wwwroot/css/pager.css</li>
+                    <li class="mb-2">Pages/Shared/Components/[ListPagerViewName].cshtml</li>
+                    <li class="mb-2">Pages/Shared/_ListPager.cshtml</li>
                 </ul>
-                <strong>NB:</strong> Library names are case-sensitive: "Css" is not the same as "css"
             </dd>
 
+
+        </dl>
+    </p>
+    <h5>Other Notes</h5>
+    <p>
+        <dl>
+            <dt class="my-2">Component Files as Partial Views</dt>
+            <dd class="px-4">
+                <div class="mb-2">
+                    Even though ListPager's sub-views live in the path <code>Pages/Shared/Components/*.cshtml</code>
+                    and can be invoked as View Components, they can also be used as Partial Views by specifying the
+                    "name" parameter path as: <code>name="Components/[ListPagerViewName]"</code> without the
+                    ".cshtml" file extension.
+                </div>
+                <div>
+                    The Model will always be an instance of the <code>ListPagerModel</code> class with the exceptions of:
+                    <ul>
+                        <li>ListPagerArrows - requires an instance of <code>ListPagerArrowModel</code></li>
+                        <li>ListPagerDropdown - requires an instance of <code>ListPagerDropdownModel</code></li>
+                    </ul>
+                    When invoked as View Components however, their model instantiation happens automatically
+                    so that is usually cleaner for 'Arrows' and 'Dropdown', if you are using them.
+                </div>
+            </dd>
+            <dt class="my-2">ListPager.cshtml Versus _ListPager.cshtml</dt>
+            <dd class="px-4">
+                Both contain the ListPager sub-views that render the ListPager. The differences are:
+                <ul>
+                    <li class="mb-2">ListPager.cshtml does it with ViewComponents</li>
+                    <li class="mb-2">_ListPager.cshtml does it with Partial Views</li>
+                    <li class="mb-2">ListPager.cshtml lives at <code>Pages/Shared/Components/ListPager.cshtml</code></li>
+                    <li class="mb-2">_ListPager.cshtml lives at <code>Pages/Shared/_ListPager.cshtml</code></li>
+                </ul>
+            </dd>
             <dt class="my-2">BloggerPageModel</dt>
             <dd class="px-4">
-                Each of the Examples' page classes inherit from this class and it handles common data/method needs.
+                Each of the Examples' page classes inherit from this class and it handles most common data/method needs.
             </dd>
             <dt class="my-2">Request Verification Token</dt>
             <dd class="px-4">
-                All of the Ajax examples send the RequestVerificationToken by setting the Http Header with the value of an
-                "Html.AntiForgeryToken()" hidden input. You can use a different method if you prefer. I'd not recommend ignoring it.
+                All of the Ajax examples POST the RequestVerificationToken by setting the Http Header with the value of an
+                "Html.AntiForgeryToken()" hidden input. You can use a different method if you prefer but I'd not recommend ignoring it.
             </dd>
             <dt class="my-2">Search</dt>
             <dd class="px-4">
-                The Search functionality demonstrates how to implement features in concert with ListPager, it is not part of ListPager.
+                The example Search functionality simply searches 'LastName' for the search term and demonstrates
+                how to implement additional features in concert with ListPager, it is not part of the ListPager library.
             </dd>
         </dl>
     </p>

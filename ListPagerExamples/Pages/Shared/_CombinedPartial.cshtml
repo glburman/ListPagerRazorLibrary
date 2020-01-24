@@ -1,7 +1,7 @@
 ﻿@model VCAjaxSingleModel
     <div class="col-md-12">
         <partial name="_ListPager" model="@Model.Parameters.Pager" />
-        <partial name="_ListPagerPostForm" model="@Model.Parameters.Pager" />
+        <partial name="Components/ListPagerPostForm" model="@Model.Parameters.Pager" />
         <div class="d-flex justify-content-end col-md-11">
             <partial name="_ListFilterPartial" model='@Model.Parameters.SearchTerm' />
         </div>

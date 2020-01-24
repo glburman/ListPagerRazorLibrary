@@ -8,10 +8,10 @@
 
 @for (int p = pageStart; p <= pageEnd; p++)
 {
-    linkUrl = String.Format("/?page={0}", p);
-    string active = p == Model.PageNumber ? "active" : string.Empty;
+    linkUrl = String.Format(AppConstants.PAGE_LINK_FORMAT, p);
+    string active = p == Model.PageNumber ? AppConstants.PAGE_LINK_ACTIVE_CLASS : string.Empty;
 
-    <li id="li_@p" class="page-item  @active">
+    <li id="pager_li_@p" class="page-item  @active">
         @if (p == Model.PageNumber)
         {
             <span class="pager-page">

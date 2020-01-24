@@ -1,13 +1,16 @@
 ﻿using ListPagerRazorLibrary.Models;
 using Microsoft.AspNetCore.Mvc;
-//https://github.com/ianbusko/reusable-components-library
+using System.Threading.Tasks;
+
 namespace ListPagerRazorLibrary.ViewComponents
 {
     public class ListPagerDropdown : ViewComponent
     {
-        public IViewComponentResult Invoke(ListPagerModel model)
+        public async Task<IViewComponentResult> InvokeAsync(ListPagerModel model)
         {
-            return View("../ListPagerDropdown", model);
+            ListPagerDropdownModel dpm = new ListPagerDropdownModel(model);
+            await Task.CompletedTask;
+            return View(AppConstants.VIEW_PATH_LISTPAGER_DROPDOWN, dpm);
         }
     }
 }

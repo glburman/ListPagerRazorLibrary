@@ -14,7 +14,15 @@
   
   <ItemGroup>
     <Content Remove="Pages\Shared\Components\ListPager - Copy.cshtml" />
+    <Content Remove="Pages\Shared\Components\ListPagerPageSize - Copy.cshtml" />
     <Content Remove="Pages\Shared\ListPager - Copy.cshtml" />
+    <Content Remove="Pages\Shared\_ListPagerArrows.cshtml" />
+    <Content Remove="Pages\Shared\_ListPagerDropdown.cshtml" />
+    <Content Remove="Pages\Shared\_ListPagerLinks.cshtml" />
+    <Content Remove="Pages\Shared\_ListPagerPageOf.cshtml" />
+    <Content Remove="Pages\Shared\_ListPagerPageSize.cshtml" />
+    <Content Remove="Pages\Shared\_ListPagerPostForm.cshtml" />
+    <Content Remove="Pages\Shared\_ListPagerRecords.cshtml" />
     <Content Remove="Pages\_ViewImports.cshtml" />
   </ItemGroup>
 

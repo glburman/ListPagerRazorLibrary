@@ -50,7 +50,7 @@
             <li class="py-2">
                 Ajax always uses the Partial View version (<code>_ListPager</code>), thus:
                 <ul>
-                    <li><code>ListPagerExamples/Pages/Shared/_ListPagerPageOf.cshtml</code> has effect</li>
+                    <li><code>ListPagerExamples/Pages/Shared/ListPagerPageOf.cshtml</code> has effect</li>
                     <li>
                         <code>ListPagerExamples/Pages/Shared/Components/ListPagerPageSize.cshtml</code> does not.
                     </li>
@@ -58,8 +58,8 @@
             </li>
             <li class="py-2">
                 <code>ShowDropDown</code> is set unconditionally <code>true</code>, but the
-                <code>_ListPagerDropdown</code> Partial View is coded such that it displays a blank
-                space for result sets with <code>PageCount < MaxPagerLinks</code>
+                <code>ListPagerDropdown</code> Partial View is coded such that it displays a blank
+                space for result sets with <code>PageCount < MaxPageLinks</code>
             </li>
             <li class="py-2">
                 Parameters are initialized in the Page's OnGet method rather than using Razor syntax in the Page view.
