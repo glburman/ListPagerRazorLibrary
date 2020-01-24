@@ -11,68 +11,79 @@ See the **ListPagerExamples** project for Ajax and non-Ajax usage.
 - Do the **Setup** section below
 
 - Embed **ListPager** as a **Partial View** with
-      <partial name="_ListPager" model="[ListPagerModel Instance]"/>
-  or as a **View Component** with
-      @await Component.InvokeAsync("ListPager", [ListPagerModel Instance])
 
-- See the appropriate example in the **ListPagerExamples project** (Ajax or non-Ajax) on how to 
-      
-      - handle the resulting javascript 'Paging Events'
-      
-      - instantiate, initialize and pass an instance of the 'ListPagerModel' class
+    ```
+    <partial name="_ListPager" model="[ListPagerModel Instance]"/>
+    ```
 
-      - use the required 'ListPagerModel.CheckBoundaries()' method
+
+- or as a **View Component** with
+
+    ```
+    @await Component.InvokeAsync("ListPager", [ListPagerModel Instance])
+    ```
+
+- See the appropriate example in the **ListPagerExamples project** (Ajax or non-Ajax) for how to 
+    
+    - import and instantiate the javascript Pager class with page scope
+    
+    - handle the resulting javascript 'Paging Events'
+      
+    - instantiate, initialize and pass an instance of the 'ListPagerModel' class
+
+    - use the required 'ListPagerModel.CheckBoundaries()' method
 
 ### Setup
 
 To use ListPager in your Asp.Net Core (3.0 or later) Web project :
 
-- add a reference to the "ListPagerRazorLibrary" project.
+- Add a reference to the **ListPagerRazorLibrary** project.
 
-- in the Host Project's "Startup.cs" add the following:
+- In the host project's **Startup.cs** add the following:
 
-```    
-      public void ConfigureServices(IServiceCollection services, ...)
-      {
+    ```    
+    public void ConfigureServices(IServiceCollection services, ...)
+    {
         ...
         services.AddListPagerViews();
         ...
-      }
+    }
 
-      public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ....)
-      {
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ....)
+    {
         ...
         app.UseListPagerStatics();
         ...
-      }
-```
+    }
+    ```
 
-- in the host project's "\_ViewImports.cshtml" add these lines:
+- In the host project's **\_ViewImports.cshtml** add these lines:
 
-```
-  @using ListPagerRazorLibrary
-  @using ListPagerRazorLibrary.Models
-  @using ListPagerRazorLibrary.ViewComponents
-```
+    ```
+    @using ListPagerRazorLibrary
+    @using ListPagerRazorLibrary.Models
+    @using ListPagerRazorLibrary.ViewComponents
+    ```
 
-- include "css/pager.css" in the host project's "\_Layout.cshtml" page
+- Include **css/pager.css** in the host project's **\_Layout.cshtml** page
 
-- render ListPager in a host view like this:
+- Render **ListPager** in a host view like this:
 
-```
-  @model ListPagerModel
-  @await Component.InvokeAsync(nameof(ListPagerRazorLibrary.ViewComponents.ListPager), Model)
+    ```
+      @model ListPagerModel 
+      @await Component.InvokeAsync(nameof(ListPagerRazorLibrary.ViewComponents.ListPager), Model)
   
-  // OR
+      // OR
    
-  @model ListPagerModel
-  <partial name="_ListPager" model=@Model/>
-```
+      @model ListPagerModel
+      <partial name="_ListPager" model="@Model"/>
+    ```
 
-- fallback ListPagerModel defaults are set in AppConstants.cs and ListPagerModel.cs 
-  but you'll likely want to set your own initial values like this:
+- To override **ListPagerModel** defaults: (see **ListPagerExamples** project for more examples/detail)
 
-```
+    ```
+    public ListPagerModel PagerData {get; set;}
+    
     public void OnGet(int PageNumber=1, int PageSize = 5)
     {
         //...
@@ -81,61 +92,75 @@ To use ListPager in your Asp.Net Core (3.0 or later) Web project :
             PagerData.TotalRecords = _db.Set<MyDataType>().Count();
             
             /*********************************
-             * Important !
-             * must do this to set PageCount
+                * Important ! must do this !
             **********************************/
             PagerData.CheckBoundaries();  
 
     }
-```
 
-### Scripting
+    public void OnPost(ListPagerModel model)
+    {
+        //...
+            PagerData = model;
+            PagerData.TotalRecords = _db.Set<MyDataType>().Count();
+           
+            /*********************************
+                * Important ! must do this !
+            **********************************/
+            PagerData.CheckBoundaries();  
 
-The library includes the static resource "Pager.js" (< 2 kb) which exports the default class 'Pager'. It must be Imported as a module.
-Please refer to the "ListPagerExamples" project for use in various cases.
+    }
+
+    ```
+- Import the **Pager** class from **js/Pager.js** and instantiate it with page scope. 
+    Please refer to the **ListPagerExamples** project for use in various cases.
 
 
 ### Customizing
 
 - There are several ways to customize ListPager. In summary, you can :
 
-      - Use the visibility 'toggles' and other settings available in the provided 'ListPagerModel' c# Class (see below)
+  - Use the **visibility toggles** and other settings available in the provided **ListPagerModel** c# Class (see below)
       
-      - Override a sub-view (e.g. 'ListPagerPageOf.cshtml') by adding your own version in the correct folder (see below)
+  - **Override a sub-view** (e.g. 'ListPagerPageOf.cshtml') by adding your own version in the correct folder (see below)
+  
+  - **Override the CSS** in wwwroot/css/pager.css' and/or include your own .css file
+  
+  - **Change the pager layout**/ structure by using your own container View, ignoring or overriding ListPager.cshtml / _ListPager.cshtml
       
-      - Override the CSS in 'wwwroot/css/pager.css' and/or include your own .css file
-      
-      - Change the pager layout/ structure by using your own container View, ignoring or overriding ListPager.cshtml / _ListPager.cshtml
-      
-- Any view (See 'Included Views' below) in a Razor Class Library can be overridden by the host, as can the .css
+- Any of the **Included Views** can be overridden by the host, as can the .css but at this writing RCL overrides 
+  require that the host folder structure mirror the library. 
+  **ListPagerRazorLibrary** has the following relevant structure:
+
+  - **css/pager.css**           (below wwwroot in the host)
+
+  - **js/pager.js**             (might be better to fork the project than override this)
+
+  - **Pages/Shared**            (only _ListPager.cshtml, the Partial View version, lives here)
+
+  - **Pages/Shared/Components** (ListPager.cshtml and all the other Component Views)
+
+- Any of the **Included Views** can be used as Partial Views like this example for **ListPagerLinks.cshtml**:
+
+    ```
+    <partial name="Components/ListPagerLinks.cshtml" model="[ModelInstance]" />
+                
+    /* Note - ListPagerArrows and ListPagerDropdown require instances of their own Models,
+    *  ListPagerArrowModel and ListPagerDropDownModel, and are therefore perhaps best 
+    *  invoked as ViewComponents. All others require a ListPagerModel instance which
+    *  is typically passed to the container ListPager.cstml or _ListPager.cshtml
+    *  See _ListPager.cshtml and ListPager.cshtml for example usage.
+    */
+    ```
+- To alter Layout :
+
+  - Override Listpager.cshtml or _ListPager.cshtml, or using your own container View instead.
+
+  - Use the ListPager 'sub-views' and/or your own views/content in the HTML structure you wish
      
-      At this writing RCL overrides require that the host folder structure mirror the library. ListPagerRazorLibrary has the following relevant structure:
 
-      css/pager.css           (below wwwroot in the host)
-      js/pager.js             (might be better to fork the project than override this)
-      Pages/Shared            (only _ListPager.cshtml, the Partial View version, lives here)
-      Pages/Shared/Components (ListPager.cshtml and all the other Component Views)
+- Note that folder names are case-sensitive for override purposes. "/CSS" or "/Css" is not the same as "/css"
 
-- Layout changes can by done by 
-
-      - Overridding Listpager.cshtml or _ListPager.cshtml, or using your own container View instead.
-
-      - Using the ListPager 'sub-views' and/or your own views/content in the HTML structure you wish
-      
-
-- Component/*.cshtml can be used as Partial Views like this example for "ListPagerLinks.cshtml":
-```
-      <partial name="Components/ListPagerLinks.cshtml" model="[ModelInstance]" />
-                  
-      /* Note - ListPagerArrows and ListPagerDropdown require instances of their own Models,
-      *  ListPagerArrowModel and ListPagerDropDownModel, and are therefore perhaps best 
-      *  invoked as ViewComponents. All others require a ListPagerModel instance which
-      *  is typically passed to the container ListPager.cstml or _ListPager.cshtml
-      *  See _ListPager.cshtml and ListPager.cshtml for example usage.
-      */
-```
-
-- folder names are case-sensitive for override purposes. "/CSS" or "/Css" is not the same as "/css"
 
 ### Included Views
 
@@ -192,6 +217,7 @@ Views are provided for each major element of the pager. All can be used as **Vie
 
 - **_ListPager**
       lives at Pages/Shared/_ListPager.cshtml and uses the above sub-views as Partial Views
+
 
 ### ListPagerModel
 
