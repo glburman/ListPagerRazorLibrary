@@ -1,0 +1,31 @@
+﻿@import "../bstrap-imports";
+
+$link-highlight-color: Lime;
+$link-color: $gray-100;
+
+$gray-450: #bbb;
+
+/* page-item applies to all pager li elements */
+$page-item-background-hover: $gray-600;
+$page-item-border: 1px solid $gray-300;
+$page-item-disabled-opacity: 50.0;
+
+/* page-link applies to all a elements > */
+$page-link-background: $gray-200;
+$page-link-color: $gray-800;
+$page-link-background-active: $gray-600;
+$page-link-color-active: $gray-200;
+$page-link-border-color-active: $gray-600;
+$page-link-border-color-hover: $gray-600;
+$page-link-color-hover: $link-highlight-color;
+
+/* pager drop-down*/
+$pager-dropdown-item-background-hover:$gray-700;
+
+
+
+
+
+
+
+

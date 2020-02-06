@@ -1,0 +1,56 @@
+﻿@model ListPagerModel
+
+@{
+    int back = Model.Start - 1;
+    int next = Model.End + Model.MaxPageLinks;
+    int start = Model.Start;
+    int end = Model.End;
+}
+
+<style>
+    a.blank {
+        width: 2rem;
+        min-width: 2rem;
+        max-width:2rem;
+        padding:0.50rem 0.50rem;
+    }
+        /*a.blank:hover {
+            background-color: red;
+        }*/
+</style>
+
+
+<ul class="list-pager pagination">
+
+    @await Component.InvokeAsync(AppConstants.VIEWNAME_ARROWS, new { State = Model, Direction = -1, Single = true })
+
+    @*<partial name="Components/ListPagerItem" model='new ListPagerItemModel {PageNumber=1,Text="", Disabled=true, CssClass="blank"}' />*@
+
+
+    @if (start > 1)
+    {
+        <partial name="Components/ListPagerItem" model='new ListPagerItemModel {PageNumber=1,Text="1"}' />
+
+    }
+    @if (start > 2)
+    {
+        <partial name="Components/ListPagerItem" model='new ListPagerItemModel {PageNumber=back,Text="..."}' />
+    }
+
+    <partial name="Components/ListPagerLinks" model="@Model" />
+
+    @if (Model.PageNumber < Model.PageCount && Model.PageCount > end + 1)
+    {
+        <partial name="Components/ListPagerItem" model='new ListPagerItemModel {PageNumber=next,Text="..."}' />
+    }
+
+    @if (Model.PageNumber < Model.PageCount && Model.PageCount > end)
+    {
+        <partial name="Components/ListPagerItem" model='new ListPagerItemModel {PageNumber=Model.PageCount,Text=Model.PageCount.ToString()}' />
+    }
+
+    @await Component.InvokeAsync(AppConstants.VIEWNAME_ARROWS, new { State = Model, Direction = 1, single = true })
+
+</ul>
+
+

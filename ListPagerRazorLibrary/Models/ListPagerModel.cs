@@ -15,29 +15,7 @@ namespace ListPagerRazorLibrary.Models
         public ListPagerModel()
         {
         }
-        public ListPagerModel(ListPagerModel settings)
-        {
-
-            //data
-            PageNumber = settings.PageNumber;
-            PageSize = settings.PageSize;
-            MaxPageLinks = settings.MaxPageLinks;
-            DropDownIncrement = settings.DropDownIncrement;
-            MaxPageSize = settings.MaxPageSize;
-            MinPageSize = settings.MinPageSize;
-            PostTarget = settings.PostTarget;
-            //for convenience 
-            SortColumn = settings.SortColumn;
-            SortDirection = settings.SortDirection;
-            //visbility
-            ShowPageSize = settings.ShowPageSize;
-            ShowDropDown = settings.ShowDropDown;
-            ShowPageOf = settings.ShowPageOf;
-            ShowRecordsOf = settings.ShowRecordsOf;
-            //naming
-            PageSizeInputId = settings.PageSizeInputId;
-        }
-
+        
         public void CheckBoundaries()
         {
             _totalRecords = _totalRecords ?? 0;
@@ -58,6 +36,7 @@ namespace ListPagerRazorLibrary.Models
         {
             get => Math.Min(Start + MaxPageLinks - 1, PageCount);
         }
+       
         public int PageSize
         {
             get => _pageSize;
@@ -73,7 +52,7 @@ namespace ListPagerRazorLibrary.Models
         public int PageCount
         {
             get => _pageCount;
-            //set => _pageCount = value < 0 ? 0 : value;
+            set => _pageCount = value < 0 ? 0 : value;
         }
         public int MaxPageLinks { get; set; } = AppConstants.MAX_PAGE_LINKS;
         public int MaxPageSize

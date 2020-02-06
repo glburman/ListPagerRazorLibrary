@@ -1,0 +1,89 @@
+﻿@page "{handler?}"
+@namespace ListPagerExamples.Areas.ViewComponent.Pages
+@model VCAjaxTwoModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "_LayoutForExamples";
+    ViewData["Title"] = "ListPager Examples - Ajax Separate Partial Views";
+    var pager = Model.Parameters.Pager;
+    pager.DropDownIncrement = 7;
+    pager.ShowRecordsOf = pager.IsFiltered;
+    pager.ShowPageOf = !pager.IsFiltered;
+    pager.ShowDropDown = true;
+    pager.PageSize = 5;
+    Model.Parameters.Pager = pager;
+}
+@section Css{
+    <link rel="stylesheet" href="~/css/pager.css" />
+}
+@section Scripts{
+    <script>
+        //Page scope, not module scope
+        let pager
+    </script>
+    <script type="module">
+        let afToken, search
+         let modelState = @Json.Serialize(@Model.Parameters);
+        const constants = {
+            urlBase: "AjaxSeperate",
+            tableTarget: "table-wrapper",
+            pagerTarget: "pager-wrapper",
+            searchInputId:"filter"
+        }
+        import Pager from "../_content/ListPagerRazorLibrary/js/pager.js"    //path in ListPagerRazorLibrary
+        pager = new Pager(modelState.pager, {})
+
+        window.onload = () => {
+            afToken = $('input[name="__RequestVerificationToken"]').val()
+            search = document.getElementById(constants.searchInputId)
+            pager.goToPage(1)
+        }
+        document.addEventListener(Pager.constants.pagingEventName, (e) => {
+            if (search) modelState.searchTerm = search.value
+            pager.postEvent(e, constants.urlBase, afToken, modelState, constants.tableTarget)
+              .then(() => {
+                    let url = `${constants.urlBase}/Pager`
+                    pager.postState(url, afToken, modelState, constants.pagerTarget)
+              })
+        })
+    </script>
+}
+
+@section Notes{
+    <div class="collapse py-0 m-0" id="collapseExample" aria-expanded="false">
+        <p>
+            This example makes seperate Ajax calls for the Data List and ListPager.
+        </p>
+        <p>
+            ListPager is updated only if the Data List fetch succeeds.
+            See the <code>GetBoth()</code> javascript function. A Named Handler ('OnPostPager') renders the _ListPager Partial View (from the Library) while the standard OnPost returns the Data List in the app's <code>_ListTable.cshtml</code> Partial View).
+            Just to be diferent, the <code>DropDownIncrement</code> is changed from 5 to 7.
+        </p>
+        <p>
+            ListPager is styled with <code>pager-large.css</code>
+        </p>
+
+    </div>
+}
+
+@Html.AntiForgeryToken()
+<div class="col my-4">
+    <div class="col-md-10 text-center mx-auto">
+        <div class="row my-2 d-flex justify-content-end">
+            <div class="col-md-4">
+                <partial name="_ListFilterPartial" model='@Model.Parameters.SearchTerm' />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-9 text-center mx-auto">
+            <div class="d-flex justify-content-between" id="pager-wrapper">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex justify-content-center">
+    <div class="col-md-10" id="table-wrapper">
+    </div>
+</div>

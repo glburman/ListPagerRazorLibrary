@@ -1,0 +1,20 @@
+﻿@model ListPagerItemModel
+<li class="page-item">
+    @*<span class="pager-page">*@
+        @if (Model.Disabled)
+        {
+            <span class="pager-page @Model.CssClass">
+                <a class="page-link disabled" href="#">
+                    @Model.Text<span class="sr-only">@Model.SrWord</span>
+                </a>
+            </span>
+        }
+        else
+        {
+            <a class="page-link @Model.CssClass" href="#" onclick="pager.goToPage(@Model.PageNumber)">
+                @Model.Text
+                <span class="sr-only">@Model.SrWord</span>
+            </a>
+        }
+    @*</span>*@
+</li>

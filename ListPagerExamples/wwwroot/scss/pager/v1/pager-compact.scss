@@ -1,0 +1,55 @@
+#list-pager-container-compact {
+    max-width: 222px;
+}
+
+#list-pager-container-tiny {
+    max-width: 288px;
+}
+
+.pagination-compact {
+    margin: 0rem !important;
+    padding: 0rem !important;
+    width: 100% !important;
+    min-width: 100% !important;
+}
+
+    .pagination-compact > li {
+        margin: 0rem !important;
+        padding: 0rem !important;
+        line-height: normal !important;
+    }
+
+        .pagination-compact > li > a,
+        .pagination-compact > li > span,
+        .pagination-compact > li > span > a {
+            width: auto !important;
+            min-width: 2.0rem !important;
+            text-align: center;
+            padding: 0px 0px 0px 0px !important;
+        }
+
+ul.pagination-compact > li.pager-range > span {
+    text-align: center;
+    width: 50% !important;
+    min-width: 50% !important;
+    line-height: unset !important;
+}
+
+ul.pagination-compact > li.page-item .page-link {
+    line-height: unset !important;
+}
+
+    ul.pagination-compact > li.page-item .page-link.arrow {
+    }
+
+    ul.pagination-compact > li.page-item .page-link.disabled {
+        border-top: 1px solid #dee2e6 !important;
+    }
+
+ul.pagination-compact > li.page-item:last-child .page-link {
+    border-radius: 0.0rem !important;
+}
+
+ul.pagination-compact > li.page-item:first-child .page-link {
+    border-radius: 0.0rem !important;
+}

@@ -1,0 +1,102 @@
+﻿@model ListPagerModel
+
+@{
+
+    //page links + 2 Arrows + 2 ellipses
+    int itemCount = Model.MaxPageLinks + 4;
+
+    //page links start at greater of (1 and lower of: (specified start, PageCount - MaxPageLinks))
+    int pageStart = Math.Max(1, Math.Min(Model.Start, Model.PageCount - Model.MaxPageLinks + 1));
+    //page links end at Lesser of PageCount and pageStart + MaxPageLinks
+    int pageEnd = Math.Min(pageStart + Model.MaxPageLinks, Model.PageCount);
+
+
+    int back = Model.Start - 1;
+    int next = Model.End + Model.MaxPageLinks;
+    int start = Model.Start;
+    int end = Model.End;
+
+
+    string linkUrl = "";
+    //int pageStart = Model.Start;
+    ////int pageEnd = Model.End;
+    //if (pageEnd >= Model.PageCount - 1)
+    //{
+    //    pageStart = Math.Max(pageEnd - Model.MaxPageLinks, 1);
+    //}
+
+}
+
+
+<style>
+    .page-link.disabled.blank {
+        /*width: 2rem;
+        min-width: 2rem;
+        max-width:2rem;
+        padding:0.50rem 0.50rem;
+        min-height: 2.5rem;
+        height: 2.5rem;*/
+        color: white;
+    }
+    /*a.blank:hover {
+            background-color: red;
+        }*/
+</style>
+
+
+<ul class="list-pager pagination">
+
+    @*@await Component.InvokeAsync(AppConstants.VIEWNAME_ARROWS, new { State = Model, Direction = -1, Single = true })*@
+
+
+
+
+    @*@if (start > 1)
+    {
+        <partial name="Components/ListPagerItem" model='new ListPagerItemModel {PageNumber=1,Text="1"}' />
+
+    }*@
+    @if (start > 1)
+    {
+        <partial name="Components/ListPagerItem" model='new ListPagerItemModel { PageNumber = back, Text = "..." }' />
+    }
+    else
+    {
+        <partial name="Components/ListPagerItem" model='new ListPagerItemModel {PageNumber=0,Text="-", Disabled=true, CssClass="blank"}' />
+    }
+
+    @* Always show the same number of links *@
+    @for (int i = 0; i < Model.MaxPageLinks; i++)
+    {
+        int p = i + pageStart;
+        if (p > pageEnd)
+        {
+            //write blank
+            <partial name="Components/ListPagerItem" model='new ListPagerItemModel { PageNumber = 0, Text = "0", Disabled = true, CssClass = "blank" }' />
+        }
+        else
+        {
+            bool active = p == Model.PageNumber;
+            <partial name="Components/ListPagerItem" model='new ListPagerItemModel { PageNumber = p, Text = p.ToString(), Active=active, Disabled = false}' />
+        }
+    }
+
+    @if (Model.PageNumber < Model.PageCount && Model.PageCount > end + 1)
+    {
+        <partial name="Components/ListPagerItem" model='new ListPagerItemModel { PageNumber = next, Text = "..." }' />
+    }
+    else
+    {
+        <partial name="Components/ListPagerItem" model='new ListPagerItemModel {PageNumber=0,Text="-", Disabled=true, CssClass="blank"}' />
+    }
+
+    @if (Model.PageNumber < Model.PageCount && Model.PageCount > end)
+    {
+        <partial name="Components/ListPagerItem" model='new ListPagerItemModel {PageNumber=Model.PageCount,Text=Model.PageCount.ToString()}' />
+    }
+
+    @*@await Component.InvokeAsync(AppConstants.VIEWNAME_ARROWS, new { State = Model, Direction = 1, single = true })*@
+
+</ul>
+
+

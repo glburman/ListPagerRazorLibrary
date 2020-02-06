@@ -1,0 +1,313 @@
+﻿@page "{handler?}"
+@namespace ListPagerExamples.Areas.ViewComponent.Pages
+@model AjaxSheetsModel
+@{
+    Layout = "_LayoutForExamples";
+    ViewData["Title"] = "ListPager Examples - Ajax - Single Sheet Pages";
+}
+@section Scripts{
+    <script>
+        //Pager instance needs page scope
+        let pager
+    </script>
+
+    <script type="module">
+        import Pager from "../_content/ListPagerRazorLibrary/js/pager.js"    //path in ListPagerRazorLibrary
+        let modelState =@Json.Serialize(Model.Parameters);
+        pager = new Pager(modelState.pager, {})
+        const constants = {
+            urlBase: "AjaxSheets/pager",
+            pagerTarget: "pager-wrapper",
+            pageTarget:"content-wrapper"
+        }
+
+        let afToken = null;
+        window.onload = () => {
+            afToken = document.querySelectorAll("input[name='__RequestVerificationToken']")[0].value;
+            pager.goToPage(1)
+        }
+        document.addEventListener(Pager.constants.pagingEventName, (event) => {
+            pager.postEvent(event, constants.urlBase, afToken, modelState, constants.pagerTarget)
+                .then(() => {
+                    //mimic page retreival
+                    var id = `#post-page-${modelState.pager.pageNumber}`
+                    document.getElementById(constants.pageTarget).innerHTML = document.querySelector(id).innerHTML;
+                })
+        })
+    </script>
+}
+@section Css{
+    <link rel="stylesheet" href="~/css/pager.css" />
+    <style>
+        ul.pagination {
+            display: flex !important;
+            justify-content: flex-end !important;
+            margin-right: 36rem;
+        }
+
+        .pagination > li {
+            display: list-item;
+        }
+
+        .page-link {
+            margin-left: .5rem;
+            margin-right: .5rem;
+            border-radius: 4px;
+        }
+    </style>
+}
+
+@section Notes{
+    <div class="collapse py-0 m-0" id="collapseExample" aria-expanded="false">
+    </div>
+}
+
+@Html.AntiForgeryToken()
+
+<div class="container">
+    <div class="m-4 pr-4" id="pager-wrapper">
+    </div>
+    <div class="mx-4 px-4">
+        <div id="content-wrapper">
+        </div>
+    </div>
+</div>
+
+<template id="post-page-1">
+
+    <h3 class="text-center">This is my Blog Post</h3>
+    <h5 class="text-center">Page 1</h5>
+
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis imperdiet tincidunt ex id suscipit. Donec ac ante vitae sem mattis feugiat. Etiam in felis hendrerit, vestibulum orci non, egestas lectus. Nulla facilisi. Ut tempor ornare nibh, ut convallis magna vestibulum sed. Aliquam vulputate magna nisi, vitae aliquam purus faucibus quis. Phasellus elit purus, placerat nec sagittis quis, gravida vel nulla. Phasellus justo justo, ornare nec eros sed, rutrum dignissim erat.
+    </p>
+    <p>
+        Fusce rhoncus tempus risus. Praesent non ante quis erat pellentesque ornare. Etiam vitae magna nec orci sollicitudin varius. Vivamus cursus tincidunt metus vitae convallis. Ut dignissim nisl at iaculis interdum. Proin nec vulputate tortor. Sed a felis eget quam scelerisque pellentesque. Nullam tellus lorem, molestie vel sapien sed, posuere blandit lacus. In elementum eleifend urna, sit amet pharetra est consectetur vehicula. Nunc mauris leo, tristique non ullamcorper ut, posuere id nulla.
+    </p>
+    <p>
+        Nullam quis nunc eu mi fringilla cursus malesuada id felis. Suspendisse potenti. Donec scelerisque, purus sed imperdiet lacinia, est nisi ullamcorper arcu, non sollicitudin nulla nibh eget eros. Nullam a varius ipsum, ut interdum magna. Suspendisse pulvinar bibendum ligula, quis ultrices justo mollis ac. Proin pharetra vel risus sed rutrum. Suspendisse ac elementum enim. Nam in dignissim nibh. Nullam eget volutpat nisi, nec consequat nisl.
+    </p>
+    <p>
+        Proin commodo interdum mi. Suspendisse sed tincidunt ligula, dignissim auctor dolor. Cras sit amet tempus odio. Proin vulputate magna a laoreet cursus. Quisque imperdiet, leo nec accumsan fringilla, mi dui vestibulum turpis, in pulvinar augue quam vitae justo. Aliquam in euismod elit. Maecenas faucibus, erat ut varius tristique, quam mi tempus nulla, nec malesuada eros nisl non mi. Nunc dapibus mi quis posuere suscipit. Etiam congue risus eget ipsum pharetra tempor. Etiam maximus posuere nisi, ut convallis tortor dictum vel. Nam tellus felis, sagittis rutrum pretium ut, tempor non tellus.
+    </p>
+    <p>
+        Nullam id risus eu odio sodales egestas. Nulla at leo dictum, accumsan est vehicula, bibendum urna. In vestibulum vulputate felis, in vestibulum arcu. Pellentesque dignissim, sem nec tristique tincidunt, sem dolor dapibus ex, eu faucibus magna est quis nulla. Nunc posuere justo vel elit molestie vehicula. Nunc metus libero, cursus id scelerisque ac, gravida quis nisi. Donec vitae ex eros. Aenean vehicula tortor at odio vulputate, at laoreet lectus gravida. Nunc vehicula, nisl venenatis semper volutpat, magna massa laoreet ex, imperdiet aliquam odio tellus sit amet magna. In egestas arcu vitae magna ullamcorper, et malesuada neque vehicula. Sed sed laoreet dui, et pellentesque ipsum. Nulla malesuada ligula imperdiet vulputate volutpat. Fusce eleifend mi eget arcu feugiat, at consequat mauris sagittis.
+    </p>
+
+
+</template>
+<template id="post-page-2">
+
+    <div class="container col-md-12 text-center mx-auto">
+        <h3>This is my Blog Post</h3>
+        <h5>Page 2</h5>
+    </div>
+
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis imperdiet tincidunt ex id suscipit. Donec ac ante vitae sem mattis feugiat. Etiam in felis hendrerit, vestibulum orci non, egestas lectus. Nulla facilisi. Ut tempor ornare nibh, ut convallis magna vestibulum sed. Aliquam vulputate magna nisi, vitae aliquam purus faucibus quis. Phasellus elit purus, placerat nec sagittis quis, gravida vel nulla. Phasellus justo justo, ornare nec eros sed, rutrum dignissim erat.
+    </p>
+    <p>
+        Fusce rhoncus tempus risus. Praesent non ante quis erat pellentesque ornare. Etiam vitae magna nec orci sollicitudin varius. Vivamus cursus tincidunt metus vitae convallis. Ut dignissim nisl at iaculis interdum. Proin nec vulputate tortor. Sed a felis eget quam scelerisque pellentesque. Nullam tellus lorem, molestie vel sapien sed, posuere blandit lacus. In elementum eleifend urna, sit amet pharetra est consectetur vehicula. Nunc mauris leo, tristique non ullamcorper ut, posuere id nulla.
+    </p>
+    <p>
+        Nullam quis nunc eu mi fringilla cursus malesuada id felis. Suspendisse potenti. Donec scelerisque, purus sed imperdiet lacinia, est nisi ullamcorper arcu, non sollicitudin nulla nibh eget eros. Nullam a varius ipsum, ut interdum magna. Suspendisse pulvinar bibendum ligula, quis ultrices justo mollis ac. Proin pharetra vel risus sed rutrum. Suspendisse ac elementum enim. Nam in dignissim nibh. Nullam eget volutpat nisi, nec consequat nisl.
+    </p>
+    <p>
+        Proin commodo interdum mi. Suspendisse sed tincidunt ligula, dignissim auctor dolor. Cras sit amet tempus odio. Proin vulputate magna a laoreet cursus. Quisque imperdiet, leo nec accumsan fringilla, mi dui vestibulum turpis, in pulvinar augue quam vitae justo. Aliquam in euismod elit. Maecenas faucibus, erat ut varius tristique, quam mi tempus nulla, nec malesuada eros nisl non mi. Nunc dapibus mi quis posuere suscipit. Etiam congue risus eget ipsum pharetra tempor. Etiam maximus posuere nisi, ut convallis tortor dictum vel. Nam tellus felis, sagittis rutrum pretium ut, tempor non tellus.
+    </p>
+    <p>
+        Nullam id risus eu odio sodales egestas. Nulla at leo dictum, accumsan est vehicula, bibendum urna. In vestibulum vulputate felis, in vestibulum arcu. Pellentesque dignissim, sem nec tristique tincidunt, sem dolor dapibus ex, eu faucibus magna est quis nulla. Nunc posuere justo vel elit molestie vehicula. Nunc metus libero, cursus id scelerisque ac, gravida quis nisi. Donec vitae ex eros. Aenean vehicula tortor at odio vulputate, at laoreet lectus gravida. Nunc vehicula, nisl venenatis semper volutpat, magna massa laoreet ex, imperdiet aliquam odio tellus sit amet magna. In egestas arcu vitae magna ullamcorper, et malesuada neque vehicula. Sed sed laoreet dui, et pellentesque ipsum. Nulla malesuada ligula imperdiet vulputate volutpat. Fusce eleifend mi eget arcu feugiat, at consequat mauris sagittis.
+    </p>
+</template>
+<template id="post-page-3">
+    <div class="container col-md-12 text-center mx-auto">
+        <h3>This is my Blog Post</h3>
+        <h5>Page 3</h5>
+    </div>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis imperdiet tincidunt ex id suscipit. Donec ac ante vitae sem mattis feugiat. Etiam in felis hendrerit, vestibulum orci non, egestas lectus. Nulla facilisi. Ut tempor ornare nibh, ut convallis magna vestibulum sed. Aliquam vulputate magna nisi, vitae aliquam purus faucibus quis. Phasellus elit purus, placerat nec sagittis quis, gravida vel nulla. Phasellus justo justo, ornare nec eros sed, rutrum dignissim erat.
+    </p>
+    <p>
+        Fusce rhoncus tempus risus. Praesent non ante quis erat pellentesque ornare. Etiam vitae magna nec orci sollicitudin varius. Vivamus cursus tincidunt metus vitae convallis. Ut dignissim nisl at iaculis interdum. Proin nec vulputate tortor. Sed a felis eget quam scelerisque pellentesque. Nullam tellus lorem, molestie vel sapien sed, posuere blandit lacus. In elementum eleifend urna, sit amet pharetra est consectetur vehicula. Nunc mauris leo, tristique non ullamcorper ut, posuere id nulla.
+    </p>
+    <p>
+        Nullam quis nunc eu mi fringilla cursus malesuada id felis. Suspendisse potenti. Donec scelerisque, purus sed imperdiet lacinia, est nisi ullamcorper arcu, non sollicitudin nulla nibh eget eros. Nullam a varius ipsum, ut interdum magna. Suspendisse pulvinar bibendum ligula, quis ultrices justo mollis ac. Proin pharetra vel risus sed rutrum. Suspendisse ac elementum enim. Nam in dignissim nibh. Nullam eget volutpat nisi, nec consequat nisl.
+    </p>
+    <p>
+        Proin commodo interdum mi. Suspendisse sed tincidunt ligula, dignissim auctor dolor. Cras sit amet tempus odio. Proin vulputate magna a laoreet cursus. Quisque imperdiet, leo nec accumsan fringilla, mi dui vestibulum turpis, in pulvinar augue quam vitae justo. Aliquam in euismod elit. Maecenas faucibus, erat ut varius tristique, quam mi tempus nulla, nec malesuada eros nisl non mi. Nunc dapibus mi quis posuere suscipit. Etiam congue risus eget ipsum pharetra tempor. Etiam maximus posuere nisi, ut convallis tortor dictum vel. Nam tellus felis, sagittis rutrum pretium ut, tempor non tellus.
+    </p>
+    <p>
+        Nullam id risus eu odio sodales egestas. Nulla at leo dictum, accumsan est vehicula, bibendum urna. In vestibulum vulputate felis, in vestibulum arcu. Pellentesque dignissim, sem nec tristique tincidunt, sem dolor dapibus ex, eu faucibus magna est quis nulla. Nunc posuere justo vel elit molestie vehicula. Nunc metus libero, cursus id scelerisque ac, gravida quis nisi. Donec vitae ex eros. Aenean vehicula tortor at odio vulputate, at laoreet lectus gravida. Nunc vehicula, nisl venenatis semper volutpat, magna massa laoreet ex, imperdiet aliquam odio tellus sit amet magna. In egestas arcu vitae magna ullamcorper, et malesuada neque vehicula. Sed sed laoreet dui, et pellentesque ipsum. Nulla malesuada ligula imperdiet vulputate volutpat. Fusce eleifend mi eget arcu feugiat, at consequat mauris sagittis.
+    </p>
+</template>
+<template id="post-page-4">
+    <div class="container col-md-12 text-center mx-auto">
+        <h3>This is my Blog Post</h3>
+        <h5>Page 4</h5>
+    </div>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis imperdiet tincidunt ex id suscipit. Donec ac ante vitae sem mattis feugiat. Etiam in felis hendrerit, vestibulum orci non, egestas lectus. Nulla facilisi. Ut tempor ornare nibh, ut convallis magna vestibulum sed. Aliquam vulputate magna nisi, vitae aliquam purus faucibus quis. Phasellus elit purus, placerat nec sagittis quis, gravida vel nulla. Phasellus justo justo, ornare nec eros sed, rutrum dignissim erat.
+    </p>
+    <p>
+        Fusce rhoncus tempus risus. Praesent non ante quis erat pellentesque ornare. Etiam vitae magna nec orci sollicitudin varius. Vivamus cursus tincidunt metus vitae convallis. Ut dignissim nisl at iaculis interdum. Proin nec vulputate tortor. Sed a felis eget quam scelerisque pellentesque. Nullam tellus lorem, molestie vel sapien sed, posuere blandit lacus. In elementum eleifend urna, sit amet pharetra est consectetur vehicula. Nunc mauris leo, tristique non ullamcorper ut, posuere id nulla.
+    </p>
+    <p>
+        Nullam quis nunc eu mi fringilla cursus malesuada id felis. Suspendisse potenti. Donec scelerisque, purus sed imperdiet lacinia, est nisi ullamcorper arcu, non sollicitudin nulla nibh eget eros. Nullam a varius ipsum, ut interdum magna. Suspendisse pulvinar bibendum ligula, quis ultrices justo mollis ac. Proin pharetra vel risus sed rutrum. Suspendisse ac elementum enim. Nam in dignissim nibh. Nullam eget volutpat nisi, nec consequat nisl.
+    </p>
+    <p>
+        Proin commodo interdum mi. Suspendisse sed tincidunt ligula, dignissim auctor dolor. Cras sit amet tempus odio. Proin vulputate magna a laoreet cursus. Quisque imperdiet, leo nec accumsan fringilla, mi dui vestibulum turpis, in pulvinar augue quam vitae justo. Aliquam in euismod elit. Maecenas faucibus, erat ut varius tristique, quam mi tempus nulla, nec malesuada eros nisl non mi. Nunc dapibus mi quis posuere suscipit. Etiam congue risus eget ipsum pharetra tempor. Etiam maximus posuere nisi, ut convallis tortor dictum vel. Nam tellus felis, sagittis rutrum pretium ut, tempor non tellus.
+    </p>
+    <p>
+        Nullam id risus eu odio sodales egestas. Nulla at leo dictum, accumsan est vehicula, bibendum urna. In vestibulum vulputate felis, in vestibulum arcu. Pellentesque dignissim, sem nec tristique tincidunt, sem dolor dapibus ex, eu faucibus magna est quis nulla. Nunc posuere justo vel elit molestie vehicula. Nunc metus libero, cursus id scelerisque ac, gravida quis nisi. Donec vitae ex eros. Aenean vehicula tortor at odio vulputate, at laoreet lectus gravida. Nunc vehicula, nisl venenatis semper volutpat, magna massa laoreet ex, imperdiet aliquam odio tellus sit amet magna. In egestas arcu vitae magna ullamcorper, et malesuada neque vehicula. Sed sed laoreet dui, et pellentesque ipsum. Nulla malesuada ligula imperdiet vulputate volutpat. Fusce eleifend mi eget arcu feugiat, at consequat mauris sagittis.
+    </p>
+</template>
+<template id="post-page-5">
+    <div class="container col-md-12 text-center mx-auto">
+        <h3>This is my Blog Post</h3>
+        <h5>Page 5</h5>
+    </div>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis imperdiet tincidunt ex id suscipit. Donec ac ante vitae sem mattis feugiat. Etiam in felis hendrerit, vestibulum orci non, egestas lectus. Nulla facilisi. Ut tempor ornare nibh, ut convallis magna vestibulum sed. Aliquam vulputate magna nisi, vitae aliquam purus faucibus quis. Phasellus elit purus, placerat nec sagittis quis, gravida vel nulla. Phasellus justo justo, ornare nec eros sed, rutrum dignissim erat.
+    </p>
+    <p>
+        Fusce rhoncus tempus risus. Praesent non ante quis erat pellentesque ornare. Etiam vitae magna nec orci sollicitudin varius. Vivamus cursus tincidunt metus vitae convallis. Ut dignissim nisl at iaculis interdum. Proin nec vulputate tortor. Sed a felis eget quam scelerisque pellentesque. Nullam tellus lorem, molestie vel sapien sed, posuere blandit lacus. In elementum eleifend urna, sit amet pharetra est consectetur vehicula. Nunc mauris leo, tristique non ullamcorper ut, posuere id nulla.
+    </p>
+    <p>
+        Nullam quis nunc eu mi fringilla cursus malesuada id felis. Suspendisse potenti. Donec scelerisque, purus sed imperdiet lacinia, est nisi ullamcorper arcu, non sollicitudin nulla nibh eget eros. Nullam a varius ipsum, ut interdum magna. Suspendisse pulvinar bibendum ligula, quis ultrices justo mollis ac. Proin pharetra vel risus sed rutrum. Suspendisse ac elementum enim. Nam in dignissim nibh. Nullam eget volutpat nisi, nec consequat nisl.
+    </p>
+    <p>
+        Proin commodo interdum mi. Suspendisse sed tincidunt ligula, dignissim auctor dolor. Cras sit amet tempus odio. Proin vulputate magna a laoreet cursus. Quisque imperdiet, leo nec accumsan fringilla, mi dui vestibulum turpis, in pulvinar augue quam vitae justo. Aliquam in euismod elit. Maecenas faucibus, erat ut varius tristique, quam mi tempus nulla, nec malesuada eros nisl non mi. Nunc dapibus mi quis posuere suscipit. Etiam congue risus eget ipsum pharetra tempor. Etiam maximus posuere nisi, ut convallis tortor dictum vel. Nam tellus felis, sagittis rutrum pretium ut, tempor non tellus.
+    </p>
+    <p>
+        Nullam id risus eu odio sodales egestas. Nulla at leo dictum, accumsan est vehicula, bibendum urna. In vestibulum vulputate felis, in vestibulum arcu. Pellentesque dignissim, sem nec tristique tincidunt, sem dolor dapibus ex, eu faucibus magna est quis nulla. Nunc posuere justo vel elit molestie vehicula. Nunc metus libero, cursus id scelerisque ac, gravida quis nisi. Donec vitae ex eros. Aenean vehicula tortor at odio vulputate, at laoreet lectus gravida. Nunc vehicula, nisl venenatis semper volutpat, magna massa laoreet ex, imperdiet aliquam odio tellus sit amet magna. In egestas arcu vitae magna ullamcorper, et malesuada neque vehicula. Sed sed laoreet dui, et pellentesque ipsum. Nulla malesuada ligula imperdiet vulputate volutpat. Fusce eleifend mi eget arcu feugiat, at consequat mauris sagittis.
+    </p>
+</template>
+<template id="post-page-6">
+    <div class="container col-md-12 text-center mx-auto">
+        <h3>This is my Blog Post</h3>
+        <h5>Page 6</h5>
+    </div>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis imperdiet tincidunt ex id suscipit. Donec ac ante vitae sem mattis feugiat. Etiam in felis hendrerit, vestibulum orci non, egestas lectus. Nulla facilisi. Ut tempor ornare nibh, ut convallis magna vestibulum sed. Aliquam vulputate magna nisi, vitae aliquam purus faucibus quis. Phasellus elit purus, placerat nec sagittis quis, gravida vel nulla. Phasellus justo justo, ornare nec eros sed, rutrum dignissim erat.
+    </p>
+    <p>
+        Fusce rhoncus tempus risus. Praesent non ante quis erat pellentesque ornare. Etiam vitae magna nec orci sollicitudin varius. Vivamus cursus tincidunt metus vitae convallis. Ut dignissim nisl at iaculis interdum. Proin nec vulputate tortor. Sed a felis eget quam scelerisque pellentesque. Nullam tellus lorem, molestie vel sapien sed, posuere blandit lacus. In elementum eleifend urna, sit amet pharetra est consectetur vehicula. Nunc mauris leo, tristique non ullamcorper ut, posuere id nulla.
+    </p>
+    <p>
+        Nullam quis nunc eu mi fringilla cursus malesuada id felis. Suspendisse potenti. Donec scelerisque, purus sed imperdiet lacinia, est nisi ullamcorper arcu, non sollicitudin nulla nibh eget eros. Nullam a varius ipsum, ut interdum magna. Suspendisse pulvinar bibendum ligula, quis ultrices justo mollis ac. Proin pharetra vel risus sed rutrum. Suspendisse ac elementum enim. Nam in dignissim nibh. Nullam eget volutpat nisi, nec consequat nisl.
+    </p>
+    <p>
+        Proin commodo interdum mi. Suspendisse sed tincidunt ligula, dignissim auctor dolor. Cras sit amet tempus odio. Proin vulputate magna a laoreet cursus. Quisque imperdiet, leo nec accumsan fringilla, mi dui vestibulum turpis, in pulvinar augue quam vitae justo. Aliquam in euismod elit. Maecenas faucibus, erat ut varius tristique, quam mi tempus nulla, nec malesuada eros nisl non mi. Nunc dapibus mi quis posuere suscipit. Etiam congue risus eget ipsum pharetra tempor. Etiam maximus posuere nisi, ut convallis tortor dictum vel. Nam tellus felis, sagittis rutrum pretium ut, tempor non tellus.
+    </p>
+    <p>
+        Nullam id risus eu odio sodales egestas. Nulla at leo dictum, accumsan est vehicula, bibendum urna. In vestibulum vulputate felis, in vestibulum arcu. Pellentesque dignissim, sem nec tristique tincidunt, sem dolor dapibus ex, eu faucibus magna est quis nulla. Nunc posuere justo vel elit molestie vehicula. Nunc metus libero, cursus id scelerisque ac, gravida quis nisi. Donec vitae ex eros. Aenean vehicula tortor at odio vulputate, at laoreet lectus gravida. Nunc vehicula, nisl venenatis semper volutpat, magna massa laoreet ex, imperdiet aliquam odio tellus sit amet magna. In egestas arcu vitae magna ullamcorper, et malesuada neque vehicula. Sed sed laoreet dui, et pellentesque ipsum. Nulla malesuada ligula imperdiet vulputate volutpat. Fusce eleifend mi eget arcu feugiat, at consequat mauris sagittis.
+    </p>
+</template>
+<template id="post-page-7">
+    <div class="container col-md-12 text-center mx-auto">
+        <h3>This is my Blog Post</h3>
+        <h5>Page 7</h5>
+    </div>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis imperdiet tincidunt ex id suscipit. Donec ac ante vitae sem mattis feugiat. Etiam in felis hendrerit, vestibulum orci non, egestas lectus. Nulla facilisi. Ut tempor ornare nibh, ut convallis magna vestibulum sed. Aliquam vulputate magna nisi, vitae aliquam purus faucibus quis. Phasellus elit purus, placerat nec sagittis quis, gravida vel nulla. Phasellus justo justo, ornare nec eros sed, rutrum dignissim erat.
+    </p>
+    <p>
+        Fusce rhoncus tempus risus. Praesent non ante quis erat pellentesque ornare. Etiam vitae magna nec orci sollicitudin varius. Vivamus cursus tincidunt metus vitae convallis. Ut dignissim nisl at iaculis interdum. Proin nec vulputate tortor. Sed a felis eget quam scelerisque pellentesque. Nullam tellus lorem, molestie vel sapien sed, posuere blandit lacus. In elementum eleifend urna, sit amet pharetra est consectetur vehicula. Nunc mauris leo, tristique non ullamcorper ut, posuere id nulla.
+    </p>
+    <p>
+        Nullam quis nunc eu mi fringilla cursus malesuada id felis. Suspendisse potenti. Donec scelerisque, purus sed imperdiet lacinia, est nisi ullamcorper arcu, non sollicitudin nulla nibh eget eros. Nullam a varius ipsum, ut interdum magna. Suspendisse pulvinar bibendum ligula, quis ultrices justo mollis ac. Proin pharetra vel risus sed rutrum. Suspendisse ac elementum enim. Nam in dignissim nibh. Nullam eget volutpat nisi, nec consequat nisl.
+    </p>
+    <p>
+        Proin commodo interdum mi. Suspendisse sed tincidunt ligula, dignissim auctor dolor. Cras sit amet tempus odio. Proin vulputate magna a laoreet cursus. Quisque imperdiet, leo nec accumsan fringilla, mi dui vestibulum turpis, in pulvinar augue quam vitae justo. Aliquam in euismod elit. Maecenas faucibus, erat ut varius tristique, quam mi tempus nulla, nec malesuada eros nisl non mi. Nunc dapibus mi quis posuere suscipit. Etiam congue risus eget ipsum pharetra tempor. Etiam maximus posuere nisi, ut convallis tortor dictum vel. Nam tellus felis, sagittis rutrum pretium ut, tempor non tellus.
+    </p>
+    <p>
+        Nullam id risus eu odio sodales egestas. Nulla at leo dictum, accumsan est vehicula, bibendum urna. In vestibulum vulputate felis, in vestibulum arcu. Pellentesque dignissim, sem nec tristique tincidunt, sem dolor dapibus ex, eu faucibus magna est quis nulla. Nunc posuere justo vel elit molestie vehicula. Nunc metus libero, cursus id scelerisque ac, gravida quis nisi. Donec vitae ex eros. Aenean vehicula tortor at odio vulputate, at laoreet lectus gravida. Nunc vehicula, nisl venenatis semper volutpat, magna massa laoreet ex, imperdiet aliquam odio tellus sit amet magna. In egestas arcu vitae magna ullamcorper, et malesuada neque vehicula. Sed sed laoreet dui, et pellentesque ipsum. Nulla malesuada ligula imperdiet vulputate volutpat. Fusce eleifend mi eget arcu feugiat, at consequat mauris sagittis.
+    </p>
+</template>
+<template id="post-page-8">
+    <div class="container col-md-12 text-center mx-auto">
+        <h3>This is my Blog Post</h3>
+        <h5>Page 8</h5>
+    </div>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis imperdiet tincidunt ex id suscipit. Donec ac ante vitae sem mattis feugiat. Etiam in felis hendrerit, vestibulum orci non, egestas lectus. Nulla facilisi. Ut tempor ornare nibh, ut convallis magna vestibulum sed. Aliquam vulputate magna nisi, vitae aliquam purus faucibus quis. Phasellus elit purus, placerat nec sagittis quis, gravida vel nulla. Phasellus justo justo, ornare nec eros sed, rutrum dignissim erat.
+    </p>
+    <p>
+        Fusce rhoncus tempus risus. Praesent non ante quis erat pellentesque ornare. Etiam vitae magna nec orci sollicitudin varius. Vivamus cursus tincidunt metus vitae convallis. Ut dignissim nisl at iaculis interdum. Proin nec vulputate tortor. Sed a felis eget quam scelerisque pellentesque. Nullam tellus lorem, molestie vel sapien sed, posuere blandit lacus. In elementum eleifend urna, sit amet pharetra est consectetur vehicula. Nunc mauris leo, tristique non ullamcorper ut, posuere id nulla.
+    </p>
+    <p>
+        Nullam quis nunc eu mi fringilla cursus malesuada id felis. Suspendisse potenti. Donec scelerisque, purus sed imperdiet lacinia, est nisi ullamcorper arcu, non sollicitudin nulla nibh eget eros. Nullam a varius ipsum, ut interdum magna. Suspendisse pulvinar bibendum ligula, quis ultrices justo mollis ac. Proin pharetra vel risus sed rutrum. Suspendisse ac elementum enim. Nam in dignissim nibh. Nullam eget volutpat nisi, nec consequat nisl.
+    </p>
+    <p>
+        Proin commodo interdum mi. Suspendisse sed tincidunt ligula, dignissim auctor dolor. Cras sit amet tempus odio. Proin vulputate magna a laoreet cursus. Quisque imperdiet, leo nec accumsan fringilla, mi dui vestibulum turpis, in pulvinar augue quam vitae justo. Aliquam in euismod elit. Maecenas faucibus, erat ut varius tristique, quam mi tempus nulla, nec malesuada eros nisl non mi. Nunc dapibus mi quis posuere suscipit. Etiam congue risus eget ipsum pharetra tempor. Etiam maximus posuere nisi, ut convallis tortor dictum vel. Nam tellus felis, sagittis rutrum pretium ut, tempor non tellus.
+    </p>
+    <p>
+        Nullam id risus eu odio sodales egestas. Nulla at leo dictum, accumsan est vehicula, bibendum urna. In vestibulum vulputate felis, in vestibulum arcu. Pellentesque dignissim, sem nec tristique tincidunt, sem dolor dapibus ex, eu faucibus magna est quis nulla. Nunc posuere justo vel elit molestie vehicula. Nunc metus libero, cursus id scelerisque ac, gravida quis nisi. Donec vitae ex eros. Aenean vehicula tortor at odio vulputate, at laoreet lectus gravida. Nunc vehicula, nisl venenatis semper volutpat, magna massa laoreet ex, imperdiet aliquam odio tellus sit amet magna. In egestas arcu vitae magna ullamcorper, et malesuada neque vehicula. Sed sed laoreet dui, et pellentesque ipsum. Nulla malesuada ligula imperdiet vulputate volutpat. Fusce eleifend mi eget arcu feugiat, at consequat mauris sagittis.
+    </p>
+</template>
+<template id="post-page-9">
+    <div class="container col-md-12 text-center mx-auto">
+        <h3>This is my Blog Post</h3>
+        <h5>Page 9</h5>
+    </div>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis imperdiet tincidunt ex id suscipit. Donec ac ante vitae sem mattis feugiat. Etiam in felis hendrerit, vestibulum orci non, egestas lectus. Nulla facilisi. Ut tempor ornare nibh, ut convallis magna vestibulum sed. Aliquam vulputate magna nisi, vitae aliquam purus faucibus quis. Phasellus elit purus, placerat nec sagittis quis, gravida vel nulla. Phasellus justo justo, ornare nec eros sed, rutrum dignissim erat.
+    </p>
+    <p>
+        Fusce rhoncus tempus risus. Praesent non ante quis erat pellentesque ornare. Etiam vitae magna nec orci sollicitudin varius. Vivamus cursus tincidunt metus vitae convallis. Ut dignissim nisl at iaculis interdum. Proin nec vulputate tortor. Sed a felis eget quam scelerisque pellentesque. Nullam tellus lorem, molestie vel sapien sed, posuere blandit lacus. In elementum eleifend urna, sit amet pharetra est consectetur vehicula. Nunc mauris leo, tristique non ullamcorper ut, posuere id nulla.
+    </p>
+    <p>
+        Nullam quis nunc eu mi fringilla cursus malesuada id felis. Suspendisse potenti. Donec scelerisque, purus sed imperdiet lacinia, est nisi ullamcorper arcu, non sollicitudin nulla nibh eget eros. Nullam a varius ipsum, ut interdum magna. Suspendisse pulvinar bibendum ligula, quis ultrices justo mollis ac. Proin pharetra vel risus sed rutrum. Suspendisse ac elementum enim. Nam in dignissim nibh. Nullam eget volutpat nisi, nec consequat nisl.
+    </p>
+    <p>
+        Proin commodo interdum mi. Suspendisse sed tincidunt ligula, dignissim auctor dolor. Cras sit amet tempus odio. Proin vulputate magna a laoreet cursus. Quisque imperdiet, leo nec accumsan fringilla, mi dui vestibulum turpis, in pulvinar augue quam vitae justo. Aliquam in euismod elit. Maecenas faucibus, erat ut varius tristique, quam mi tempus nulla, nec malesuada eros nisl non mi. Nunc dapibus mi quis posuere suscipit. Etiam congue risus eget ipsum pharetra tempor. Etiam maximus posuere nisi, ut convallis tortor dictum vel. Nam tellus felis, sagittis rutrum pretium ut, tempor non tellus.
+    </p>
+    <p>
+        Nullam id risus eu odio sodales egestas. Nulla at leo dictum, accumsan est vehicula, bibendum urna. In vestibulum vulputate felis, in vestibulum arcu. Pellentesque dignissim, sem nec tristique tincidunt, sem dolor dapibus ex, eu faucibus magna est quis nulla. Nunc posuere justo vel elit molestie vehicula. Nunc metus libero, cursus id scelerisque ac, gravida quis nisi. Donec vitae ex eros. Aenean vehicula tortor at odio vulputate, at laoreet lectus gravida. Nunc vehicula, nisl venenatis semper volutpat, magna massa laoreet ex, imperdiet aliquam odio tellus sit amet magna. In egestas arcu vitae magna ullamcorper, et malesuada neque vehicula. Sed sed laoreet dui, et pellentesque ipsum. Nulla malesuada ligula imperdiet vulputate volutpat. Fusce eleifend mi eget arcu feugiat, at consequat mauris sagittis.
+    </p>
+</template>
+<template id="post-page-10">
+    <div class="container col-md-12 text-center mx-auto">
+        <h3>This is my Blog Post</h3>
+        <h5>Page 10</h5>
+    </div>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis imperdiet tincidunt ex id suscipit. Donec ac ante vitae sem mattis feugiat. Etiam in felis hendrerit, vestibulum orci non, egestas lectus. Nulla facilisi. Ut tempor ornare nibh, ut convallis magna vestibulum sed. Aliquam vulputate magna nisi, vitae aliquam purus faucibus quis. Phasellus elit purus, placerat nec sagittis quis, gravida vel nulla. Phasellus justo justo, ornare nec eros sed, rutrum dignissim erat.
+    </p>
+    <p>
+        Fusce rhoncus tempus risus. Praesent non ante quis erat pellentesque ornare. Etiam vitae magna nec orci sollicitudin varius. Vivamus cursus tincidunt metus vitae convallis. Ut dignissim nisl at iaculis interdum. Proin nec vulputate tortor. Sed a felis eget quam scelerisque pellentesque. Nullam tellus lorem, molestie vel sapien sed, posuere blandit lacus. In elementum eleifend urna, sit amet pharetra est consectetur vehicula. Nunc mauris leo, tristique non ullamcorper ut, posuere id nulla.
+    </p>
+    <p>
+        Nullam quis nunc eu mi fringilla cursus malesuada id felis. Suspendisse potenti. Donec scelerisque, purus sed imperdiet lacinia, est nisi ullamcorper arcu, non sollicitudin nulla nibh eget eros. Nullam a varius ipsum, ut interdum magna. Suspendisse pulvinar bibendum ligula, quis ultrices justo mollis ac. Proin pharetra vel risus sed rutrum. Suspendisse ac elementum enim. Nam in dignissim nibh. Nullam eget volutpat nisi, nec consequat nisl.
+    </p>
+    <p>
+        Proin commodo interdum mi. Suspendisse sed tincidunt ligula, dignissim auctor dolor. Cras sit amet tempus odio. Proin vulputate magna a laoreet cursus. Quisque imperdiet, leo nec accumsan fringilla, mi dui vestibulum turpis, in pulvinar augue quam vitae justo. Aliquam in euismod elit. Maecenas faucibus, erat ut varius tristique, quam mi tempus nulla, nec malesuada eros nisl non mi. Nunc dapibus mi quis posuere suscipit. Etiam congue risus eget ipsum pharetra tempor. Etiam maximus posuere nisi, ut convallis tortor dictum vel. Nam tellus felis, sagittis rutrum pretium ut, tempor non tellus.
+    </p>
+    <p>
+        Nullam id risus eu odio sodales egestas. Nulla at leo dictum, accumsan est vehicula, bibendum urna. In vestibulum vulputate felis, in vestibulum arcu. Pellentesque dignissim, sem nec tristique tincidunt, sem dolor dapibus ex, eu faucibus magna est quis nulla. Nunc posuere justo vel elit molestie vehicula. Nunc metus libero, cursus id scelerisque ac, gravida quis nisi. Donec vitae ex eros. Aenean vehicula tortor at odio vulputate, at laoreet lectus gravida. Nunc vehicula, nisl venenatis semper volutpat, magna massa laoreet ex, imperdiet aliquam odio tellus sit amet magna. In egestas arcu vitae magna ullamcorper, et malesuada neque vehicula. Sed sed laoreet dui, et pellentesque ipsum. Nulla malesuada ligula imperdiet vulputate volutpat. Fusce eleifend mi eget arcu feugiat, at consequat mauris sagittis.
+    </p>
+</template>
+<template id="post-page-11">
+    <div class="container col-md-12 text-center mx-auto">
+        <h3>This is my Blog Post</h3>
+        <h5>Page 11</h5>
+    </div>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis imperdiet tincidunt ex id suscipit. Donec ac ante vitae sem mattis feugiat. Etiam in felis hendrerit, vestibulum orci non, egestas lectus. Nulla facilisi. Ut tempor ornare nibh, ut convallis magna vestibulum sed. Aliquam vulputate magna nisi, vitae aliquam purus faucibus quis. Phasellus elit purus, placerat nec sagittis quis, gravida vel nulla. Phasellus justo justo, ornare nec eros sed, rutrum dignissim erat.
+    </p>
+    <p>
+        Fusce rhoncus tempus risus. Praesent non ante quis erat pellentesque ornare. Etiam vitae magna nec orci sollicitudin varius. Vivamus cursus tincidunt metus vitae convallis. Ut dignissim nisl at iaculis interdum. Proin nec vulputate tortor. Sed a felis eget quam scelerisque pellentesque. Nullam tellus lorem, molestie vel sapien sed, posuere blandit lacus. In elementum eleifend urna, sit amet pharetra est consectetur vehicula. Nunc mauris leo, tristique non ullamcorper ut, posuere id nulla.
+    </p>
+    <p>
+        Nullam quis nunc eu mi fringilla cursus malesuada id felis. Suspendisse potenti. Donec scelerisque, purus sed imperdiet lacinia, est nisi ullamcorper arcu, non sollicitudin nulla nibh eget eros. Nullam a varius ipsum, ut interdum magna. Suspendisse pulvinar bibendum ligula, quis ultrices justo mollis ac. Proin pharetra vel risus sed rutrum. Suspendisse ac elementum enim. Nam in dignissim nibh. Nullam eget volutpat nisi, nec consequat nisl.
+    </p>
+    <p>
+        Proin commodo interdum mi. Suspendisse sed tincidunt ligula, dignissim auctor dolor. Cras sit amet tempus odio. Proin vulputate magna a laoreet cursus. Quisque imperdiet, leo nec accumsan fringilla, mi dui vestibulum turpis, in pulvinar augue quam vitae justo. Aliquam in euismod elit. Maecenas faucibus, erat ut varius tristique, quam mi tempus nulla, nec malesuada eros nisl non mi. Nunc dapibus mi quis posuere suscipit. Etiam congue risus eget ipsum pharetra tempor. Etiam maximus posuere nisi, ut convallis tortor dictum vel. Nam tellus felis, sagittis rutrum pretium ut, tempor non tellus.
+    </p>
+    <p>
+        Nullam id risus eu odio sodales egestas. Nulla at leo dictum, accumsan est vehicula, bibendum urna. In vestibulum vulputate felis, in vestibulum arcu. Pellentesque dignissim, sem nec tristique tincidunt, sem dolor dapibus ex, eu faucibus magna est quis nulla. Nunc posuere justo vel elit molestie vehicula. Nunc metus libero, cursus id scelerisque ac, gravida quis nisi. Donec vitae ex eros. Aenean vehicula tortor at odio vulputate, at laoreet lectus gravida. Nunc vehicula, nisl venenatis semper volutpat, magna massa laoreet ex, imperdiet aliquam odio tellus sit amet magna. In egestas arcu vitae magna ullamcorper, et malesuada neque vehicula. Sed sed laoreet dui, et pellentesque ipsum. Nulla malesuada ligula imperdiet vulputate volutpat. Fusce eleifend mi eget arcu feugiat, at consequat mauris sagittis.
+    </p>
+</template>
+
+
+

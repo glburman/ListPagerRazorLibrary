@@ -1,0 +1,31 @@
+﻿@import "../lib/bootstrap/scss/functions";
+@import "../lib/bootstrap/scss/variables";
+@import "../lib/bootstrap/scss/mixins";
+@import "./pager-variables-sizing";
+@import "./pager-mixins";
+
+li.pager-range {
+    color: $pagination-color;
+    background-color: $pagination-bg;
+    border-color: $pagination-border-color;
+}
+
+li.pager-dropdown {
+    background-color: $pagination-bg;
+    border-color: $pagination-border-color;
+}
+
+li.pager-page-size {
+    color: $pagination-color;
+}
+
+input.pager-page-size {
+    border-color: $pagination-border-color;
+}
+
+
+li.pager-dropdown > span > span > a.dropdown-item {
+    color: $pagination-color;
+}
+
+/*@import "../lib/bootstrap/scss/pagination";*/

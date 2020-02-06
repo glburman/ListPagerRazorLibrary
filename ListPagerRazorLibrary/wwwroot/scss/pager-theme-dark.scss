@@ -1,0 +1,81 @@
+﻿@import "../lib/bootstrap/scss/functions";
+@import "../lib/bootstrap/scss/variables";
+@import "../lib/bootstrap/scss/mixins";
+
+@import "./pager-mixins";
+
+$background-light: gray("300");
+$color-light: gray("200");
+$border-light: gray("300");
+
+$background-medium: gray("500");
+
+$background-dark: #343A40;
+$color-dark: gray("600");
+$border-dark: gray("600");
+
+$background: $background-dark;
+$color: $color-light;
+$border: $border-dark;
+
+$background-hover: $background-light;
+$color-hover: $color-dark;
+$border-hover: $border-dark;
+
+$background-disabled: $background-light;
+$border-disabled: $border-dark;
+$opacity-disabled: 0.60;
+
+
+.page-link {
+    @include pager-colors($background,$color,$border);
+    @include pager-hover-state($background-hover, $color-hover, $border-hover)
+}
+
+.page-item {
+    &.active .page-link {
+        @include pager-item-opacity(0.60, $background, $color, $border);
+    }
+
+    &.active .page-link &:hover {
+        color: $color
+    }
+
+    &.disabled .page-link {
+        @include pager-item-opacity($opacity-disabled, $background-disabled, $color-dark, $border-disabled);
+    }
+}
+
+li.pager-range {
+    @include pager-colors($background,$color,$border);
+}
+
+li.pager-dropdown {
+    background-color: $background;
+    border-color: $border;
+}
+
+li.pager-dropdown > span > span.dropdown-menu {
+    border-color: $border-light;
+    background-color: $background-medium;
+}
+
+li.pager-dropdown > span > span > a.dropdown-item {
+    @include pager-colors($background,$color,$border-light);
+    @include pager-hover-state($background-hover, $color-hover, $border-hover)
+}
+
+
+a.dropdown-toggle {
+    color: $color;
+}
+
+
+li.pager-page-size {
+    color: $color-dark;
+}
+
+input.pager-page-size {
+    border-color: $border;
+    background-color: $background-light;
+}

@@ -1,38 +1,33 @@
-﻿@model ListPagerArrowModel
+﻿@model ListPagerArrowsModel
 
-@if (Model.IsDisabled)
-{
-    <li class="page-item disabled">
-        <span>
-            <a class="page-link disabled" aria-label="@Model.FirstWord">
-                <span aria-hidden="true">@Model.FirstArrow</span>
-            </a>
-        </span>
-    </li>
-    <li class="page-item disabled">
-        <span>
-            <a class="page-link disabled" aria-label="@Model.SecondWord">
-                <span aria-hidden="true">@Model.SecondArrow</span>
-            </a>
-        </span>
-    </li>
+@{
+    ListPagerItemModel left = new ListPagerItemModel()
+    {
+        Disabled = Model.IsDisabled,
+        PageNumber = Model.LeftPageNumber,
+        Text = Model.LeftArrow,
+        SrWord = Model.LeftWord,
+        CssClass = "arrow"
+    };
+
+    ListPagerItemModel right = new ListPagerItemModel()
+    {
+        Disabled = Model.IsDisabled,
+        PageNumber = Model.RightPageNumber,
+        Text = Model.RightArrow,
+        SrWord = Model.RightWord,
+        CssClass = "arrow"
+    };
+
+    if ((!Model.Single && Model.Direction < 0) || Model.Direction > 0)
+    {
+        <partial name="Components/ListPagerItem" model="@left" />
+    }
+    if ((!Model.Single && Model.Direction > 0) || Model.Direction < 0)
+    {
+        <partial name="Components/ListPagerItem" model="@right" />
+    }
 }
-else
-{
-    <li class="page-item">
-        <span>
-            <a href='#' class="page-link" onclick="@Model.ClickFirst" aria-label="@Model.FirstWord">
-                <span aria-hidden="true">@Model.FirstArrow</span>
-                <span class="sr-only">@Model.FirstWord</span>
-            </a>
-        </span>
-    </li>
-    <li class="page-item">
-        <span>
-            <a href='#' class="page-link " onclick="@Model.ClickSecond" aria-label="@Model.SecondWord">
-                <span aria-hidden="true">@Model.SecondArrow</span>
-                <span class="sr-only">@Model.SecondWord</span>
-            </a>
-        </span>
-    </li>
-}
+
+
+

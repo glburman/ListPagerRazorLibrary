@@ -14,7 +14,12 @@
     <Content Remove="Areas\ViewComponent\Pages\VCPost - Copy.cshtml" />
     <Content Remove="Areas\ViewComponent\Pages\_VCAjaxClient.cshtml" />
     <Content Remove="Pages\Shared\Components\ListPagerDropdown.cshtml" />
+    <Content Remove="Pages\Shared\Components\ListPagerPageSize.cshtml" />
     <Content Remove="Pages\Shared\_ListPartial.cshtml" />
+    <Content Remove="Pages\Shared\_PagerPartial.cshtml" />
+    <Content Remove="wwwroot\scss\pager\pager-compact.scss" />
+    <Content Remove="wwwroot\scss\pager\pager-mixins - Copy.scss" />
+    <Content Remove="wwwroot\scss\variables.scss" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,15 +48,11 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Update="wwwroot\css\scss\bs-imports.scss">
+    <Content Update="wwwroot\scss\bstrap-imports.scss">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Update="wwwroot\css\scss\pager.scss">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="wwwroot\css\scss\variables.scss">
+    <Content Update="wwwroot\scss\pager\pager.scss">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>

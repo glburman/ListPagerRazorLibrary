@@ -3,30 +3,34 @@
     string linkUrl = "";
     int pageStart = Model.Start;
     int pageEnd = Model.End;
+    if (pageEnd >= Model.PageCount - 1)
+    {
+        pageStart = Math.Max(pageEnd - Model.MaxPageLinks + 1, 1);
+    }
 }
-
 
 @for (int p = pageStart; p <= pageEnd; p++)
 {
+    System.Diagnostics.Debug.WriteLine("{0},{1}", Model, p);
+
     linkUrl = String.Format(AppConstants.PAGE_LINK_FORMAT, p);
     string active = p == Model.PageNumber ? AppConstants.PAGE_LINK_ACTIVE_CLASS : string.Empty;
 
     <li id="pager_li_@p" class="page-item  @active">
         @if (p == Model.PageNumber)
         {
+            
+             System.Diagnostics.Debug.WriteLine("Active={0}", p);
             <span class="pager-page">
-                <a class="page-link">
+                <a class="page-link" href="#">
                     @p<span class="sr-only">@p</span>
                 </a>
             </span>
         }
         else
         {
-            <span class="pager-page">
-                <a class="page-link" onclick="pager.goToPage(@p)" href="#">
-                    @p<span class="sr-only">@p</span>
-                </a>
-            </span>
+            System.Diagnostics.Debug.WriteLine("Partial={0}", p);
+            <partial name="Components/ListPagerItem" model='new ListPagerItemModel {PageNumber=p,Text=p.ToString(), Disabled=false}' />
         }
     </li>
 }

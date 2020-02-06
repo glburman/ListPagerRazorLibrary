@@ -1,0 +1,134 @@
+﻿@import "../lib/bootstrap/scss/functions";
+@import "../lib/bootstrap/scss/variables";
+@import "../lib/bootstrap/scss/mixins";
+@import "../lib/bootstrap/scss/pagination";
+
+
+@mixin pager-colors($background, $color, $border) {
+    color: $color;
+    background-color: $background;
+    border-color: $border;
+}
+
+@mixin pager-hover-state($background, $color, $border) {
+    &:hover {
+        @include pager-colors($background, $color, $border);
+    }
+}
+
+@mixin pager-item-opacity($opacity, $background, $color, $border) {
+    @include pager-colors($background, $color, $border);
+    opacity: $opacity;
+}
+
+/* SIZING SMALL*/
+@mixin pager-sizing-small($font-size,$line-height) {
+    li.page-item.pager-range {
+        font-size: $font-size;
+        height: 1.6rem;
+        min-width: 7rem;
+        padding-top: 0.20rem;
+    }
+
+    li.pager-dropdown {
+        width: 1.6rem;
+        padding: 0.20rem 0.40rem 0rem 0rem;
+        max-height: 1.6rem;
+    }
+
+    .dropdown:hover > .dropdown-menu {
+        top: 60%;
+    }
+
+    .dropdown-menu {
+        min-width: 6rem;
+        font-size: .90rem;
+        margin: 0rem;
+        padding: 0rem;
+    }
+
+    li.pager-page-size > span {
+        line-height: $line-height;
+        font-size: $font-size;
+        margin-right: 10px;
+    }
+
+    input.pager-page-size {
+        top: 2px;
+        height: 75%;
+        width: 4rem;
+        font-size: $font-size;
+    }
+}
+
+/* SIZING LARGE */
+@mixin pager-sizing-large($font-size, $line-height) {
+    li.page-item.pager-range {
+        font-size: $font-size;
+        max-height: 2.8rem;
+        min-width: 9rem;
+        padding: 0rem;
+        padding-top: 0.5rem;
+        margin: 0rem;
+        line-height: $line-height;
+    }
+
+    li.pager-dropdown {
+        min-width: 2.1rem;
+        padding: 0.60rem 0.40rem 0rem 0rem;
+        max-height: 2.8rem;
+    }
+
+    .dropdown:hover > .dropdown-menu {
+        top: 90%;
+    }
+
+    .dropdown-menu {
+        min-width: 10rem;
+        font-size: $font-size;
+        /*margin: .10rem;
+        padding: .10rem;*/
+    }
+
+    li.pager-page-size > span {
+        line-height: $line-height;
+        font-size: $font-size;
+        margin-right: 10px;
+    }
+
+    input.pager-page-size {
+        height: 2.6rem;
+        font-size: $font-size;
+    }
+}
+
+
+@mixin list-pager-size($size, $padding, $font-size, $line-height, $border-radius) {
+
+    @if($size=='sm') {
+        @include pager-sizing-small($font-size, $line-height);
+    }
+    @else if($size=='lg' ) {
+        @include pager-sizing-large($font-size, $line-height);
+    }
+    // below is bootstrap's original mixin
+    .page-link {
+        padding: $padding;
+        @include font-size($font-size);
+        line-height: $line-height;
+    }
+
+    .page-item {
+        &:first-child {
+            .page-link {
+                @include border-left-radius($border-radius);
+            }
+        }
+
+        &:last-child {
+            .page-link {
+                @include border-right-radius($border-radius);
+            }
+        }
+    }
+}

@@ -25,8 +25,12 @@
         public const string VIEWNAME_POSTFORM = "ListPagerPostForm";
         public const string VIEWNAME_RECORDS = "ListPagerRecords";
         public const string PAGE_LINK_ACTIVE_CLASS = "active";
+        public const string PAGE_LINK_DISABLED_CLASS = "disabled";
+        public const string PAGE_LINK_EMPTY_CLASS = "blank";
         public const string DROPDOWN_BOUNDARY_CLASS = "last";
+        public const string PAGE_ITEM_ID_FORMAT = "pager_li_{0}_{1}";
         public const string PAGE_LINK_FORMAT = "/?page={0}";
+        public const string PAGER_CLICK_FORMAT = "pager.goToPage({0})";
         //Component Constants
         public const string VIEW_PATH_LISTPAGER = "../ListPager";
         public const string VIEW_PATH_LISTPAGER_ARROWS = "../ListPagerArrows";

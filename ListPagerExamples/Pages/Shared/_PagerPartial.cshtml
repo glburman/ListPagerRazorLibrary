@@ -2,9 +2,7 @@
 @{
     @if (AppConstants.IS_DEBUG)
     {
-        Model.ShowDropDown = true;
-        Model.ShowRecordsOf = true;
-        Model.ShowPageOf = true;
+
     }
     else
     {
@@ -14,14 +12,14 @@
         Model.ShowPageOf = !Model.IsFiltered;
     }
 
-    int pageStart = Model.Start;
-    int pageEnd = Model.End;
-    string backDisabled = Model.PageNumber <= 1 ? "disabled" : "";
-    string fwdDisabled = Model.PageNumber >= Model.PageCount ? "disabled" : "";
+    //int pageStart = Model.Start;
+    //int pageEnd = Model.End;
+    //string backDisabled = Model.PageNumber <= 1 ? "disabled" : "";
+    //string fwdDisabled = Model.PageNumber >= Model.PageCount ? "disabled" : "";
 
-    string firstClick = Model.PageNumber <= 1 ? "" : "pager.goToPage(1)";
-    string lastClick = Model.PageNumber >= Model.PageCount ? "" : String.Format("pager.goToPage({0})", @Model.PageCount);
+    //string firstClick = Model.PageNumber <= 1 ? "" : "pager.goToPage(1)";
+    //string lastClick = Model.PageNumber >= Model.PageCount ? "" : String.Format("pager.goToPage({0})", @Model.PageCount);
 
 }
-<partial name="_ListPager" model=" Model" />
-<partial name="Components/ListPagerPostForm" model=" Model" />
+<partial name="_ListPager" model="Model" />
+@*<partial name="Components/ListPagerPostForm" model=" Model" />*@

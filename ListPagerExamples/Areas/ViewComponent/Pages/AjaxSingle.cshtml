@@ -1,0 +1,64 @@
+﻿@page "{handler?}"
+@namespace ListPagerExamples.Areas.ViewComponent.Pages
+@model AjaxSingleModel
+@{
+    Layout = "_LayoutForExamples";
+    ViewData["Title"] = "ListPager Examples - Ajax - Single Partial";
+}
+@section Scripts{
+    <script>
+        //Pager instance needs page scope
+        let pager
+    </script>
+
+    <script type="module">
+        import Pager from "../_content/ListPagerRazorLibrary/js/pager.js"    //path in ListPagerRazorLibrary
+        let modelState =@Json.Serialize(Model.Parameters);
+        pager = new Pager(modelState.pager, {})
+        const constants = {
+            urlBase: "AjaxSingle/partial",
+            tableTarget: "data-page-wrapper"
+        }
+
+        let afToken = null;
+        window.onload = () => {
+            afToken = document.querySelectorAll("input[name='__RequestVerificationToken']")[0].value;
+            pager.postState(constants.urlBase, afToken, modelState, constants.tableTarget)
+        }
+        document.addEventListener(Pager.constants.pagingEventName, (event) => {
+            const s = document.getElementById("filter")
+            if (s) modelState.searchTerm = s.value
+            pager.postEvent(event, constants.urlBase, afToken, modelState, constants.tableTarget)
+        })
+    </script>
+}
+@section Css{
+    <link rel="stylesheet" href="~/css/pager.css" />
+}
+
+@section Notes{
+    <div class="collapse py-0 m-0" id="collapseExample" aria-expanded="false">
+        <p>
+            This is the most straightforward Ajax approach. A single Partial View
+            (<code>ListPagerExamples/Pages/Shared/_CombinedPartial.cshtml</code>) contains both ListPager and
+            the associated List Table partial views. Onload and when handling ListPager's paging events a
+            single Ajax call retrieves and renders the 'combined' partial view.
+        </p>
+        <p>ListPager is styled (on the 'Combined' Partial View using the <code>list-pager-sm</code> class</p>
+        <p>
+            <code>ListPagerExamples/Pages/Shared/ListPagerPageOf.cshtml</code> is overriding the library version,
+            setting <code>class='text-danger'</code> and a white background.
+        </p>
+        <p>
+            <code>ShowDropDown</code> is set unconditionally <code>true</code>, but the
+            standard <code>ListPagerDropdown</code> Partial View is coded such that it instead displays a empty
+            space for result sets with <code>PageCount < MaxPageLinks</code>
+        </p>
+    </div>
+}
+
+@Html.AntiForgeryToken()
+
+<div id="data-page-wrapper">
+</div>
+

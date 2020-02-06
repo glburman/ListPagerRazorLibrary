@@ -1,0 +1,80 @@
+﻿@import "../lib/bootstrap/scss/functions";
+@import "../lib/bootstrap/scss/variables";
+@import "../lib/bootstrap/scss/mixins";
+
+@import "./pager-mixins";
+
+$background: Black;
+$color: Aqua;
+$border: Fuchsia;
+
+$background-menu: Purple;
+$color-menu: White;
+$border-menu: Lime;
+
+$background-input: Purple;
+$color-input: Purple;
+$border-input: Fuchsia;
+
+$background-hover: Fuchsia;
+$color-hover: Yellow;
+$border-hover: Yellow;
+
+$background-disabled: $background;
+$border-disabled: $border;
+$color-disabled: $color;
+$opacity-disabled: 0.75;
+
+
+.page-link {
+    @include pager-colors($background,$color,$border);
+    @include pager-hover-state($background-hover, $color-hover, $border-hover)
+}
+
+.page-item {
+    &.active .page-link {
+        @include pager-item-opacity(0.75, $background, $color, $border);
+    }
+
+    &.active .page-link &:hover {
+        color: $color
+    }
+
+    &.disabled .page-link {
+        @include pager-item-opacity($opacity-disabled, $background-disabled, $color-disabled, $border-disabled);
+    }
+}
+
+li.pager-range {
+    @include pager-colors($background,Lime,$border);
+}
+
+li.pager-dropdown > span > span.dropdown-menu {
+    border-color: $border-menu;
+    background-color: $background-menu;
+}
+
+li.pager-dropdown {
+    background-color: $background;
+    border-color: $border;
+}
+
+li.pager-dropdown > span > span > a.dropdown-item {
+    @include pager-colors($background,$color,$border);
+    @include pager-hover-state($background-hover, $color-hover, $border-hover)
+}
+
+
+a.dropdown-toggle {
+    color: $color;
+}
+
+
+li.pager-page-size {
+    color: Purple;
+}
+
+input.pager-page-size {
+    border-color: $border-input;
+    background-color: $background-input;
+}

@@ -3,7 +3,13 @@
 }
 
 code {
-    color: brown;
+    color: brown !important;
+}
+
+code.block {
+    display:block;
+    padding-left:5rem;
+    text-align:left;
 }
 
 .btn-group-xs > .btn, .btn-xs {
@@ -18,4 +24,15 @@ code {
     height: intrinsic; /* Safari/WebKit uses a non-standard name */
     height: -moz-max-content; /* Firefox/Gecko */
     height: -webkit-max-content; /* Chrome */
+}
+
+#list-pager-container-tiny {
+    width: 288px;
+    min-width: 288px;
+    max-width: 288px;
+}
+
+#list-pager-container{
+    display:inline;
+    width:100%;
 }

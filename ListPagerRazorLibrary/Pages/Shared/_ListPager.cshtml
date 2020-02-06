@@ -1,41 +1,39 @@
 ﻿@model ListPagerModel
 
-<script type="module" src="~/js/pager.js"></script>
 
-<div id="list-pager-container">
-    <ul class="list-pager pagination">
-        @{
-            ListPagerArrowModel lam = new ListPagerArrowModel(Model, -1);
-            <partial name="Components/ListPagerArrows" , model="@lam" ) />
-        }
-
-        @if (Model.ShowRecordsOf)
-        {
-            <partial name="Components/ListPagerRecords" model="@Model" />
-        }
-
-        @if (Model.ShowPageOf)
-        {
-            <partial name="Components/ListPagerPageOf" model="@Model" />
-        }
-
-        <partial name="Components/ListPagerLinks" model="@Model" />
-
-        @if (Model.ShowDropDown)
-        {
-            ListPagerDropdownModel ddm = new ListPagerDropdownModel(Model);
-            <partial name="Components/ListPagerDropdown" , model="@ddm" ) />
-        }
-
-        @{
-            ListPagerArrowModel ram = new ListPagerArrowModel(Model, 1);
-            <partial name="Components/ListPagerArrows" , model="@ram" ) />
-        }
-    </ul>
-
-    @if (Model.ShowPageSize)
-    {
-        <partial name="Components/ListPagerPageSize.cshtml" model="@Model" />
+<ul class="list-pager pagination">
+    @{
+        ListPagerArrowsModel lam = new ListPagerArrowsModel(Model, -1, false);
+        <partial name="Components/ListPagerArrows" , model="@lam" ) />
     }
 
-</div>
+    @if (Model.ShowRecordsOf)
+    {
+        <partial name="Components/ListPagerRecords" model="@Model" />
+    }
+
+    @if (Model.ShowPageOf)
+    {
+        <partial name="Components/ListPagerPageOf" model="@Model" />
+    }
+
+    <partial name="Components/ListPagerLinks" model="@Model" />
+
+    @if (Model.ShowDropDown)
+    {
+        ListPagerDropdownModel ddm = new ListPagerDropdownModel(Model);
+        <partial name="Components/ListPagerDropdown" , model="@ddm" ) />
+    }
+
+    @{
+        ListPagerArrowsModel ram = new ListPagerArrowsModel(Model, 1, false);
+        <partial name="Components/ListPagerArrows" , model="@ram" ) />
+    }
+</ul>
+
+@if (Model.ShowPageSize)
+{
+    <partial name="Components/ListPagerPageSize.cshtml" model="@Model" />
+}
+
+

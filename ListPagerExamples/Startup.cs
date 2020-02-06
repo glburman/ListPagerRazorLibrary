@@ -23,10 +23,11 @@ namespace ListPagerExamples
         {
             services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("Bloggers"));
             services.AddScoped<AppDbContext>();
-            services.AddRazorPages();
+            services.AddRazorPages().AddRazorRuntimeCompilation();
+
 
             //our extension
-            services.AddListPagerViews();
+            // services.AddListPagerViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,7 +48,7 @@ namespace ListPagerExamples
             app.UseStaticFiles();
 
             //embed our statics
-            app.UseListPagerStatics();
+            //app.UseListPagerStatics();
             
             app.UseRouting();
             app.UseEndpoints(endpoints =>

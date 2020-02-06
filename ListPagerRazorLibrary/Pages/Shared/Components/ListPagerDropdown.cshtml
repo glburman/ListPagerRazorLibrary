@@ -2,16 +2,16 @@
 @{
     @if (Model.Increments.Count > 0)
     {
-        <li class="page-item">
-            <span class="pager-dropdown dropdown">
-                <a class="page-link dropdown-toggle" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <li class="page-item pager-dropdown">
+            <span class="dropdown d-inline-block">
+                <a class="dropdown-toggle" href="#" id="pager-dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 </a>
-                <span class="dropdown-menu mt-n1 ml-2 shadow" aria-labelledby="dropdownMenuLink">
+                <span class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     @foreach (int step in Model.Increments)
                     {
                         var last = (step >= Model.PageCount || Model.Increments.Count == 1) ?
                             AppConstants.DROPDOWN_BOUNDARY_CLASS : String.Empty;
-                        <a class="dropdown-item pl-2 @last " onclick="pager.goToPage(@step)" href="#">Jump to @step</a>
+                        <a class="dropdown-item p-2 @last " onclick="pager.goToPage(@step)" href="#">Jump to @step</a>
                     }
                 </span>
             </span>
@@ -20,7 +20,7 @@
     else
     {
         <li class="page-item pager-dropdown">
-            <span>&nbsp;</span>
+            <span class="dropdown d-inline-block">&nbsp;&nbsp;</span>
         </li>
     }
 }

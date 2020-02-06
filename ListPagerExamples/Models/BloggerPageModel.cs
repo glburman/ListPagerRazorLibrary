@@ -10,6 +10,7 @@ namespace ListPagerExamples.Models
     {
         private readonly AppDbContext _db;
         private List<Blogger> _bloggers;
+        
         public BloggerPageModel(AppDbContext context)
         {
             _db = context;
@@ -17,6 +18,7 @@ namespace ListPagerExamples.Models
             Parameters = new ParametersModel();
         }
 
+      
         public void GetPage()
         {
             if (Parameters != null)

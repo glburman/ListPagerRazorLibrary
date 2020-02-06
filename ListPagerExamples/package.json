@@ -1,0 +1,33 @@
+{
+  "name": "@serexx/listpagerexamples",
+  "version": "0.0.1",
+  "description": "Example Use of ListPagerRazorLibrary",
+  "main": "Gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/glburman/listpagerrazorlibrary.git"
+  },
+  "author": "Greg Burman <gregburman@hotmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/glburman/listpagerrazorlibrary/issues"
+  },
+  "homepage": "https://github.com/glburman/listpagerrazorlibrary#readme",
+  "engines": {
+    "node": ">=12.14.0"
+  },
+  "dependencies": {
+    "bootstrap": "^4.4.1"
+  },
+  "devDependencies": {
+    "del": "^5.1.0",
+    "gulp": "^4.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-sass": "^4.0.2",
+    "node-sass": "4.13.1",
+    "gulp-clean-css": "^4.2.0"
+  }
+}

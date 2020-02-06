@@ -7,14 +7,33 @@
     <ResolvedRazorCompileToolset>RazorSdk</ResolvedRazorCompileToolset>
     <RazorCompileOnBuild>true</RazorCompileOnBuild>
     <IncludeContentInPack>true</IncludeContentInPack>
+    <Version>0.0.1</Version>
     
     
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="css\**" />
+    <Compile Remove="js\**" />
+    <Content Remove="css\**" />
+    <Content Remove="js\**" />
+    <EmbeddedResource Remove="css\**" />
+    <EmbeddedResource Remove="js\**" />
+    <None Remove="css\**" />
+    <None Remove="js\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Extensions.cs" />
+    <Compile Remove="Models\IPagerItem.cs" />
+  </ItemGroup>
+
   
   <ItemGroup>
     <Content Remove="Pages\Shared\Components\ListPager - Copy.cshtml" />
-    <Content Remove="Pages\Shared\Components\ListPagerPageSize - Copy.cshtml" />
+    <Content Remove="Pages\Shared\Components\ListPagerCompact.cshtml" />
+    <Content Remove="Pages\Shared\Components\ListPagerDropdown - Copy.cshtml" />
+    <Content Remove="Pages\Shared\Components\ListPagerItem - Copy.cshtml" />
     <Content Remove="Pages\Shared\ListPager - Copy.cshtml" />
     <Content Remove="Pages\Shared\_ListPagerArrows.cshtml" />
     <Content Remove="Pages\Shared\_ListPagerDropdown.cshtml" />
@@ -23,18 +42,14 @@
     <Content Remove="Pages\Shared\_ListPagerPageSize.cshtml" />
     <Content Remove="Pages\Shared\_ListPagerPostForm.cshtml" />
     <Content Remove="Pages\Shared\_ListPagerRecords.cshtml" />
+    <Content Remove="Pages\Shared\_ListPagerSheets - Copy.cshtml" />
+    <Content Remove="Pages\Shared\_ListPagerSheets_x.cshtml" />
     <Content Remove="Pages\_ViewImports.cshtml" />
+    <Content Remove="wwwroot\pager.css" />
+    <Content Remove="wwwroot\pager.js" />
   </ItemGroup>
 
   <!-- don't include static files in compile/packaging -->
-  <ItemGroup>
-    <None Remove="js\pager.js" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="js\pager.js" />
-    <Content Include="css\pager.css" />
-    <Content Include="css\scss\pager.scss" />
-  </ItemGroup>
 
   <ItemGroup>
     <!-- do include static and View files as embedded resources -->
@@ -47,12 +62,6 @@
     <EmbeddedResource Include="Pages\Shared\Components\ListPagerPostForm.cshtml" />
     <EmbeddedResource Include="Pages\Shared\Components\ListPagerRecords.cshtml" />
     <EmbeddedResource Include="Pages\_ViewImports.cshtml" />
-    <EmbeddedResource Include="js\pager.js">
-      <Pack>true</Pack>
-    </EmbeddedResource>
-    <EmbeddedResource Include="css\pager.css">
-      <Pack>true</Pack>
-    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
@@ -63,6 +72,10 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.0.2" />
     <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="3.0.2" />
     <PackageReference Include="Microsoft.Extensions.FileProviders.Physical" Version="3.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\js\pager.js" />
   </ItemGroup>
 
 

@@ -1,9 +1,9 @@
 ﻿@model string
-<div class="form-row">
-    <div class="form-group">
-        <input type="text" class="form-control form-control-sm" name="filter" id="filter" value="@Model" />
-    </div>
-    <div class="ml-3 form-group">
-        <button class="btn btn-sm btn-dark" onclick="pager.goToPage(1)">search</button>
-    </div>
+
+
+<div class="input-group">
+    <input type="text" class="d-inline form-control form-control-sm" name="filter" id="filter" value="@Model" />
+    <span class="input-group-btn ml-2">
+        <button class="btn btn-sm btn-dark d-inline" onclick="pager.goToPage(1)">search</button>
+    </span>
 </div>

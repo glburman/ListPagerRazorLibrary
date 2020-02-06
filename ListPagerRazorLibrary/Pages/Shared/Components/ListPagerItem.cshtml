@@ -1,0 +1,25 @@
+﻿@model ListPagerItemModel
+
+@{
+    string disabled = String.Empty;
+    string click = String.Format(AppConstants.PAGER_CLICK_FORMAT, Model.PageNumber);
+    if (Model.Disabled)
+    {
+        disabled = AppConstants.PAGE_LINK_DISABLED_CLASS;
+        click = String.Empty;
+    }
+    string activeClass = Model.Active ? AppConstants.PAGE_LINK_ACTIVE_CLASS : String.Empty;
+    string id = String.Format(AppConstants.PAGE_ITEM_ID_FORMAT, Model.PageNumber, Model.CssClass);
+
+    System.Diagnostics.Debug.WriteLine("Pager Item {0}", id);
+}
+
+
+<li id="@id" class="page-item @activeClass @disabled">
+    <span class="pager-page @Model.CssClass">
+        <a class="page-link @activeClass @disabled @Model.CssClass " href="#" onclick="@click">
+            @Model.Text
+            <span class="sr-only">@Model.SrWord</span>
+        </a>
+    </span>
+</li>

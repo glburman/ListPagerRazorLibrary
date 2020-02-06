@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] </title>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="~/css/site.css" />
+
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     </environment>
@@ -15,8 +18,9 @@
               crossorigin="anonymous"
               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
     </environment>
-    <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="/css/pager.css" />
+
+    @RenderSection("Css", required: false)
+
 </head>
 <body>
     <header>
@@ -32,22 +36,22 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-page="/Index">Home</a>
                         </li>
-                        @*<li>
-                                <a asp-page="VCGet" asp-area="ViewComponent">Get</a>
-                            </li>*@
                         <li>
-                            <a class="nav-link" href="~/ViewComponent/VCGet">Get</a>
+                            <a class="nav-link" href="~/ViewComponent/Post">Post</a>
                         </li>
                         <li>
-                            <a class="nav-link" href="~/ViewComponent/VCPost">Post</a>
+                            <a class="nav-link" href="~/ViewComponent/Get">Get</a>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-expanded="false">Ajax<span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li class="p-1 ml-1 border-bottom"><a href="~/ViewComponent/VCAjaxSingle">Single Partial</a></li>
-                                <li class="p-1 ml-1 border-bottom"><a href="~/ViewComponent/VCAjaxTwo">Seperate Partials</a></li>
-                                <li class="p-1 ml-1"><a href="~/ViewComponent/VCAjaxClient">Client Rendered List</a></li>
+                                <li class="p-1 ml-1 border-bottom"><a href="~/ViewComponent/AjaxSingle">Single Partial</a></li>
+                                <li class="p-1 ml-1 border-bottom"><a href="~/ViewComponent/AjaxSeperate">Seperate Partials</a></li>
+                                <li class="p-1 ml-1"><a href="~/ViewComponent/AjaxClient">Client Rendered List</a></li>
                             </ul>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="~/ViewComponent/AjaxSheets">Ajax Sheets</a>
                         </li>
                     </ul>
                 </div>

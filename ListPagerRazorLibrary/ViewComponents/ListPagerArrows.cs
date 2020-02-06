@@ -6,15 +6,10 @@ namespace ListPagerRazorLibrary.ViewComponents
 {
     public class ListPagerArrows : ViewComponent
     {
-        public async Task<IViewComponentResult> InvokeAsync(ListPagerModel state, int direction)
+        public async Task<IViewComponentResult> InvokeAsync(ListPagerModel state, int direction, bool single)
         {
-            var pam = await Task.Run(() => GetModel(state, direction));
+            var pam = await Task.Run(() => new ListPagerArrowsModel(state, direction, single));
             return View(AppConstants.VIEW_PATH_LISTPAGER_ARROWS, pam);
-        }
-
-        private ListPagerArrowModel GetModel(ListPagerModel state, int direction)
-        {
-            return new ListPagerArrowModel(state, direction);
         }
     }
 }

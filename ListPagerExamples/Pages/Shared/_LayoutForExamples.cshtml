@@ -5,15 +5,49 @@
 
 @RenderSection("Scripts", false)
 
+@section Css
+{
+    <style>
+        #notes {
+            font-size: .90rem;
+        }
+
+            #notes #collapseExample.collapse:not(.show) {
+                display: block;
+                height: 0rem;
+                overflow: hidden;
+            }
+
+            #notes #collapseExample.collapsing {
+                height: 0rem;
+            }
+
+            #notes a.collapsed::after {
+                content: 'more...';
+            }
+
+            #notes a:not(.collapsed)::after {
+                content: '...less';
+            }
+    </style>
+
+
+    @RenderSection("Css", false)
+}
+
+
+
+
 <div class="d-flex justify-content-center">
-    <h3>@ViewData["title"]</h3>
-    <button class="btn btn-outline-info btn-fit ml-4 mt-1 px-1" type="button" data-toggle="collapse" data-target="#collapseNotes" aria-expanded="false" aria-controls="collapseExample">
-        Notes >
-    </button>
+    <h4>@ViewData["title"]</h4>
 </div>
 <div class="d-flex justify-content-center">
-    <div class="collapse col-md-8 mt-4" id="collapseNotes">
-        <div class="card card-body">
+    <div class="col-md-8 mt-1" id="notes">
+        <div class="card card-body p-1 my-0">
+            <div class="d-flex justify-content-start">
+                <h6 class="my-1">Notes</h6>
+                <a role="button" class="collapsed m-0 p-0 pt-1 ml-2" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></a>
+            </div>
             @RenderSection("Notes", false)
         </div>
     </div>
