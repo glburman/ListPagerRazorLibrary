@@ -63,26 +63,26 @@
 
 <div class="col my-4">
     <div class="row">
-        <div class="col-md-9 text-center mx-auto">
+        <div class="col-md-8 text-center mx-auto">
             <div class="d-flex justify-content-between list-pager-sm ">
                 @await Component.InvokeAsync(nameof(ListPagerRazorLibrary.ViewComponents.ListPager), Model.Parameters.Pager)
             </div>
         </div>
     </div>
-    @*<div class="row">
-        <div class="col-md-9 text-center mx-auto">
+    <div class="row">
+        <div class="col-md-8 text-center mx-auto">
             <div class="d-flex justify-content-between ">
                 @await Component.InvokeAsync(nameof(ListPagerRazorLibrary.ViewComponents.ListPager), Model.Parameters.Pager)
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-9 text-center mx-auto">
+        <div class="col-md-8 text-center mx-auto">
             <div class="d-flex justify-content-between list-pager-lg">
                 @await Component.InvokeAsync(nameof(ListPagerRazorLibrary.ViewComponents.ListPager), Model.Parameters.Pager)
             </div>
         </div>
-    </div>*@
+    </div>
 
     <partial name="Components/ListPagerPostForm" , model="Model.Parameters.Pager" />
     <div class="row">

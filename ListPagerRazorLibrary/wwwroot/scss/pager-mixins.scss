@@ -86,14 +86,12 @@
     .dropdown-menu {
         min-width: 10rem;
         font-size: $font-size;
-        /*margin: .10rem;
-        padding: .10rem;*/
     }
 
     li.pager-page-size > span {
         line-height: $line-height;
-        font-size: $font-size;
-        margin-right: 10px;
+        /*font-size: $font-size;
+        margin-right: 10px;*/
     }
 
     input.pager-page-size {

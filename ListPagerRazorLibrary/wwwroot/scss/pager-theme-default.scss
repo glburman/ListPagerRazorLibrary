@@ -4,28 +4,42 @@
 @import "./pager-variables-sizing";
 @import "./pager-mixins";
 
-li.pager-range {
-    color: $pagination-color;
-    background-color: $pagination-bg;
-    border-color: $pagination-border-color;
+
+
+/*.page-link {
+    &:hover {
+        border-color: red;
+    }
+}
+
+li.page-item > span > a {
+    &:hover {
+        border-color: green;
+    }
+}*/
+/*li.pager-item {
+    @include pager-colors($pagination-bg, $pagination-color, $pagination-border-color);
+}*/
+/*li.pager-range {
+    @include pager-colors($pagination-bg, $pagination-color, $pagination-border-color);
 }
 
 li.pager-dropdown {
     background-color: $pagination-bg;
     border-color: $pagination-border-color;
+    @include pager-colors($pagination-bg, $pagination-color, $pagination-border-color);
 }
 
 li.pager-page-size {
     color: $pagination-color;
-}
-
+}*/
 input.pager-page-size {
-    border-color: $pagination-border-color;
+    /*@include pager-colors($pagination-bg, $pagination-color, $pagination-border-color);*/
 }
 
 
 li.pager-dropdown > span > span > a.dropdown-item {
-    color: $pagination-color;
+    /*color: $pagination-color;*/
 }
 
 /*@import "../lib/bootstrap/scss/pagination";*/

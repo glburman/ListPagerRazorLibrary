@@ -11,27 +11,24 @@
 
 @for (int p = pageStart; p <= pageEnd; p++)
 {
-    System.Diagnostics.Debug.WriteLine("{0},{1}", Model, p);
-
     linkUrl = String.Format(AppConstants.PAGE_LINK_FORMAT, p);
     string active = p == Model.PageNumber ? AppConstants.PAGE_LINK_ACTIVE_CLASS : string.Empty;
 
-    <li id="pager_li_@p" class="page-item  @active">
-        @if (p == Model.PageNumber)
-        {
-            
-             System.Diagnostics.Debug.WriteLine("Active={0}", p);
+
+    @if (p == Model.PageNumber)
+    {
+        <li id="pager_li_@p" class="page-item  @active">
             <span class="pager-page">
                 <a class="page-link" href="#">
                     @p<span class="sr-only">@p</span>
                 </a>
             </span>
-        }
-        else
-        {
-            System.Diagnostics.Debug.WriteLine("Partial={0}", p);
-            <partial name="Components/ListPagerItem" model='new ListPagerItemModel {PageNumber=p,Text=p.ToString(), Disabled=false}' />
-        }
-    </li>
+        </li>
+    }
+    else
+    {
+        <partial name="Components/ListPagerItem" model='new ListPagerItemModel {PageNumber=p,Text=p.ToString(), Disabled=false}' />
+    }
+
 }
 

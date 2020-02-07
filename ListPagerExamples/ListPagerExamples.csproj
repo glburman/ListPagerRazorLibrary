@@ -694,4 +694,8 @@
     <ProjectReference Include="..\ListPagerRazorLibrary\ListPagerRazorLibrary.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\Shared\Components\" />
+  </ItemGroup>
+
 </Project>
