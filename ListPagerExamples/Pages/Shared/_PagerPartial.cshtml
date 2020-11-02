@@ -4,22 +4,10 @@
     {
 
     }
-    else
-    {
-        //suggested
-        Model.ShowDropDown = Model.PageCount > Math.Floor(Model.MaxPageLinks * 1.7);
-        Model.ShowRecordsOf = Model.IsFiltered;
-        Model.ShowPageOf = !Model.IsFiltered;
-    }
 
-    //int pageStart = Model.Start;
-    //int pageEnd = Model.End;
-    //string backDisabled = Model.PageNumber <= 1 ? "disabled" : "";
-    //string fwdDisabled = Model.PageNumber >= Model.PageCount ? "disabled" : "";
-
-    //string firstClick = Model.PageNumber <= 1 ? "" : "pager.goToPage(1)";
-    //string lastClick = Model.PageNumber >= Model.PageCount ? "" : String.Format("pager.goToPage({0})", @Model.PageCount);
-
+    //suggested
+    Model.ShowDropDown = Model.PageCount > Math.Floor(Model.MaxPageLinks * 1.7);
+    Model.ShowRecordsOf = Model.IsFiltered;
+    Model.ShowPageOf = !Model.IsFiltered;
 }
 <partial name="_ListPager" model="Model" />
-@*<partial name="Components/ListPagerPostForm" model=" Model" />*@

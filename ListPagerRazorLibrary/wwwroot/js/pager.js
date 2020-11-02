@@ -62,7 +62,8 @@
                         return response.json()
                     }
                 } else {
-                    throw new Error('Pager.js Network response was not ok')
+                    console.log(response)
+                    throw new Error('Pager.js Network response was not ok ')
                 }
             })
             .catch((error) => {

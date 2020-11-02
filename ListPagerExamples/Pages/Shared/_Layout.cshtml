@@ -4,10 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] </title>
-    @*<script src="~/lib/jquery/dist/jquery.min.js"></script>*@
-
     <link rel="stylesheet" href="~/css/site.css" />
-
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     </environment>
@@ -18,9 +15,6 @@
               crossorigin="anonymous"
               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
     </environment>
-
-
-
 </head>
 <body>
     <script src="~/js/site.js" asp-append-version="true"></script>
@@ -38,25 +32,23 @@
                     <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item ">
-                                <a class="nav-link" asp-area="" asp-page="/Index">Home</a>
+                                <a class="nav-link text-light" asp-area="" asp-page="/Index">Home</a>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle nav-link " data-toggle="dropdown" role="button" aria-expanded="false">Full Page<span class="caret"></span></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li class="p-1 ml-1 border-bottom"><a href="~/ViewComponent/Post">POST</a></li>
-                                    <li class="p-1 ml-1 border-bottom"><a href="~/ViewComponent/Get">GET</a></li>
-                                </ul>
+                                <a href="#" class="dropdown-toggle nav-link text-light" data-toggle="dropdown" role="button" aria-expanded="false">Full Page<span class="caret"></span></a>
+                                <div class="dropdown-menu bg-secondary" role="menu">
+                                    <a role="button" class="btn btn-block rounded-0 py-1 my-1 btn-dark" href="~/ViewComponent/Get">GET</a>
+                                    <a role="button" class="btn btn-block rounded-0 py-1 my-1 btn-dark" href="~/ViewComponent/Post">POST</a>
+                                </div>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle nav-link " data-toggle="dropdown" role="button" aria-expanded="false">Ajax<span class="caret"></span></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li class="p-1 ml-1 border-bottom"><a href="~/ViewComponent/AjaxSingle">Single Partial</a></li>
-                                    <li class="p-1 ml-1 border-bottom"><a href="~/ViewComponent/AjaxSeperate">Seperate Partials</a></li>
-                                    <li class="p-1 ml-1"><a href="~/ViewComponent/AjaxClient">Client Rendered List</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a class="nav-link" href="~/ViewComponent/AjaxSheets">Ajax Sheets</a>
+                                <a href="#" class="dropdown-toggle nav-link text-light" data-toggle="dropdown" role="button" aria-expanded="false">Ajax<span class="caret"></span></a>
+                                <div class="dropdown-menu bg-secondary" role="menu">
+                                    <a role="button" class="btn btn-block rounded-0 py-1 my-1 btn-dark" href="~/ViewComponent/AjaxSingle">Single Partial</a>
+                                    <a role="button" class="btn btn-block rounded-0 py-1 my-1 btn-dark" href="~/ViewComponent/AjaxSeperate">Seperate Partials</a>
+                                    <a role="button" class="btn btn-block rounded-0 py-1 my-1 btn-dark" href="~/ViewComponent/AjaxClient">Client Rendered</a>
+                                    <a role="button" class="btn btn-block rounded-0 py-1 my-1 btn-dark" href="~/ViewComponent/AjaxSheets">Page Sheets</a>
+                                </div>
                             </li>
                         </ul>
                     </div>
@@ -92,7 +84,7 @@
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     </environment>
     <environment exclude="Development">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
@@ -112,7 +104,7 @@
 
     @RenderSection("Scripts", required: false)
     <script>
-        //just to handle themes for non-ajax examples
+        //handle themes through page-reloads for non-ajax examples
         $(document).ready(() => {
             if (document.cookie.split(';').some((item) => item.trim().startsWith('themeNumber='))) {
 
@@ -120,7 +112,6 @@
                     .split('; ')
                     .find(row => row.startsWith('themeNumber'))
                     .split('=')[1];
-                //styler(parseInt(themeNumber))
             }
         })
 
@@ -146,9 +137,6 @@
                     _themeName = "Base Theme"
                     break
             }
-
-            console.log("styler href", href)
-
             document.getElementById("themesheet").href = href
             document.getElementById("themenamedisplay").innerText = _themeName
             document.cookie = "themeName=" + _themeName;

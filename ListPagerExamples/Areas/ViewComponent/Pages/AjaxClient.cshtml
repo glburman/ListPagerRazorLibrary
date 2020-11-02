@@ -12,9 +12,7 @@
     pager.ShowDropDown = pager.PageCount > pager.MaxPageLinks + 1;
     Model.Parameters.Pager = pager;
 }
-@*@section Css{
-        <link rel="stylesheet" href="~/css/pager-neon.css" />
-    }*@
+
 @section Scripts{
     <script>
         //Pager instance needs page scope
@@ -71,28 +69,43 @@
 
     <dl>
         <dt>
-            This Ajax Demo
+            Ajax Demo - Client Rendering of Data List
         </dt>
         <dd>
             <ul>
                 <li>
                     <p>
-                        fetches Json and renders the data list on the client in pure JS, however JQuery or other frameworks
-                        are equally viable as long as you handle ListPager's paging event. The Pager Partial View is fetched and
-                        rendered only after the Data List fetch succeeds.
+                        The demo fetches Json and renders the data list on the client. The example uses pure JS, however JQuery or other frameworks
+                        are equally viable as long as you handle ListPager's paging event.
+                        The pager Partial View is fetched and rendered only after the Data List fetch succeeds.
                     </p>
                 </li>
                 <li>
                     <p>
-                        is set with conditional display of the following:
+                        For convenience in debug and in setting flags, the Partial view fetched is the local "/Pages/Shared/_PagerPartial.cshtml"
+                        which in turn wraps the library's <code>_ListPager</code> partial view.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        The example sets the following conditional displays:
                         <ul>
-                            <li class="py-2"><code>ShowDropDown</code> is conditional on <code>PageCount</code></li>
                             <li class="py-2"><code>ShowRecordsOf</code> is conditional on <code>IsFiltered==true</code></li>
                             <li class="py-2"><code>ShowPageOf</code> is conditional on <code>IsFiltered=false</code></li>
+                            <li class="py-2">
+                                <code>ShowDropdown</code> is conditional on formula
+                                <br />
+                                <code style="font-size:.8rem;">
+                                    Model.ShowDropDown = Model.PageCount > Math.Floor(Model.MaxPageLinks * 1.7);
+                                </code>
+
+                                which eliminates the Dropdown even though there are a few more pages than <code>MaxPageLinks</code>.
+                                
+                                Toggle the Page Size between 6 and 7 to see the effect.
+                            </li>
                         </ul>
                     </p>
-                    <p>Try different searches to see the effect</p>
-
                 </li>
             </ul>
         </dd>

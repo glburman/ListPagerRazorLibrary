@@ -15,7 +15,6 @@ namespace ListPagerExamples.Areas.ViewComponent.Pages
     public class VCAjaxClientModel : BloggerPageModel
     {
 
-        private const string _PARAM_ERROR = "ParametersModel null or invalid.";
         private readonly AppDbContext _db;
         public VCAjaxClientModel(AppDbContext db):base(db)
         {

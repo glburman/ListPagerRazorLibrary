@@ -5,9 +5,7 @@
 @{
     Layout = "_LayoutForExamples";
     ViewData["Title"] = "View Component Example - POST";
-    var pager = Model.Parameters.Pager;
-    pager.ShowDropDown = pager.PageCount > pager.MaxPageLinks + 1;
-    Model.Parameters.Pager = pager;
+    Model.Parameters.Pager.ShowDropDown = Model.Parameters.Pager.PageCount > Model.Parameters.Pager.MaxPageLinks + 1;
 }
 @section Scripts{
     <script>
@@ -15,8 +13,10 @@
         let pager
     </script>
     <script type="module">
+        //let the server set the variable value
         let modelState = @Json.Serialize(Model.Parameters);
-        import Pager from "../_content/ListPagerRazorLibrary/js/pager.js"    //path in ListPagerRazorLibrary
+        //path to the ListPagerRazorLibrary
+        import Pager from "../_content/ListPagerRazorLibrary/js/pager.js"
         pager = new Pager(modelState.pager, {})
         pager.setActivePage(modelState.pager.pageNumber)
         document.addEventListener(Pager.constants.pagingEventName, (e) => {
@@ -30,16 +30,16 @@
 @section Notes{
     <dl>
         <dt>
-            The POST Demo shows
+            Implementing the pager in a full-page HTTP POST scenario
         </dt>
-        <dd>
+        <dd class="mt-2">
+            <p>This example (see source) is vanilla with the following exceptions/notes:</p>
             <ul>
-                <li><p>How to implement a full-page post scenario</p></li>
-                <li><p>Use of the <code>ListPagerPostForm</code> to accomodate the post</p></li>
-                <li><p>Use of the <code>ShowPageOf</code> property of the C# <code>ListPagerModel</code> to trigger rendering of the <code>ListPagerPageOf</code> View Component.</p></li>
+                <li><p>Uses the library's <code>ListPagerPostForm</code> View Component to accomodate the post</p></li>
+                <li><p>Uses the <code>ShowPageOf</code> property of the C# <code>ListPagerModel</code> to trigger rendering of the <code>ListPagerPageOf</code> View Component.</p></li>
                 <li>
                     <p>
-                        Use of a formula to determine whether the <code>ShowDropDown</code> property is set to true or false:
+                        Uses a formula to determine whether the <code>ShowDropDown</code> property is set to true or false:
                     </p>
                     <p>
                         <code>

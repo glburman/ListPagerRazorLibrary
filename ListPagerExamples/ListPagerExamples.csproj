@@ -27,10 +27,6 @@
     <Content Remove="Pages\Shared\_CombinedPartial - Copy.cshtml" />
     <Content Remove="Pages\Shared\_LayoutForExamples - Copy.cshtml" />
     <Content Remove="Pages\Shared\_ListPartial.cshtml" />
-    <Content Remove="Pages\Shared\_PagerPartial.cshtml" />
-    <Content Remove="wwwroot\scss\pager\pager-compact.scss" />
-    <Content Remove="wwwroot\scss\pager\pager-mixins - Copy.scss" />
-    <Content Remove="wwwroot\scss\variables.scss" />
   </ItemGroup>
 
   <ItemGroup>
@@ -56,14 +52,6 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
     <Content Update="Pages\Shared\_Layout.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="wwwroot\scss\bstrap-imports.scss">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="wwwroot\scss\pager\pager.scss">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
