@@ -6,11 +6,11 @@ code {
     color: brown !important;
 }
 
-code.block {
-    display:block;
-    padding-left:5rem;
-    text-align:left;
-}
+    code.block {
+        display: block;
+        padding-left: 5rem;
+        text-align: left;
+    }
 
 .btn-group-xs > .btn, .btn-xs {
     padding: .25rem .4rem;
@@ -32,7 +32,43 @@ code.block {
     max-width: 288px;
 }
 
-#list-pager-container{
-    display:inline;
-    width:100%;
+#list-pager-container {
+    display: inline;
+    width: 100%;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    opacity: 0.95;
+}
+
+.theme_link:not(.active):hover {
+    cursor: pointer;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+
+/*credit: https://jsfiddle.net/S3C_MM/8opu0mtn/15/*/ 
+.fadeout {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 6em;
+    background: -webkit-linear-gradient( rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 90% );
+    background-image: -moz-linear-gradient( rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 90% );
+    background-image: -o-linear-gradient( rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 90% );
+    background-image: linear-gradient( rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 90% );
+    background-image: -ms-linear-gradient( rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 90% );
+}
+
+section {
+    display: inline-block; /* just so you see two columns here */
+    position: relative;
+    width: 250px; /* most of the time width is 100%, so you don't have to set it */
+    height: 300px; /* you set height when you want all divs (sections etc.) look the same at the beginning */
+    overflow-y: hidden;
+    vertical-align: top; /* In this case sections get pushed to the bottom otherwise */
 }

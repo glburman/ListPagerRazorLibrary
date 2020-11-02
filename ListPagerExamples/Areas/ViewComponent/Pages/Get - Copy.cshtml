@@ -41,14 +41,8 @@
             <ul>
                 <li><p>Shows how to implement a full-page GET scenario</p></li>
                 <li><p>Uses the library's <code>_ListPagerShort</code> minimalist partial view</p></li>
-                <li><p>Unconditionally renders the <code>ListPagerPageOf</code> as a spearate partial view</p></li>
-                <li>
-                    <p>
-                        Conditionally renders the <code>ListPagerRecordsOf</code> if the list is being filtered.
-                        That behaviour is embedded in the <code>_ListPagerShort</code> View Component.
-
-                    </p>
-                </li>
+                <li><p>Renders the <code>ListPagerPageOf</code> as a spearate partial view</p></li>
+                <li><p>Conditionally renders the <code>ListPagerRecordsOf</code> if the list is being filtered, based on the <code>isFiltered</code> pager property. The search functionality is accomodated but is external to the library</p></li>
                 <li>
                     <p>Applies custom styling to the pager links (~/css/pager-override.css)</p>
                     <p>
@@ -61,10 +55,6 @@
                             </pre>
                         </code>
                     </p>
-                    <p>
-                        Note that changing the Theme does not remove the custom styling.
-                        The salmon background remains, while the other theme defintions take effect.
-                    </p>
                 </li>
             </ul>
         </dd>
@@ -72,20 +62,19 @@
 }
 
 <div class="col-7 mx-auto">
-    <div class="row d-flex justify-content-between">
-
+    <div class="row my-2 d-flex justify-content-end">
         <!-- this is not part of the library -->
         <div class="col-md-4">
             <partial name="_ListFilterPartial" model='@Model.Parameters.SearchTerm' />
         </div>
-        <!-- this is part of the library -->
+    </div>
+    <div class="row d-flex justify-content-center">
+
+        <!-- These come from the ListPager Library-->
         <div class="col-md-3">
             <partial name="Components/ListPagerPageOf" model="@pager" />
         </div>
-    </div>
-    <div class="row  mt-4">
-        <!-- This is part of the ListPager Library-->
-        <div class="col d-flex justify-content-end">
+        <div class="col-md-6">
             <partial name="_ListPagerShort" model="@pager" />
         </div>
     </div>

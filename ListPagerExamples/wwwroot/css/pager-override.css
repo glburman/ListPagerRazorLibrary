@@ -1,0 +1,9 @@
+
+.page-link {
+    background-color: salmon;
+}
+
+/* required when rendered separately*/
+li.pager-range {
+    list-style: none;
+}

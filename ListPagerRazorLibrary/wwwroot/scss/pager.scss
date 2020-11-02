@@ -5,36 +5,34 @@
 @import "./pager-variables-sizing";
 @import "./pager-mixins";
 
-li.page-item {
-    /*line-height: $pagination-line-height;*/
-}
-
-li.page-item > span > a {
-    /*border: $pagination-border-width solid;*/
-}
-
-
-li.pager-range {
-    /*position: relative;
-    display: block;
-    padding: $pager-page-range-padding;*/
+li.page-item.pager-range {
+    padding: 0.50rem 0.75rem;
+    margin-right: 2px;
+    line-height: 1.15;
+    text-align: center;
 }
 
 li.pager-dropdown {
-    /*width: $pager-drop-down-width;
-    padding: $pager-dropdown-padding;*/
-    /*border: $pagination-border-width solid;*/
+    width: 2rem;
+    padding: .5rem .4rem 0 0;
+    line-height: 1.25;
+    border: 1px solid;
+    border-color: gray("300");
+    text-align: center;
+}
+li.page-item {
+}
+
+li.page-item > span > a {
+}
+
+li.pager-dropdown {
 }
 
 li.pager-page-size {
-    /*position: relative;
-    display: block;*/
 }
 
 input.pager-page-size {
-    /*position: relative;*/
-    /*border: $pagination-border-width solid;*/
-    /*top: 2px;*/
 }
 
 li.pager-page-size > span {
@@ -42,23 +40,17 @@ li.pager-page-size > span {
 
 
 li.pager-dropdown > span > span > a.dropdown-item {
-    /*margin-top: 1px;*/
 }
 
 li.pager-dropdown > span.dropdown:hover > .dropdown-menu {
-    /*display: block;
-    top: 90%;
-    padding: 0.1rem 0.1rem;*/
 }
 
 li.pager-dropdown > span.dropdown > .dropdown-toggle:active {
-    /*Without this, clicking will make it sticky*/
+    /*?? Without this, clicking will make it sticky ??*/
     /*pointer-events: none;*/
 }
 
 li.pager-dropdown > span.dropdown > span.dropdown-menu {
-    /*top: 200%;
-    transition: 0.3s all ease-in-out;*/
 }
 
 .list-pager-lg {

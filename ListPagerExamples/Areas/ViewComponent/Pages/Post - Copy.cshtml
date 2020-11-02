@@ -1,0 +1,120 @@
+﻿@page
+@namespace ListPagerExamples.Areas.ViewComponent.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model VCPostModel
+@{
+    Layout = "_LayoutForExamples";
+    ViewData["Title"] = "View Component Example - POST";
+
+    var pager = Model.Parameters.Pager;
+    pager.ShowRecordsOf = pager.IsFiltered;
+    pager.ShowPageOf = !pager.IsFiltered;
+    pager.ShowDropDown = pager.PageCount > pager.MaxPageLinks + 1;
+    Model.Parameters.Pager = pager;
+
+}
+@section Scripts{
+    <script>
+        let pager
+    </script>
+    <script type="module">
+        let modelState = @Json.Serialize(Model.Parameters);
+        import Pager from "../_content/ListPagerRazorLibrary/js/pager.js"    //path in ListPagerRazorLibrary
+        pager = new Pager(modelState.pager, {})
+        pager.setActivePage(modelState.pager.pageNumber)
+        document.addEventListener(Pager.constants.pagingEventName, (e) => {
+            let { pageNumber, pageSize } = { ...e.detail.ListPagerModel }
+            document.getElementById("pageNumber").value = pageNumber
+            pager.postForm()
+        })
+    </script>
+}
+@*@section Css{
+        <link rel="stylesheet" href="~/_content/ListPagerRazorLibrary/css/pager.css" />
+    }*@
+
+@section Notes{
+
+    <div class="notes py-0 m-0">
+        <p>
+            This full-page POST example uses the library's <code>ListPager.cshtml</code> as a View Component to
+            render 'small', 'normal' and 'large' non-themed versions of List Pager. Normal sizing is the default.
+            Small and Large sizing is done by wrapping the View Component (or Partial View) in a <code>&lt;div></code>
+            with the related class, like this:
+            <br />
+            <br />
+            <code class="block">
+                &lt;div class="d-flex justify-content-between <strong>list-pager-sm</strong>">
+                <br />&nbsp;&nbsp;&nbsp;&nbsp;&commat;await Component.InvokeAsync("ListPager"), Model.Parameters.Pager)
+                <br />&lt;/div>
+            </code>
+        </p>
+        <hr />
+        <p class="read-more">
+            Note that <code>ListPagerRecords</code> ("N rows of T") is conditional on <code>IsFiltered == true</code>
+            but since there is no Search on this page, it is never displayed.
+            <hr />
+            The library's "Page N of T" element (<code>ListPagerPageOf.cshtml</code>) is overridden by
+            <code>ListPagerExamples/Pages/Shared/ListPagerPageOf.cshtml</code> (<span class="text-success">to set class='text-success'</span>).
+        </p>
+    </div>
+
+
+    @*<div class="collapse py-0 m-0" id="collapseExample" aria-expanded="false">
+            <hr />
+            <p>
+                This full-page POST example uses the library's <code>ListPager.cshtml</code> as a View Component to
+                render 'small', 'normal' and 'large' non-themed versions of List Pager. Normal sizing is the default.
+                Small and Large sizing is done by wrapping the View Component (or Partial View) in a <code>&lt;div></code>
+                with the related class, like this:
+                <br />
+                <br />
+                <code class="block">
+                    &lt;div class="d-flex justify-content-between <strong>list-pager-sm</strong>">
+                    <br />&nbsp;&nbsp;&nbsp;&nbsp;&commat;await Component.InvokeAsync("ListPager"), Model.Parameters.Pager)
+                    <br />&lt;/div>
+                </code>
+            </p>
+            <hr />
+            <p>
+                Note that <code>ListPagerRecords</code> ("N rows of T") is conditional on <code>IsFiltered == true</code>
+                but since there is no Search on this page, it is never displayed.
+            </p>
+            <p>
+                The library's "Page N of T" element (<code>ListPagerPageOf.cshtml</code>) is overridden by
+                <code>ListPagerExamples/Pages/Shared/ListPagerPageOf.cshtml</code> (<span class="text-success">to set class='text-success'</span>).
+            </p>
+        </div>*@
+}
+
+<div class="col my-4">
+    <div class="row">
+        <div class="col text-center mx-auto">
+            <div class="d-flex justify-content-between list-pager-sm ">
+                @await Component.InvokeAsync(nameof(ListPagerRazorLibrary.ViewComponents.ListPager), Model.Parameters.Pager)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-center mx-auto">
+            <div class="d-flex justify-content-between ">
+                @await Component.InvokeAsync(nameof(ListPagerRazorLibrary.ViewComponents.ListPager), Model.Parameters.Pager)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-center mx-auto">
+            <div class="d-flex justify-content-between list-pager-lg">
+                @await Component.InvokeAsync(nameof(ListPagerRazorLibrary.ViewComponents.ListPager), Model.Parameters.Pager)
+            </div>
+        </div>
+    </div>
+
+    <partial name="Components/ListPagerPostForm" , model="Model.Parameters.Pager" />
+    <div class="row">
+        <div class="d-block mx-auto col">
+            <!--this table belongs to the host app, its not a ListPager partial -->
+            <partial name="_ListTable" model="@Model.Bloggers" />
+        </div>
+    </div>
+</div>

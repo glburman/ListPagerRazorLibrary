@@ -81,7 +81,7 @@ namespace ListPagerExamples.Models
             Add(new Blogger() { Id = "215", FirstName = "Lilly", LastName = "Tomlin Jr" });
             Add(new Blogger() { Id = "216", FirstName = "Bo", LastName = "Jangles Jr" });
             Add(new Blogger() { Id = "217", FirstName = "Molly", LastName = "Brown Jr" });
-            Add(new Blogger() { Id = "218", FirstName = "Princess", LastName = "Di Jr" });
+            Add(new Blogger() { Id = "218", FirstName = "Princess", LastName = "Diane" });
             Add(new Blogger() { Id = "219", FirstName = "Dolly", LastName = "Parton Jr" });
             Add(new Blogger() { Id = "220", FirstName = "Rank", LastName = "Amateur Jr" });
             Add(new Blogger() { Id = "2101", FirstName = "Frank", LastName = "James Jr" });

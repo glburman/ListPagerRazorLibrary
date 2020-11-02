@@ -9,8 +9,8 @@ const cleanCss = require('gulp-clean-css');
 
 gulp.task('pager', function () {
     return gulp.src([
-        'wwwroot/scss/pager-theme-default.scss',
-        'wwwroot/scss/pager.scss'])
+        'wwwroot/scss/pager.scss',
+        'wwwroot/scss/pager-theme-default.scss'])
         .pipe(sass())
         .pipe(concat('pager.css'))
         .pipe(cleanCss({ level: { 2: { restructureRules: true } } }))

@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] </title>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    @*<script src="~/lib/jquery/dist/jquery.min.js"></script>*@
 
     <link rel="stylesheet" href="~/css/site.css" />
 
@@ -19,46 +19,66 @@
               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
     </environment>
 
-    @RenderSection("Css", required: false)
+
 
 </head>
 <body>
+    <script src="~/js/site.js" asp-append-version="true"></script>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">ListPager AspNet Core 3.0 - Examples</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li>
-                            <a class="nav-link" href="~/ViewComponent/Post">Post</a>
-                        </li>
-                        <li>
-                            <a class="nav-link" href="~/ViewComponent/Get">Get</a>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-expanded="false">Ajax<span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li class="p-1 ml-1 border-bottom"><a href="~/ViewComponent/AjaxSingle">Single Partial</a></li>
-                                <li class="p-1 ml-1 border-bottom"><a href="~/ViewComponent/AjaxSeperate">Seperate Partials</a></li>
-                                <li class="p-1 ml-1"><a href="~/ViewComponent/AjaxClient">Client Rendered List</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a class="nav-link" href="~/ViewComponent/AjaxSheets">Ajax Sheets</a>
-                        </li>
-                    </ul>
+            <div class="container col-12">
+                <div class="col-4">
+                    <a class="navbar-brand" asp-area="" asp-page="/Index">ListPager AspNet Core 3.0 - Examples</a>
+                </div>
+                <div class="col-4">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item ">
+                                <a class="nav-link" asp-area="" asp-page="/Index">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle nav-link " data-toggle="dropdown" role="button" aria-expanded="false">Full Page<span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li class="p-1 ml-1 border-bottom"><a href="~/ViewComponent/Post">POST</a></li>
+                                    <li class="p-1 ml-1 border-bottom"><a href="~/ViewComponent/Get">GET</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle nav-link " data-toggle="dropdown" role="button" aria-expanded="false">Ajax<span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li class="p-1 ml-1 border-bottom"><a href="~/ViewComponent/AjaxSingle">Single Partial</a></li>
+                                    <li class="p-1 ml-1 border-bottom"><a href="~/ViewComponent/AjaxSeperate">Seperate Partials</a></li>
+                                    <li class="p-1 ml-1"><a href="~/ViewComponent/AjaxClient">Client Rendered List</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="nav-link" href="~/ViewComponent/AjaxSheets">Ajax Sheets</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="dropdown">
+                                <div id="themenamedisplay" class="dropdown-toggle pointer text-light p-1" data-toggle="dropdown" role="button" aria-expanded="false">Base Theme<span class="caret"></span></div>
+                                <div class="dropdown-menu p-2 m-2 border-dark" role="menu">
+                                    <div id="theme_0" role="button" class="theme_link btn btn-block rounded-0 p-0 active disabled btn-outline-primary " onclick="styler(0)">Base Theme</div>
+                                    <div id="theme_1" role="button" class="theme_link btn btn-block rounded-0 p-0 btn-outline-secondary" onclick="styler(1)">Dark Theme</div>
+                                    <div id="theme_2" role="button" class="theme_link btn btn-block rounded-0 p-0 btn-outline-info" onclick="styler(2)">Neon Theme</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container-fluid">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -88,8 +108,52 @@
                 integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o">
         </script>
     </environment>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+
 
     @RenderSection("Scripts", required: false)
+    <script>
+        //just to handle themes for non-ajax examples
+        $(document).ready(() => {
+            if (document.cookie.split(';').some((item) => item.trim().startsWith('themeNumber='))) {
+
+                let themeNumber = document.cookie
+                    .split('; ')
+                    .find(row => row.startsWith('themeNumber'))
+                    .split('=')[1];
+                //styler(parseInt(themeNumber))
+            }
+        })
+
+        function styler(s) {
+            console.log("s=", s)
+            let items = document.getElementsByClassName("theme_link")
+            Array.prototype.forEach.call(items, function (el) {
+                el.classList.remove("active", "disabled")
+            })
+            document.getElementById("theme_" + s).classList.add("active", "disabled")
+            let href
+            switch (s) {
+                case 1:
+                    href = "../_content/ListPagerRazorLibrary/css/pager-dark.css"
+                    _themeName = "Dark Theme"
+                    break
+                case 2:
+                    href = "../_content/ListPagerRazorLibrary/css/pager-neon.css"
+                    _themeName = "Neon Theme"
+                    break
+                default:
+                    href = "../_content/ListPagerRazorLibrary/css/pager.css"
+                    _themeName = "Base Theme"
+                    break
+            }
+
+            console.log("styler href", href)
+
+            document.getElementById("themesheet").href = href
+            document.getElementById("themenamedisplay").innerText = _themeName
+            document.cookie = "themeName=" + _themeName;
+            document.cookie = "themeNumber=" + s;
+        }
+    </script>
 </body>
 </html>

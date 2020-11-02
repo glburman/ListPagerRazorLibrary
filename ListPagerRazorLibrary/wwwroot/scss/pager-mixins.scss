@@ -27,7 +27,7 @@
         font-size: $font-size;
         height: 1.6rem;
         min-width: 7rem;
-        padding-top: 0.20rem;
+        padding-top: 0.25rem;
     }
 
     li.pager-dropdown {
@@ -65,18 +65,29 @@
 @mixin pager-sizing-large($font-size, $line-height) {
     li.page-item.pager-range {
         font-size: $font-size;
-        max-height: 2.8rem;
+        /* 
+           this was intended to force wrapping in smaller viewports
+           but there has to be a more natural/fluid  way
+
+           max-height: 2.8rem;
+
+       */
         min-width: 9rem;
         padding: 0rem;
         padding-top: 0.5rem;
-        margin: 0rem;
+        /*  margin: 0rem;*/
         line-height: $line-height;
     }
 
     li.pager-dropdown {
         min-width: 2.1rem;
         padding: 0.60rem 0.40rem 0rem 0rem;
-        max-height: 2.8rem;
+        /* 
+           this was intended to force wrapping in smaller viewports
+           but there has to be a more natural/fluid  way
+           max-height: 2.8rem;
+
+       */
     }
 
     .dropdown:hover > .dropdown-menu {
@@ -109,7 +120,7 @@
     @else if($size=='lg' ) {
         @include pager-sizing-large($font-size, $line-height);
     }
-    // below is bootstrap's original mixin
+    // below is bootstrap's original pagination mixin
     .page-link {
         padding: $padding;
         @include font-size($font-size);

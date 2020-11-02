@@ -5,53 +5,54 @@
 
 @RenderSection("Scripts", false)
 
-@section Css
-{
-    <style>
-        #notes {
-            font-size: .90rem;
+<link rel="stylesheet" href="../_content/ListPagerRazorLibrary/css/pager.css" id="themesheet" />
+
+<style>
+    #notes {
+        font-size: .90rem;
+    }
+
+      /*  #notes #collapseExample.collapse:not(.show) {
+            display: block;
+            height: 0rem;
+            overflow: hidden;
         }
 
-            #notes #collapseExample.collapse:not(.show) {
-                display: block;
-                height: 0rem;
-                overflow: hidden;
-            }
+        #notes #collapseExample.collapsing {
+            height: 0rem;
+        }
 
-            #notes #collapseExample.collapsing {
-                height: 0rem;
-            }
+        #notes a.collapsed::after {
+            content: 'more...';
+        }
 
-            #notes a.collapsed::after {
-                content: 'more...';
-            }
-
-            #notes a:not(.collapsed)::after {
-                content: '...less';
-            }
-    </style>
+        #notes a:not(.collapsed)::after {
+            content: '...less';
+        }*/
+</style>
 
 
-    @RenderSection("Css", false)
-}
-
-
+@RenderSection("Css", false)
 
 
 <div class="d-flex justify-content-center">
     <h4>@ViewData["title"]</h4>
 </div>
-<div class="d-flex justify-content-center">
-    <div class="col-md-8 mt-1" id="notes">
-        <div class="card card-body p-1 my-0">
-            <div class="d-flex justify-content-start">
-                <h6 class="my-1">Notes</h6>
-                <a role="button" class="collapsed m-0 p-0 pt-1 ml-2" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></a>
-            </div>
-            @RenderSection("Notes", false)
-        </div>
+
+<button class="offset-3 btn btn-primary btn-sm shadow" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    Notes
+</button>
+
+<div class="collapse row offset-3 col-md-6 p-4" id="collapseExample">
+    <div class="card card-body">
+        @RenderSection("Notes", false)
     </div>
 </div>
 
-@RenderBody()
+<div class="d-flex justify-content-center ">
+
+    <div class="col mt-4">
+        @RenderBody()
+    </div>
+</div>
 

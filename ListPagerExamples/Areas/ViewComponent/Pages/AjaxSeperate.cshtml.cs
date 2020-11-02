@@ -25,28 +25,32 @@ namespace ListPagerExamples.Areas.ViewComponent.Pages
             {
                 Parameters = model;
                 GetPage();
+                Parameters.Pager.ShowRecordsOf = Parameters.Pager.IsFiltered;
+                Parameters.Pager.ShowPageOf = !Parameters.Pager.IsFiltered;
                 return new PartialViewResult
                 {
                     ViewName = "_ListPager",
                     ViewData = new ViewDataDictionary<ListPagerModel>(ViewData, this.Parameters.Pager)
                 };
             }
-            throw new System.ArgumentException("ParametersModel null or invalid");
+            throw new System.ArgumentException(Properties.Resources.PARAM_MODEL_ERROR);
         }
 
         public PartialViewResult OnPost(ParametersModel model)
         {
-            if (model != null )
+            if (model != null)
             {
                 Parameters = model;
                 GetPage();
+                Parameters.Pager.ShowRecordsOf = Parameters.Pager.IsFiltered;
+                Parameters.Pager.ShowPageOf = !Parameters.Pager.IsFiltered;
                 return new PartialViewResult
                 {
                     ViewName = "_ListTable",
                     ViewData = new ViewDataDictionary<List<Blogger>>(ViewData, Bloggers)
                 };
             }
-            throw new System.ArgumentException("ParametersModel null or invalid");
+            throw new System.ArgumentException(Properties.Resources.PARAM_MODEL_ERROR);
         }
     }
 }

@@ -8,11 +8,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Resources;
 
 namespace ListPagerExamples.Areas.ViewComponent.Pages
 {
     public class VCAjaxClientModel : BloggerPageModel
     {
+
+        private const string _PARAM_ERROR = "ParametersModel null or invalid.";
         private readonly AppDbContext _db;
         public VCAjaxClientModel(AppDbContext db):base(db)
         {
@@ -41,7 +44,7 @@ namespace ListPagerExamples.Areas.ViewComponent.Pages
                     ViewData = new ViewDataDictionary<ListPagerModel>(ViewData, this.Parameters.Pager)
                 };
             }
-            throw new ArgumentException("ParametersModel null or invalid.");
+            throw new ArgumentException(Properties.Resources.PARAM_MODEL_ERROR);
         }
 
 
@@ -53,7 +56,7 @@ namespace ListPagerExamples.Areas.ViewComponent.Pages
                 GetPage();
                 return new JsonResult(Bloggers);
             }
-            throw new ArgumentException("ParametersModel null or invalid.");
+            throw new ArgumentException(Properties.Resources.PARAM_MODEL_ERROR);
         }
     }
 }

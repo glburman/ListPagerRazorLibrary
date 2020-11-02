@@ -16,7 +16,7 @@
         let modelState =@Json.Serialize(Model.Parameters);
         pager = new Pager(modelState.pager, {})
         const constants = {
-            urlBase: "AjaxSingle/partial",
+            urlBase: "ajaxsingle/partial",
             tableTarget: "data-page-wrapper"
         }
 
@@ -33,28 +33,35 @@
     </script>
 }
 @section Css{
-    <link rel="stylesheet" href="~/css/pager.css" />
+
 }
 
 @section Notes{
-    <div class="collapse py-0 m-0" id="collapseExample" aria-expanded="false">
-        <p>
-            This is the most straightforward Ajax approach. A single Partial View
-            (<code>ListPagerExamples/Pages/Shared/_CombinedPartial.cshtml</code>) contains both ListPager and
-            the associated List Table partial views. Onload and when handling ListPager's paging events a
-            single Ajax call retrieves and renders the 'combined' partial view.
-        </p>
-        <p>ListPager is styled (on the 'Combined' Partial View using the <code>list-pager-sm</code> class</p>
-        <p>
-            <code>ListPagerExamples/Pages/Shared/ListPagerPageOf.cshtml</code> is overriding the library version,
-            setting <code>class='text-danger'</code> and a white background.
-        </p>
-        <p>
-            <code>ShowDropDown</code> is set unconditionally <code>true</code>, but the
-            standard <code>ListPagerDropdown</code> Partial View is coded such that it instead displays a empty
-            space for result sets with <code>PageCount < MaxPageLinks</code>
-        </p>
-    </div>
+    <dl>
+        <dt>
+            In this Ajax demo
+        </dt>
+        <dd>
+            <ul>
+                <li>
+                    <p>
+                        a single Partial View
+                        (<code>ListPagerExamples/Pages/Shared/_CombinedPartial.cshtml</code>) contains both ListPager and
+                        the associated List Table partial views. Onload and when handling ListPager's paging events a
+                        single Ajax call retrieves and renders the 'combined' partial view.
+                    </p>
+                </li>
+                <li><p>the pager is styled using the <code>list-pager-sm</code> class</p></li>
+                <li>
+                    <p>
+                        the <code>ShowDropDown</code> flag is unconditionally set to <code>true</code>, but the
+                        <strong>standard</strong> <code>ListPagerDropdown</code> View Component overrides this when <code>PageCount < MaxPageLinks</code>
+                        (i.e. when the Dropdown is irrelevant) instead displaying a placeholder space.
+                    </p>
+                </li>
+            </ul>
+        </dd>
+    </dl>
 }
 
 @Html.AntiForgeryToken()

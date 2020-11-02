@@ -3,7 +3,7 @@
 @model AjaxSheetsModel
 @{
     Layout = "_LayoutForExamples";
-    ViewData["Title"] = "ListPager Examples - Ajax - Single Sheet Pages";
+    ViewData["Title"] = "ListPager Examples - Ajax - Single Sheet Pager";
 }
 @section Scripts{
     <script>
@@ -37,7 +37,7 @@
     </script>
 }
 @section Css{
-    <link rel="stylesheet" href="~/css/pager.css" />
+
     <style>
         ul.pagination {
             display: flex !important;
@@ -58,17 +58,48 @@
 }
 
 @section Notes{
-    <div class="collapse py-0 m-0" id="collapseExample" aria-expanded="false">
-    </div>
-}
+    <dl>
+        <dt>
+            This Ajax demo
+        </dt>
+        <dd>
+            <ul>
+                <li>
+                    <p>
+                        uses the Library's Partial View <code>_ListPagerSheets</code> to page through single page data, for example like a blog.
+                    </p>
 
+                </li>
+                <li>
+                    <p>
+                        is styled as <code>.list-pager-sm</code>
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        applies some custom css (in-page) to the .pagination and .page-link classes
+                    </p>
+                    <p>
+                        Note that the pager's layout is similar to that of the <code>_ListPagerShort</code>
+                        but is constructed to maintain a constant width
+                    </p>
+                </li>
+            </ul>
+        </dd>
+    </dl>
+}
 @Html.AntiForgeryToken()
 
 <div class="container">
-    <div class="m-4 pr-4" id="pager-wrapper">
-    </div>
-    <div class="mx-4 px-4">
-        <div id="content-wrapper">
+    <div class="col-8 mx-auto">
+        <div class="row mt-2">
+            <div class="col mx-auto list-pager-sm">
+                <div id="pager-wrapper" class="d-flex justify-content-between list-pager-lg" id="pager-wrapper">
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-2" id="content-wrapper">
         </div>
     </div>
 </div>

@@ -1,7 +1,7 @@
 ﻿export default class Pager {
     constructor(state, settings) {
         this.state = { ...state }
-        this.settings = { ...settings };
+        this.settings = { ...settings }
     }
 
     static constants = {
@@ -28,14 +28,14 @@
 
     //credit: https://gist.github.com/lastguest/1fd181a9c9db0550a847
     static stateToUrlEncoded = (element, key, list) => {
-        var list = list || [];
+        var list = list || []
         if (typeof (element) == 'object') {
             for (var idx in element)
-                Pager.stateToUrlEncoded(element[idx], key ? key + '[' + idx + ']' : idx, list);
+                Pager.stateToUrlEncoded(element[idx], key ? key + '[' + idx + ']' : idx, list)
         } else {
-            list.push(key + '=' + encodeURIComponent(element));
+            list.push(key + '=' + encodeURIComponent(element))
         }
-        return list.join('&');
+        return list.join('&')
     }
 
     postEvent = async (e, url, afToken, state, target) => {
@@ -62,11 +62,12 @@
                         return response.json()
                     }
                 } else {
-                    throw new Error('Network response was not ok');
+                    throw new Error('Pager.js Network response was not ok')
                 }
             })
             .catch((error) => {
-                console.error('There has been a problem with your fetch operation:', error);
+                console.error('There has been a problem with your fetch operation:', error)
+                throw (error.message)
             });
     }
 
@@ -74,18 +75,18 @@
     setSort = (column, direction) => {
         this.state.sortColumn = column
         this.state.sortDirection = direction
-        this.goToPage(1);
+        this.goToPage(1)
     }
 
     setActivePage = (page) => {
-        page = page === undefined ? 1 : page;
+        page = page === undefined ? 1 : page
         document.getElementById(Pager.constants.pagerPageLinkIdPrefix + page)
             .classList.add(this.settings.pageActiveClass)
     }
 
     setPageSize = (size) => {
         //ListPagerModel setter handles boundaries
-        this.state.pageSize = parseInt(size);
+        this.state.pageSize = parseInt(size)
         this.goToPage(1)
     }
 

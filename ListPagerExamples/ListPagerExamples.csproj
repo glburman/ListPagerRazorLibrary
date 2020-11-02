@@ -5,16 +5,27 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\css\v1\**" />
+    <Content Remove="wwwroot\css\v1\**" />
+    <EmbeddedResource Remove="wwwroot\css\v1\**" />
+    <None Remove="wwwroot\css\v1\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Areas\ViewComponent\Pages\VCPost - Copy.cshtml.cs" />
     <Compile Remove="Areas\ViewComponent\Pages\_VCAjaxClient.cshtml.cs" />
     <Compile Remove="Models\ListPagerDataModel.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="Areas\ViewComponent\Pages\Get - Copy.cshtml" />
+    <Content Remove="Areas\ViewComponent\Pages\Post - Copy.cshtml" />
     <Content Remove="Areas\ViewComponent\Pages\VCPost - Copy.cshtml" />
     <Content Remove="Areas\ViewComponent\Pages\_VCAjaxClient.cshtml" />
     <Content Remove="Pages\Shared\Components\ListPagerDropdown.cshtml" />
     <Content Remove="Pages\Shared\Components\ListPagerPageSize.cshtml" />
+    <Content Remove="Pages\Shared\_CombinedPartial - Copy.cshtml" />
+    <Content Remove="Pages\Shared\_LayoutForExamples - Copy.cshtml" />
     <Content Remove="Pages\Shared\_ListPartial.cshtml" />
     <Content Remove="Pages\Shared\_PagerPartial.cshtml" />
     <Content Remove="wwwroot\scss\pager\pager-compact.scss" />
@@ -696,6 +707,21 @@
 
   <ItemGroup>
     <Folder Include="Pages\Shared\Components\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

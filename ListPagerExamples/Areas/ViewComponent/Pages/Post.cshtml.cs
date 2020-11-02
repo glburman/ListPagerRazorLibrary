@@ -22,6 +22,7 @@ namespace ListPagerExamples.Areas.ViewComponent.Pages
             Parameters = new ParametersModel();
             Parameters.Pager = new ListPagerModel();
             Parameters.Pager.PageSize = 5;
+            Parameters.Pager.ShowPageOf = true;
             GetPage();
         }
 
@@ -35,7 +36,7 @@ namespace ListPagerExamples.Areas.ViewComponent.Pages
             }
             else
             {
-                throw new ArgumentException("ListPagerModel null or invalid.");
+                throw new ArgumentException(Properties.Resources.PARAM_MODEL_ERROR);
             }
         }
        

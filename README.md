@@ -1,16 +1,20 @@
 # ListPagerRazorLibrary
 
-This a set of Asp Net Core 3.0 View Components, Partial Views with related statics (css/js), styled with Bootstrap 4 
-and wrapped in a Razor Class Library. It provides UI, paging event triggering and related scripting and is agnostic
+This a set of Asp Net Core 3.0 View Components, Partial Views and related statics (css/js), styled with Bootstrap 4 
+and wrapped in a Razor Class Library. It provides UI, paging event triggering and related paging-event scripting and is agnostic
 about data source, sorting, etc. 
 
-See the **ListPagerExamples** project for working Ajax and non-Ajax usage.
+The Library uses vanilla javascript, e.g. no JQuery. 
+
+See below for detailed description of library content and customization/override information.
 
 ## Setup
 
 To use ListPager in your Asp.Net Core (3.0 or later) Web project :
 
-- Add a reference to the **ListPagerRazorLibrary** project.
+- Add a reference to the **ListPagerRazorLibrary** project or DLL. 
+   At this writing (10/2020) the library is **not available on NuGet**. 
+   Download/ clone / fork the library and include it or it's DLL in your solution.
 
 - In the host project's **\_ViewImports.cshtml** add these lines:
 
@@ -25,23 +29,33 @@ To use ListPager in your Asp.Net Core (3.0 or later) Web project :
     ```
     <link rel="stylesheet" href="/_content/ListPagerRazorLibrary/css/pager.css" />
     ```
+    or, one of the predefined themes
 
-## The Host Page
+    ```
+    <link rel="stylesheet" href="/_content/ListPagerRazorLibrary/css/pager-dark.css" />
+    ```
+    or
+    ```
+    <link rel="stylesheet" href="/_content/ListPagerRazorLibrary/css/pager-neon.css" />
+    ```
+- Refer to the following example or the 'Examples' project for client-side (Javascript) setup/implementation, depending on your scenario.
 
-This shows how to implement ListPager in a Host @page that uses Ajax to render a single Partial View 
-containing both ListPager and the target List. See the **ListPagerExamples** project for other scenarios 
-including an Ajax page with client-side rendering of the data List.
 
-See **Customizing** below for overridding and other customization
+## Example Host Page
+
+This shows how to implement ListPager in a @page that uses Ajax to render a single Partial View 
+containing both ListPager and the target List of data. 
+
+See the **ListPagerExamples** project for other scenarios including an Ajax page with client-side rendering of the data List.
 
 ### MyPage.cshtml
 
 here we need to:
 
-- import the javascript **Pager** class 
-- initialize client pagerState as JSON
+- import the javascript **Pager** class
+- initialize client pagerState using server-generated JSON
 - instantiate ListPager with **page scope**
-- handle the ListPager paging events to render the Partial View
+- handle the ListPager paging events to render/update the pager
 
 ```
     @page
@@ -69,23 +83,32 @@ here we need to:
             afTokenSelector: "input[name='__RequestVerificationToken']"
         }
         
+        //we'll be good and handle the anti-forgery token as well'
         let afToken = null;
+        
+        //or whatever other doc-ready handler you prefer
         window.onload = () => {
-            // Html Helper renders this token
+        
+            //Standard @Html.AntiForgeryToken() renders the token
             afToken = document.querySelectorAll(constants.afTokenSelector)[0].value;
             
-            // ListPager provides a set of Fetch API based Ajax POST methods
+            // Pager.js provides this async Fetch-API-based Ajax POST method, "postState" but
+            // note that error handling is just catch-and-throw, so you can re-catch here or, 
+            // if you want to use a another ajax library simply include it in your page and use it here.
             pager.postState(constants.urlBase, afToken, pagerState, constants.partialViewTarget)
         }
         
-        // ListPager constants are static (Pager.constants not pager.constants)
+        // pager.js constants are static (Pager.constants not pager.constants)
         document.addEventListener(Pager.constants.pagingEventName, (e) => {
         
-            // postEvent extracts state from the Event object then calls pager.postState(...)
+            // postEvent method extracts state from the Event object then calls pager.postState(...)
+            // if you want to handle that outside of pager.js you'll need to implement it here
             pager.postEvent(e, constants.urlBase, afToken, pagerState, constants.partialViewTarget)
         
-                // if the dom target parameter was null, this would be: .then(json =>{ // do things })
+                // if the dom target parameter (constants.partialViewTarget) was null, this would be: 
+                // .then(json =>{ // do things })
                 .then(text => {
+                    //otherwise we did it for you
                     console.log("this was inserted into the DOM at the target element->", text)
                 })
         })
@@ -114,8 +137,10 @@ here we need to:
             _db = context;
         }
         
+        //library conains the ListPagerModel class 
         public ListPagerModel PagerModelInstance {get; set;}
         
+        //example only - pager is agnostic about data source
         public List<MyItemModel> MyPageData { get; set;}
 
         public void OnGet(){
@@ -133,6 +158,7 @@ here we need to:
                     ViewData = new ViewDataDictionary<MyPageModel>(ViewData, this)
                 };
             }
+            // literal for clarity - use a resource string
             throw new ArgumentException("ListPagerModel invalid or null");
         }
 
@@ -142,7 +168,7 @@ here we need to:
             var data = _db.Set<MyItemModel>();
             PagerModelInstance.TotalRecords = data.Count();
             
-            // REQUIRED
+            // REQUIRED - this sets page count, row boundaries 
             PagerModelInstance.CheckBoundaries();
 
             int skip = PagerModelInstance.PageSize * (PagerModelInstance.PageNumber - 1);
@@ -155,29 +181,59 @@ here we need to:
     }
 ```
 
-## Customizing
+## Customizing & Overriding
 
-There are several ways to customize ListPager. In summary, you can :
+**Overriding** refers to placing replacement files in the path that Dot Net expects to find them, entirely overriding the related library object, whether .cshtml or .css
+
+**Customizing** refers altering appearance or behaviour withoout overriding the libraries files.
+
+There are several ways to alter the pager's appearance and/or behaviour. In summary, you can :
 
   - Use the **visibility toggles** and other settings available in the provided **ListPagerModel** c# Class (see below)
       
-  - **Override a sub-view** (e.g. 'ListPagerPageOf.cshtml') by adding your own version in the correct folder (see below)
+  - **Override a sub-view** (e.g. 'ListPagerPageOf.cshtml') by adding your own version to your project (see path placement below)
   
-  - **Override the CSS** in wwwroot/css/pager.css' and/or include your own .css file
+  - **Override the CSS** in wwwroot/css/*.css' and/or include your own .css file(s)
   
-  - **Change the pager layout**/ structure by using your own container View, ignoring or overriding ListPager.cshtml / _ListPager.cshtml
+  - **Change the layout**/ by composing your own container View Component, ignoring or overriding ListPager.cshtml / _ListPager.cshtml
       
-Any of the included views can be overridden by the host, as can the .css but at this writing RCL overrides require that the host folder structure mirror the library. **ListPagerRazorLibrary** has the following relevant structure:
+### override file placement
 
-  - **/css/pager.css**          (below wwwroot)
+Any of the included views can be overridden by the host but at this writing RCL overrides require that the host folder structure **mirror the library's structure**. 
 
-  - **/js/pager.js**            (might be better to fork the project than override this)
+ListPagerRazorLibrary has the following relevant structure:
 
-  - **Pages/Shared**            (only _ListPager.cshtml, the Partial View container, lives here)
+  - **Pages/Shared**            (Partial View containers live here)
 
-  - **Pages/Shared/Components** (ListPager.cshtml and all the other Component Views)
+  - **Pages/Shared/Components** (all Component Views reside here)
 
-Any of the included views can be used as Partial Views like this example for **ListPagerLinks.cshtml**:
+So, to override say, the ListPagerLinks.cshtml View Component with your own version, place your version in your project at:
+
+    /pages/Shared/Components/ListPagerLinks.cshtml
+
+For .CSS of .JS simply use your files as normal and do or do not also include the Library's, as appropriate
+
+
+## CSS Classes
+
+The RCL includes the static resource "pager.css" which provides default Bootstrap 4 styling. 
+ListPager also assigns some of its own class names:
+
+- li.page-item
+- li.page-item.disabled
+- li.page-item.pager-range
+- a.page-link
+- a.page-link.disabled
+- span.pager-page
+- span.pager-dropdown
+
+
+## ListPager as Partial View
+
+As noted there is a purely (internally all PV's) Partial View version of ListPager, _ListPager 
+but with the caveats below you can use any of the View Components as Partuial Views as well.
+
+For example like this for **ListPagerLinks.cshtml**:
 
     ```
     <partial name="Components/ListPagerLinks.cshtml" model="[ModelInstance]" />
@@ -190,15 +246,9 @@ Any of the included views can be used as Partial Views like this example for **L
     */
     ```
 
-To alter Layout :
+## Included View Components
 
- - Override Listpager.cshtml or _ListPager.cshtml, or using your own container View instead.
- - Use the ListPager 'sub-views' and/or your own views/content in the HTML structure you wish
- 
- 
-### Included Views
-
-Views are provided for each major element of the pager. All can be used as **View Components or Partial Views**.
+View components are provided for each major element of the pager;
         
 **ListPagerArrows**
     
@@ -221,7 +271,8 @@ Views are provided for each major element of the pager. All can be used as **Vie
 **ListPagerRecords**
 
     A 'N of T records' display, suitable for filtered data sets 
-    Toggle with ListPagerModel.ShowRecordsOf and typically ListPagerModel.IsFiltered
+    Toggle with ListPagerModel.ShowRecordsOf 
+    Typically ListPagerModel.IsFiltered is in use with this
 
 **ListPagerDropdown**
   
@@ -240,7 +291,7 @@ Views are provided for each major element of the pager. All can be used as **Vie
 
 **ListPagerPostForm**
 
-    For convenience in POST scenarios
+    For convenience in POST scenarios, includes all ListPagerModel properties
 
 **ListPager** itself comes in two flavours both of which can be overridden, or ignored, typically to change Layout:
 
@@ -248,8 +299,24 @@ Views are provided for each major element of the pager. All can be used as **Vie
 
     Pages/Shared/_ListPager.cshtml and uses the above sub-views as Partial Views
 
+## Included Partial Views
+    
+    While any of the library's View Components can be invoked as Partial Views, the library also contains these Partial Views;
 
-### ListPagerModel Class
+**_ListPagerShort**
+    
+    Implements the pager as a simple range (ul) of page numbers and elipses that provide movement up and down the full range of data pages.
+
+**_ListPagerSHeets**
+    
+    Implements the pager in a format suitable for paging through a document, for example a blog entry.
+
+**_ListPager**
+
+    The full blown ListPager that implements all of it's features as Partial Views
+
+
+## ListPagerModel C# Class
 
 ListPagerModel.cs provides the following method and properties:
 
@@ -258,8 +325,8 @@ ListPagerModel.cs provides the following method and properties:
     The only method in the class, it is importantly responsible for checking/setting 
     page boundaries and ListPagerModel.PageCount
      
-    There is intentionally no other setter for ListPagerModel.PageCount as it is 
-    imperative that you call this prior to returning data or a view.
+    **There is intentionally no other setter for ListPagerModel.PageCount as it is 
+    imperative that you call this prior to returning data or a view.**
 
 **PageCount**
 
@@ -268,7 +335,7 @@ No public setter, this can only be set by calling the "CheckBoundaries()" method
 **PageNumber**
 
 Always ask "pager.js" to set this, via client Pager State, with "pager.goToPage(N)" which 
-fires a paging event. The "pager.setActivePage(N)" pager method is pure UI update, no paging 
+fires a paging event. ** NOTE** that the JS "pager.setActivePage(N)" pager method is pure UI update, no paging 
 event is issued and it may be deprecated in a future version.
 
 **MaxPageLinks**
@@ -277,7 +344,7 @@ Maximum number of page-numbered links in the "ListPagerLinks" view
 
 **TotalRecords**
 
-Total unfiltered records in the dataset, as in: "mySet.Count()"
+Total unfiltered records in the dataset, as in: "myDataSet.Count()"
 CheckBoundaries() will set this to '0' if you leave it null
 
 **FilteredRecordCount**
@@ -330,32 +397,18 @@ Toggle "ListPagerPageSize" display
 No setter - Getter returns a comparison of the "ListPagerModel.TotalRecords" and 
 "ListPagerModel.FilteredRecordCoount" property values
 
-and for convenience
+and for convenience 
 
 **SortDirection**
 **SortColumn**
     
-If you are providing a single column sort, you can carry the state in ListPagerModel
+If you are providing a single column sort, you can carry its state in those ListPagerModel props
 
 
-
-
-### Styling
-
-The RCL includes the static resource "pager.css" which provides default Bootstrap 4 styling. 
-ListPager also assigns some of its own class names:
-
-- li.page-item
-- li.page-item.disabled
-- li.page-item.pager-range
-- a.page-link
-- a.page-link.disabled
-- span.pager-page
-- span.pager-dropdown
 
 ### Pull Requests and Maintenance 
 
-I may or may not update this over time, but requests or suggestions are welcome.
+Any errors or omissions please do let me know. I may or may not update this over time, but requests or suggestions are also welcome.
 
 ### Credits
 

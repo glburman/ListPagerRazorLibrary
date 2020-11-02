@@ -2,8 +2,8 @@
 
 
 <div class="input-group">
-    <input type="text" class="d-inline form-control form-control-sm" name="filter" id="filter" value="@Model" />
+    <input type="text" class="d-inline form-control form-control-sm" name="filter" id="filter" value="@Model" onchange="pager.goToPage(1)" />
     <span class="input-group-btn ml-2">
-        <button class="btn btn-sm btn-dark d-inline" onclick="pager.goToPage(1)">search</button>
+        <button class="btn btn-sm btn-dark d-inline" onclick="pager.goToPage(1)">search Last Name</button>
     </span>
 </div>

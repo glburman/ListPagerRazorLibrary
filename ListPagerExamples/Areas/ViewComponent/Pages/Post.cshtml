@@ -4,17 +4,14 @@
 @model VCPostModel
 @{
     Layout = "_LayoutForExamples";
-    ViewData["Title"] = "ListPager Examples - View Component POST";
-
+    ViewData["Title"] = "View Component Example - POST";
     var pager = Model.Parameters.Pager;
-    pager.ShowRecordsOf = pager.IsFiltered;
-    pager.ShowPageOf = !pager.IsFiltered;
     pager.ShowDropDown = pager.PageCount > pager.MaxPageLinks + 1;
     Model.Parameters.Pager = pager;
-
 }
 @section Scripts{
     <script>
+        //page scope, not module scope
         let pager
     </script>
     <script type="module">
@@ -29,64 +26,49 @@
         })
     </script>
 }
-@section Css{
-    <link rel="stylesheet" href="~/_content/ListPagerRazorLibrary/css/pager.css" />
-}
 
 @section Notes{
-    <div class="collapse py-0 m-0" id="collapseExample" aria-expanded="false">
-        <hr />
-        <p>
-            This full-page POST example uses the library's <code>ListPager.cshtml</code> as a View Component to
-            render 'small', 'normal' and 'large' non-themed versions of List Pager. Normal sizing is the default.
-            Small and Large sizing is done by wrapping the View Component (or Partial View) in a <code>&lt;div></code>
-            with the related class, like this:
-            <br />
-            <br />
-            <code class="block">
-                &lt;div class="d-flex justify-content-between <strong>list-pager-sm</strong>">
-                <br />&nbsp;&nbsp;&nbsp;&nbsp;&commat;await Component.InvokeAsync("ListPager"), Model.Parameters.Pager)
-                <br />&lt;/div>
-            </code>
-        </p>
-        <hr />
-        <p>
-            Note that <code>ListPagerRecords</code> ("N rows of T") is conditional on <code>IsFiltered == true</code>
-            but since there is no Search on this page, it is never displayed.
-        </p>
-        <p>
-            The library's "Page N of T" element (<code>ListPagerPageOf.cshtml</code>) is overridden by
-            <code>ListPagerExamples/Pages/Shared/ListPagerPageOf.cshtml</code> (<span class="text-success">to set class='text-success'</span>).
-        </p>
-    </div>
-}
+    <dl>
+        <dt>
+            The POST Demo shows
+        </dt>
+        <dd>
+            <ul>
+                <li><p>How to implement a full-page post scenario</p></li>
+                <li><p>Use of the <code>ListPagerPostForm</code> to accomodate the post</p></li>
+                <li><p>Use of the <code>ShowPageOf</code> property of the C# <code>ListPagerModel</code> to trigger rendering of the <code>ListPagerPageOf</code> View Component.</p></li>
+                <li>
+                    <p>
+                        Use of a formula to determine whether the <code>ShowDropDown</code> property is set to true or false:
+                    </p>
+                    <p>
+                        <code>
+                            pager.ShowDropDown = pager.PageCount > pager.MaxPageLinks + 1;
+                        </code>
+                    </p>
+                    <p>
+                        Set Page Size to 25 to see the effect
+                    </p>
+                </li>
 
-<div class="col my-4">
+            </ul>
+        </dd>
+    </dl>
+
+}
+<div class="col-7 mx-auto">
     <div class="row">
-        <div class="col-md-8 text-center mx-auto">
-            <div class="d-flex justify-content-between list-pager-sm ">
-                @await Component.InvokeAsync(nameof(ListPagerRazorLibrary.ViewComponents.ListPager), Model.Parameters.Pager)
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-8 text-center mx-auto">
-            <div class="d-flex justify-content-between ">
-                @await Component.InvokeAsync(nameof(ListPagerRazorLibrary.ViewComponents.ListPager), Model.Parameters.Pager)
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-8 text-center mx-auto">
-            <div class="d-flex justify-content-between list-pager-lg">
+        <div class="col">
+            <div class="d-flex justify-content-between">
                 @await Component.InvokeAsync(nameof(ListPagerRazorLibrary.ViewComponents.ListPager), Model.Parameters.Pager)
             </div>
         </div>
     </div>
 
     <partial name="Components/ListPagerPostForm" , model="Model.Parameters.Pager" />
+
     <div class="row">
-        <div class="d-block mx-auto col-md-8">
+        <div class="mx-auto col">
             <!--this table belongs to the host app, its not a ListPager partial -->
             <partial name="_ListTable" model="@Model.Bloggers" />
         </div>

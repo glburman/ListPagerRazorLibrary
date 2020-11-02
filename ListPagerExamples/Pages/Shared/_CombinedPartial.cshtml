@@ -1,26 +1,25 @@
 ﻿@model AjaxSingleModel
 
-<div class="col my-4">
-    <div class="col-md-10 text-center mx-auto">
-        <div class="row my-2 d-flex justify-content-end">
-            <div class="col-md-4">
-                <partial name="_ListFilterPartial" model='@Model.Parameters.SearchTerm' />
-            </div>
+<div class="col-7 mx-auto">
+    <div class="row my-2 d-flex justify-content-end">
+        <!-- this is not part of the library -->
+        <div class="col-md-4">
+            <partial name="_ListFilterPartial" model='@Model.Parameters.SearchTerm' />
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-7 text-center mx-auto">
-            <div class="d-flex justify-content-between list-pager-sm ">
-                <!-- This comes from the ListPager Library-->
+
+    <div class="row d-flex justify-content-center mt-4">
+        <div class="col mt-4">
+            <!-- This comes from the ListPager Library-->
+            <div class="d-flex justify-content-between list-pager-sm m-0 p-0">
                 <partial name="_ListPager" model="@Model.Parameters.Pager" />
-
             </div>
         </div>
     </div>
-</div>
 
-<div class="d-flex justify-content-center">
-    <div class="col-md-10">
-        <partial name="_ListTable" model="@Model.Bloggers" />
+    <div class="row">
+        <div class="col mx-auto">
+            <partial name="_ListTable" model="@Model.Bloggers" />
+        </div>
     </div>
 </div>

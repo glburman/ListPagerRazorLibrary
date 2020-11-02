@@ -7,15 +7,11 @@
     ViewData["Title"] = "ListPager Examples - Ajax Separate Partial Views";
     var pager = Model.Parameters.Pager;
     pager.DropDownIncrement = 7;
-    pager.ShowRecordsOf = pager.IsFiltered;
-    pager.ShowPageOf = !pager.IsFiltered;
     pager.ShowDropDown = true;
     pager.PageSize = 5;
     Model.Parameters.Pager = pager;
 }
-@section Css{
-    <link rel="stylesheet" href="~/css/pager.css" />
-}
+
 @section Scripts{
     <script>
         //Page scope, not module scope
@@ -50,40 +46,64 @@
 }
 
 @section Notes{
-    <div class="collapse py-0 m-0" id="collapseExample" aria-expanded="false">
-        <p>
-            This example makes seperate Ajax calls for the Data List and ListPager.
-        </p>
-        <p>
-            ListPager is updated only if the Data List fetch succeeds.
-            See the <code>GetBoth()</code> javascript function. A Named Handler ('OnPostPager') renders the _ListPager Partial View (from the Library) while the standard OnPost returns the Data List in the app's <code>_ListTable.cshtml</code> Partial View).
-            Just to be diferent, the <code>DropDownIncrement</code> is changed from 5 to 7.
-        </p>
-        <p>
-            ListPager is styled with <code>pager-large.css</code>
-        </p>
+    <dl>
+        <dt>
+            In this Ajax demo
+        </dt>
+        <dd>
+            <ul>
+                <li>
+                    <p>
+                        there are seperate Ajax calls for the Data List and ListPager
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        the pager is updated only if the Data List fetch succeeds.
+                        See the <code>GetBoth()</code> javascript function. A Named Handler ('OnPostPager')
+                        renders the _ListPager Partial View (from the Library) while the standard OnPost
+                        returns the Data List in the app's <code>_ListTable.cshtml</code> Partial View).
 
-    </div>
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        the pager is styled with <code>list-pager-lg.css</code>
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        the flag <code>ShowRecordsOf</code> is conditional on the <code>isFiltered</code> state and the
+                        <code>ShowPageOf</code> is the opposite. One or the other is displayed.
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        just to be diferent, the <code>DropDownIncrement</code> is changed from 5 to 7.
+                    </p>
+                </li>
+            </ul>
+        </dd>
+    </dl>
 }
 
 @Html.AntiForgeryToken()
-<div class="col my-4">
-    <div class="col-md-10 text-center mx-auto">
-        <div class="row my-2 d-flex justify-content-end">
-            <div class="col-md-4">
-                <partial name="_ListFilterPartial" model='@Model.Parameters.SearchTerm' />
+<div class="col-7 mx-auto">
+    <div class="row mt-4 d-flex justify-content-end">
+        <div class="col-md-4">
+            <partial name="_ListFilterPartial" model='@Model.Parameters.SearchTerm' />
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col  mx-auto">
+            <div class="d-flex justify-content-between list-pager-lg" id="pager-wrapper">
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-9 text-center mx-auto">
-            <div class="d-flex justify-content-between" id="pager-wrapper">
-            </div>
+        <div class="mx-auto col" id="table-wrapper">
         </div>
     </div>
-</div>
 
-<div class="d-flex justify-content-center">
-    <div class="col-md-10" id="table-wrapper">
-    </div>
 </div>

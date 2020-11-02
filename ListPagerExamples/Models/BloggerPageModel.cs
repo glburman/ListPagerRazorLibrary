@@ -39,7 +39,7 @@ namespace ListPagerExamples.Models
             }
             else
             {
-                throw new ArgumentException("GetPage ParametersModel is null");
+                throw new ArgumentException(Properties.Resources.GETPAGE_PARAM_ERROR);
             }
 
         }

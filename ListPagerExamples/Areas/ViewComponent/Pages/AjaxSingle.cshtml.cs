@@ -43,7 +43,7 @@ namespace ListPagerExamples.Areas.ViewComponent.Pages
                     ViewData = new ViewDataDictionary<AjaxSingleModel>(ViewData, this)
                 };
             }
-            throw new ArgumentException("ParametersModel invalid or null");
+            throw new ArgumentException(Properties.Resources.PARAM_MODEL_ERROR);
         }
     }
 }
