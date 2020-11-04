@@ -45,15 +45,14 @@ Please see the working examples in the examples project for implementation detai
 
 ## Customizing & Overriding
 
-**Overriding** refers to placing replacement files in the path that Dot Net expects to find them, entirely overriding the related library object, whether .cshtml or .css
+For our purposes here, **overriding** refers to placing replacement files in the path that Dot Net expects to find them, entirely overriding the related library object, whether .cshtml or .css
+while **customizing** refers altering appearance or behaviour without overriding an entire library file.
 
-**Customizing** refers altering appearance or behaviour without overriding an entire library file.
+There are several ways to alter the pager's appearance and/or behaviour. These are demonstraed in the "examples' project but in summary, you can :
 
-There are several ways to alter the pager's appearance and/or behaviour. Those are also demonstraed in the "examples' project but in summary, you can :
-
-  - Use the **visibility toggles** and other settings available in the provided **ListPagerModel** c# Class (see below)
+  - Use the **visibility toggles** and other settings available in the provided **ListPagerModel** c# Class (see below) 
       
-  - **Override a sub-view** (e.g. 'ListPagerPageOf.cshtml') by adding your own version to your project (see path placement below)
+  - **Override a library view** (e.g. 'ListPagerPageOf.cshtml') by adding your own version to your project (see path placement below)
   
   - **Override the CSS** in wwwroot/css/*.css' and/or include your own .css file(s)
   
@@ -61,35 +60,38 @@ There are several ways to alter the pager's appearance and/or behaviour. Those a
       
 ### override file placement
 
-Any of the included views can be overridden by the host but at this writing RCL overrides require that the host folder structure **mirror the library's structure**. 
-
+At this writing RCL file-level overrides require that the host folder structure **mirror the library's structure**. 
 ListPagerRazorLibrary has the following relevant structure:
 
   - **Pages/Shared**            (Partial View containers live here)
 
   - **Pages/Shared/Components** (all Component Views reside here)
 
+  - **wwwroot/css/pager.css**   (base theme) 
+
+  - **wwwroot/css/pager-dark.css** (darkness)
+
+   - **wwwroot/css/pager-neon.css** (gloriously gaudy)
+
 So, to override say, the ListPagerLinks.cshtml View Component with your own version, place your version in your project at:
 
     /pages/Shared/Components/ListPagerLinks.cshtml
 
+Overriding **wwwroot/js/pager.js** will work but is not recommended. I'd suggest forking the project instead, 
+unless you are comfortable handling any library future changes that impact the scripting.
 
-## CSS and Javascript
+## User CSS and Bootstrap
 
-CSS files placed on the appropriate path will also override the library's version. 
+Whether you use the library's CSS files or override them, you can also include your own files as normal, 
+to override specific selector definitions.
 
-Whether you inlucde the library's CSS files or override them you can also include your own files as normal, 
-to override specific selector values.
-
-Note that the library uses Bootstrap .scss files, along with its own, to transpile SASS into CSS, 
-which means that you do not need to include the bootstrap's library CSS files in your pages
-
-Overriding **pager.js** will work but is not recommended. I'd suggest forking the project instead.
+Note that the library uses Bootstrap .scss files, along with its own .scss, to transpile SASS into CSS, 
+which means that you do not need to include the bootstrap's library CSS files in your pages, unless
+you have broader need of them.
 
 ## CSS Classes
 
-The RCL includes the static resource "pager.css" which provides default Bootstrap 4 styling. 
-ListPager also assigns some of its own class names:
+The RCL static resource "pager.css" (and the themed files) assigns some of its own class names:
 
 - li.page-item
 - li.page-item.disabled
@@ -99,12 +101,26 @@ ListPager also assigns some of its own class names:
 - span.pager-page
 - span.pager-dropdown
 
+**If I've missed any please let me know**
+
+## Partial Views In The Library
+    
+The library is primarily a View Component library and while any of the View Components can be invoked as 
+Partial Views, the library also contains these "View Component free" Partial Views:
+
+**_ListPagerShort**
+* Implements the pager as a simple range (ul) of page numbers and elipses that provide movement up and down the full range of data pages.
+
+**_ListPagerSheets**
+* Implements the pager in a format suitable for paging through a document, for example a multi-page blog entry, with a fixed pager width.
+
+**_ListPager**
+* The fully composed ListPager that implements all of it's features as Partial Views, not View Components.
+
 
 ## ListPager View Components as Partial Views
 
-As noted there is a purely (internally all PV's) Partial View version of ListPager, _ListPager. 
-
-With the caveats below you can also use any of the library's View Components as Partial Views as well.
+With the caveats below you can also use any of the library's View Components as Partial Views.
 
 For example like this for **ListPagerLinks.cshtml**:
 
@@ -113,176 +129,171 @@ For example like this for **ListPagerLinks.cshtml**:
                 
     /* Note - ListPagerArrows and ListPagerDropdown require instances of their own Models,
     *  ListPagerArrowModel and ListPagerDropDownModel, and are therefore perhaps best 
-    *  invoked as ViewComponents. All others require a ListPagerModel instance which
+    *  invoked as ViewComponents where the mode;ls are sintantiated automatically. 
+    *
+    *  All other View Components require a ListPagerModel instance which
     *  is typically passed to the container ListPager.cstml or _ListPager.cshtml
+    *   
     *  See _ListPager.cshtml and ListPager.cshtml for example usage.
     */
     ```
 
-## View Components In The Library
+## Library View Components
 
-View components are provided for each major element of the pager;
+View components are provided for each major element of the pager, as well as for the default composition of the Pager itself.
         
 **ListPagerArrows**
-    
-    Backward and Forward single and double arrows
-        
-    Note - reqires an instance of ListPagerArrowModel which is automatically instantiated
+
+* Backward and Forward single and double arrows
+
+* Note - requires an instance of **ListPagerArrowModel** which is automatically instantiated 
     when Invoked as a View Component but must be manually instantiated when used as a
     Partial View.
+
 
 **ListPagerPageOf**
 
-    The typical 'Page N of T' display
-    Toggle with 'ListPagerModel.ShowPageOf''
+* The typical 'Page N of T' display
 
 **ListPagerLinks**
 
-    A series of N linked page numbers
-    ListPagerModel.MaxPageLinks determines maximum N to be displayed
+* A series of N linked page numbers
+* **ListPagerModel.MaxPageLinks** determines maximum N to be displayed
 
 **ListPagerRecords**
 
-    A 'N of T records' display, suitable for filtered data sets 
-    Toggle with ListPagerModel.ShowRecordsOf 
-    Typically ListPagerModel.IsFiltered is in use with this
+* A 'N of T records' display, suitable for filtered data sets 
+* Typically **ListPagerModel.IsFiltered** is in use with this
 
 **ListPagerDropdown**
   
-    A configurable drop-down menu of incremental page jumps
-    Toggle with "ListPagerModel.ShowDropDown"
-    "ListPagerModel.DropDownIncrement" determines generated jump increments
-      
-    Note - reqires an instance of ListPagerDropdownModel which is automatically instantiated
-    when Invoked as a View Component but must be manually instantiated when used as a
-    Partial View.
+* A configurable drop-down menu of incremental page jumps 
+  **ListPagerModel.DropDownIncrement** determines generated jump increments
+  
+* Note - requires an instance of ListPagerDropdownModel which is automatically instantiated
+when Invoked as a View Component but must be manually instantiated when used as a
+Partial View.
 
 **ListPagerPageSize**
 
-    A page-size UI element to allow user-setting of ListPagerModel.PageSize
-    Toggle with "ListPagerModel.ShowPageSize"
+* A page-size UI element to allow user-setting of **ListPagerModel.PageSize**
 
 **ListPagerPostForm**
 
-    For convenience in POST scenarios, includes all ListPagerModel properties
+* For convenience in POST scenarios, includes all **ListPagerModel** properties
 
-**ListPager** itself comes in two flavours both of which can be overridden, or ignored, typically to change Layout:
+**ListPager** 
+* the pager itself comes in two flavours both of which can be overridden, typically to 
+    change composition and/or Layout:
 
-    Pages/Shared/Components/ListPager.cshtml and uses the above sub-views as View Components 
-
-    Pages/Shared/_ListPager.cshtml and uses the above sub-views as Partial Views
-
-## Partial Views In The Library
-    
-    While any of the library's View Components can be invoked as Partial Views, the library also contains these Partial Views;
-
-**_ListPagerShort**
-    
-    Implements the pager as a simple range (ul) of page numbers and elipses that provide movement up and down the full range of data pages.
-
-**_ListPagerSHeets**
-    
-    Implements the pager in a format suitable for paging through a document, for example a blog entry.
-
-**_ListPager**
-
-    The full blown ListPager that implements all of it's features as Partial Views
+    * **Pages/Shared/Components/ListPager.cshtml** - uses the above views as View Components 
+    * **Pages/Shared/_ListPager.cshtml** - uses the above views as Partial Views
 
 
 ## ListPagerModel C# Class
 
-ListPagerModel.cs is required to implement the pager. See Examples for implemenation details. 
-In summary it provides the following method and properties:
+**ListPagerModel.cs** is required to implement the pager. See Examples for implemenation details. 
+In summary it provides the following properties, and single method:
+
+### Toggles
+
+The following **ListPagerModel** Boolean properties are available to trigger display/non-display of individual 
+View Components in the composed Pager.
+
+**NOTE** that use of the toggles is manual - you must specify their values in your code and, 
+if you are overriding **ListPager.cshtml** or composing your own pager, you must use them in 
+conditional (if) statements within the composed ListPager to give them effect.
+
+**ShowPageOf**
+* Intended to toggle "ListPagerPageOf" display, default **false**
+
+**ShowDropDown**
+* Intended to toggle "ListPagerDropdown" display, default **false**
+
+**ShowRecordsOf**
+* Intended to  toggle "ListPagerRecords" display, default **false**
+
+**ShowPageSize**
+* Intended to toggle "ListPagerPageSize" display, default **true**
+
+
+### Required Method
 
 **CheckBoundaries()**
 
-    The only method in the class, it is importantly responsible for checking/setting 
-    page boundaries and ListPagerModel.PageCount
-     
-    **There is intentionally no other setter for ListPagerModel.PageCount as it is 
-    imperative that you call this prior to returning data or a view.**
+* The only method in the class, it is importantly responsible for checking/setting 
+    page boundaries and **ListPagerModel.PageCount**.
+    
+* **IMPORTANT** - there is intentionally no other setter for **ListPagerModel.PageCount** as it is 
+    **imperative** that you call this prior to returning data or a view.
 
-**PageCount**
 
-No public setter, this can only be set by calling the "CheckBoundaries()" method 
-
-**PageNumber**
-
-Always ask "pager.js" to set this, via client Pager State, with "pager.goToPage(N)" which 
-fires a paging event. ** NOTE** that the JS "pager.setActivePage(N)" pager method is pure UI update, no paging 
-event is issued and it may be deprecated in a future version.
-
-**MaxPageLinks**
-
-Maximum number of page-numbered links in the "ListPagerLinks" view
+### Other User-Settable Properties
 
 **TotalRecords**
+* Total unfiltered records in the dataset, as in: **myDataSet.Count()**
+* **CheckBoundaries()** will set this to '0' if you leave it null
 
-Total unfiltered records in the dataset, as in: "myDataSet.Count()"
-CheckBoundaries() will set this to '0' if you leave it null
-
-**FilteredRecordCount**
-
-Defaults to TotalRecordCount if null. It impacts the IsFiltered flag which is typically
-used to determine ListPagerModel.ShowRecordsOf state (i.e. toggle the ListPagerRecords view)
+**MaxPageLinks**
+* Maximum number of page-numbered links in the **ListPagerLinks.cshtml** view
 
 **PageSize**
-
-Rows per page, see the "ListPagerPageSize" view and "ListPagerModel.ShowPageSize" toggle property.
+* Rows per page, used in the **ListPagerPageSize.cshtml** view 
 
 **MaxPageSize**
-
-Maximum value for the Page Size ui input, enforced by the "ListPagerModel.PageSize" setter.
+* Maximum value for the Page Size ui input, enforced by the **ListPagerModel.PageSize** setter.
 
 **MinPageSize**
+* Minimum value for the Page Size ui input, enforced by the **ListPagerModel.PageSize** setter.
 
-Minimum value for the Page Size ui input, enforced by the "ListPagerModel.PageSize" setter.
-
-**PageSizeInputId **
-
-DOM id of the Page Size input box living in the "ListPagerPageSize" view
+**PageSizeInputId**
+* DOM id of the Page Size input box living in the **ListPagerPageSize** view
 
 **PostTarget**
-
-The URL target to POST "ListPagerPostForm" to, not required if you are not using that form
+* The URL target to POST **ListPagerPostForm** to, not required if you are not using that form
      
 **DropDownIncrement**
+* The increment between page number links in the **ListPagerDropdown** view
 
-The increment between page number links in the "ListPagerDropdown" view
-     
-**ShowPageOf**
+**Sort State**
+* for convenience if you are providing a single column sort, you can carry its state in these ListPagerModel props
 
-Toggle "ListPagerPageOf" display, default **false**
+    * **SortDirection**
+    * **SortColumn**
 
-**ShowDropDown**
+## Other Properties
 
-Toggle "ListPagerDropdown" display, default **false**
+**PageCount**
+* No public setter, this can only be set by calling the **CheckBoundaries()** method 
 
-**ShowRecordsOf**
+**PageNumber**
+* Technically you can set this, but you should **always** ask **pager.js** instead, 
+    via client Pager State, with **pager.goToPage(N)** which 
+    fires a paging event. 
 
-Toggle "ListPagerRecords" display, default **false**
+* **WARNING** - the pager.js **setActivePage(N)** method results in a direct UI update, no paging 
+    event is issued. It may be deprecated in a future version.
 
-**ShowPageSize**
 
-Toggle "ListPagerPageSize" display, default **true**
+**FilteredRecordCount**
+* Defaults to TotalRecordCount if null. It impacts the **IsFiltered** flag which is typically
+    used to determine **ListPagerModel.ShowRecordsOf** state (i.e. toggle the ListPagerRecords view)
 
 **IsFiltered**
+* No setter - Getter returns a comparison of the **ListPagerModel.TotalRecords** and 
+    **ListPagerModel.FilteredRecordCount** property values
 
-No setter - Getter returns a comparison of the "ListPagerModel.TotalRecords" and 
-"ListPagerModel.FilteredRecordCoount" property values
 
-and for convenience 
-
-**SortDirection**
-**SortColumn**
     
-If you are providing a single column sort, you can carry its state in those ListPagerModel props
 
 
 
 ### Pull Requests and Maintenance 
 
-Any errors or omissions please do let me know. I may or may not update this over time, but requests or suggestions are also welcome.
+Any errors or omissions please do let me know. 
+
+I may or may not update this over time, but requests or suggestions are also welcome.
+
 
 ### Credits
 
