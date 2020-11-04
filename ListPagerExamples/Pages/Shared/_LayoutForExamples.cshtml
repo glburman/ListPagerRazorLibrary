@@ -5,14 +5,8 @@
 
 @RenderSection("Scripts", false)
 
+<!-- the library's sheets-->
 <link rel="stylesheet" href="../_content/ListPagerRazorLibrary/css/pager.css" id="themesheet" />
-
-<style>
-    #notes {
-        font-size: .90rem;
-    }
-</style>
-
 
 @RenderSection("Css", false)
 
@@ -21,7 +15,7 @@
     <h4>@ViewData["title"]</h4>
 </div>
 
-<button class="offset-3 btn btn-primary btn-sm shadow" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+<button class="offset-3 btn btn-outline-secondary btn-sm shadow" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
     Notes
 </button>
 

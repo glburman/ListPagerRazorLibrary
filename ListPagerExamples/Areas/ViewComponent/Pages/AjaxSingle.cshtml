@@ -17,7 +17,7 @@
         pager = new Pager(modelState.pager, {})
         const constants = {
             urlBase: "ajaxsingle/partial",
-            tableTarget: "data-page-wrapper"
+            tableTarget: "partial-view-target"
         }
 
         let afToken = null;
@@ -66,6 +66,6 @@
 
 @Html.AntiForgeryToken()
 
-<div id="data-page-wrapper">
+<div id="partial-view-target">
 </div>
 

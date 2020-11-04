@@ -1,11 +1,11 @@
 ﻿using ListPagerExamples.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using System;
 using Newtonsoft;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
-using System;
 using System.IO.Pipelines;
 using Newtonsoft.Json;
 

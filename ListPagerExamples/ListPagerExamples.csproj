@@ -24,7 +24,6 @@
     <Content Remove="Areas\ViewComponent\Pages\_VCAjaxClient.cshtml" />
     <Content Remove="Pages\Shared\Components\ListPagerDropdown.cshtml" />
     <Content Remove="Pages\Shared\Components\ListPagerPageSize.cshtml" />
-    <Content Remove="Pages\Shared\_CombinedPartial - Copy.cshtml" />
     <Content Remove="Pages\Shared\_LayoutForExamples - Copy.cshtml" />
     <Content Remove="Pages\Shared\_ListPartial.cshtml" />
   </ItemGroup>
