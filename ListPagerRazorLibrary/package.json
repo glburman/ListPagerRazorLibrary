@@ -1,21 +1,21 @@
 {
   "name": "@serexx/listpagerrazorlibrary",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Greg Burman <gregburman@serexx.com>",
-  "license": "ISC",
+  "author": "Greg Burman <gregburman@hotmail.com>",
+  "repository": "https://github.com/glburman/ListPagerRazorLibrary",
+  "license": "GPL-2.0",
   "dependencies": {
     "bootstrap": "4.4.1"
   },
   "devDependencies": {
-    "del": "^5.1.0",
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
     "gulp-sass": "^4.0.2",
-    "node-sass": "4.13.1"
+    "node-sass": "^5.0.0"
   },
-  "description": ""
+  "description": "DotNet Core 3.X - Configurable and stylable List Pager in a Razor Class Library "
 }
