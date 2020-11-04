@@ -6,13 +6,24 @@ and wrapped in a Razor Class Library.
 It provides composable and stylable pager UI, paging event triggering and related paging-event scripting. It is agnostic
 about data source, sorting, etc. 
 
-The Library itself uses vanilla javascript (e.g. no JQuery) however can be implemented in any event-aware framework.
-
 Your pager can be composed using the library's View Components and/or Partial Views, configured using the provided ListPagerModel and styled with CSS.
 
 The library includes predefined base, dark and neon themes which can be overridden or customized.
 
 See below for detailed description of library content and customization/override information.
+
+## Javascript Note
+
+The Library itself uses vanilla javascript (no JQuery or other libs) with the exception of **ListPagerDropDown** 
+which at V00.01.00Beta requires the Bootstrap 4 JS library. For that reason the **ListPagerDropDown** is NOT included in the 
+ListPager View Component composition but IS available in the _ListPager partial View, toggled by the 
+**ListPagerModel.ShowDropDown** boolean property.
+
+The library is otherwise agnostic about JS framework, provided that it is event-aware. 
+
+## Bootstrap CSS Note
+
+The library currently requires Bootstrap 4 CSS to present properly - if you have a need for the library without it (e.g. you are using Bulma) please let me know.
 
 ## Setup
 
@@ -87,14 +98,10 @@ So, to override say, the ListPagerLinks.cshtml View Component with your own vers
 Overriding **wwwroot/js/pager.js** will work but is not recommended. I'd suggest forking the project instead, 
 unless you are comfortable handling any library future changes that impact the scripting.
 
-## User CSS and Bootstrap
+## User CSS
 
 Whether you use the library's CSS files or override them, you can also include your own files as normal, 
 to override specific selector definitions.
-
-Note that the library uses select Bootstrap .scss files/code along with its own .scss, transpiled to CSS.
-As a result you do not need to include the bootstrap's library CSS files in your pages, unless
-you have broader need of them.
 
 ## CSS Classes
 
@@ -180,6 +187,8 @@ View components are provided for each major element of the pager, as well as for
 * Note - requires an instance of ListPagerDropdownModel which is automatically instantiated
 when Invoked as a View Component but must be manually instantiated when used as a
 Partial View.
+
+* REQUIRES Bootstrap 4 JS dropdown support
 
 **ListPagerPageSize**
 
