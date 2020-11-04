@@ -1,10 +1,16 @@
 # ListPagerRazorLibrary
 
 This a set of Asp Net Core 3.0 View Components, Partial Views and related statics (css/js), styled with Bootstrap 4 
-and wrapped in a Razor Class Library. It provides UI, paging event triggering and related paging-event scripting and is agnostic
+and wrapped in a Razor Class Library. 
+
+It provides composable and stylable pager UI, paging event triggering and related paging-event scripting. It is agnostic
 about data source, sorting, etc. 
 
-The Library uses vanilla javascript, e.g. no JQuery. 
+The Library itself uses vanilla javascript (e.g. no JQuery) however can be implemented in any event-aware framework.
+
+Your pager can be composed using the library's View Components and/or Partial Views, configured using the provided ListPagerModel and styled with CSS.
+
+The library includes predefined base, dark and neon themes which can be overridden or customized.
 
 See below for detailed description of library content and customization/override information.
 
@@ -38,6 +44,7 @@ To use ListPager in your Asp.Net Core (3.0 or later) Web project :
     ```
     <link rel="stylesheet" href="/_content/ListPagerRazorLibrary/css/pager-neon.css" />
     ```
+    or, create your own
 
 ## Examples
 
@@ -85,8 +92,8 @@ unless you are comfortable handling any library future changes that impact the s
 Whether you use the library's CSS files or override them, you can also include your own files as normal, 
 to override specific selector definitions.
 
-Note that the library uses Bootstrap .scss files, along with its own .scss, to transpile SASS into CSS, 
-which means that you do not need to include the bootstrap's library CSS files in your pages, unless
+Note that the library uses select Bootstrap .scss files/code along with its own .scss, transpiled to CSS.
+As a result you do not need to include the bootstrap's library CSS files in your pages, unless
 you have broader need of them.
 
 ## CSS Classes
