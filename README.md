@@ -283,18 +283,12 @@ conditional (if) statements within the composed ListPager to give them effect.
 * No setter - Getter returns a comparison of the **ListPagerModel.TotalRecords** and 
     **ListPagerModel.FilteredRecordCount** property values
 
-
-    
-
-
-
 ### Pull Requests and Maintenance 
 
 Any errors or omissions please do let me know. 
 
 I may or may not update this over time, but requests or suggestions are also welcome.
 
-
 ### Credits
 
-Thanks to @ianbusko for this head start: https://github.com/ianbusko/reusable-components-library
+Thanks to @ianbusko for this (Dot Net 2.0) head start: https://github.com/ianbusko/reusable-components-library
