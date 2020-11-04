@@ -12,18 +12,19 @@ The library includes predefined base, dark and neon themes which can be overridd
 
 See below for detailed description of library content and customization/override information.
 
+## Bootstrap Note
+
+This is a Bootstrap 4 styled library. If you have a need for another styling library (e.g Bulma) I'd suggest that you fork the project.
+
 ## Javascript Note
 
 The Library itself uses vanilla javascript (no JQuery or other libs) with the exception of **ListPagerDropDown** 
-which at V00.01.00Beta requires the Bootstrap 4 JS library. For that reason the **ListPagerDropDown** is NOT included in the 
-ListPager View Component composition but IS available in the _ListPager partial View, toggled by the 
-**ListPagerModel.ShowDropDown** boolean property.
+which at V00.01.00Beta requires the Bootstrap 4 JS library bundle (including popper.js). 
+
+If you don't want to include that library in your project, you can simply set the **ListPagerModel.ShowDropdown** to false. The standard ListPager will not display the dropdown.
 
 The library is otherwise agnostic about JS framework, provided that it is event-aware. 
 
-## Bootstrap CSS Note
-
-The library currently requires Bootstrap 4 CSS to present properly - if you have a need for the library without it (e.g. you are using Bulma) please let me know.
 
 ## Setup
 

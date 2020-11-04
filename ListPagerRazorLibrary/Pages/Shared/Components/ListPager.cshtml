@@ -19,10 +19,10 @@
     @await Component.InvokeAsync(AppConstants.VIEWNAME_LINKS, Model)
 
 
-    @*@if (Model.ShowDropDown)
+    @if (Model.ShowDropDown)
     {
         @await Component.InvokeAsync(AppConstants.VIEWNAME_DROPDOWN, Model)
-    }*@
+    }
 
     @await Component.InvokeAsync(AppConstants.VIEWNAME_ARROWS, new { state = Model, direction = 1 })
 
